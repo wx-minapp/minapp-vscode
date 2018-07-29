@@ -63,7 +63,7 @@ export default abstract class AutoCompletion {
       if (this.config.selfCloseTags.indexOf(c.name) >= 0) {
         snippet = `${c.name}${attrs.join('')}${extraSpace}\${${len}} />\${0}`
       } else {
-        snippet = `${c.name}${attrs.join('')}${extraSpace}\${${len}}>\${0}</${c.name}>`
+        snippet = `${c.name}${attrs.join('')}${extraSpace}\${${len}}>\${${len + 1}}</${c.name}>\${0}`
       }
     }
     item.insertText = new SnippetString(snippet)
