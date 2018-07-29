@@ -29,7 +29,7 @@ export default abstract class AutoCompletion {
     return this.id === 'wxml-pug'
   }
   get attrQuote() {
-    return this.isPug ? '\'' : '"'
+    return this.isPug ? this.config.pugQuoteStyle : this.config.wxmlQuoteStyle
   }
 
   constructor(public config: Config) {}
@@ -109,6 +109,8 @@ export default abstract class AutoCompletion {
 
     let eol = workspace.getConfiguration('files', doc.uri).get('eol', EOL)
     let body = Array.isArray(snippet.body) ? snippet.body.join(eol) : snippet.body
+    body = body.replace(/___/g, this.attrQuote)
+
     if (!this.isPug && body[0] === '<') body = body.substr(1) // 去除触发符号
     item.insertText = new SnippetString(body)
     item.documentation = new MarkdownString(snippet.markdown || snippet.description)

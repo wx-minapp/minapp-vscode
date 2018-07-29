@@ -140,7 +140,9 @@
             "web-view",
             "open-data"
           ]
-        }
+        },
+        "minapp-vscode.wxmlQuoteStyle": {"type":"string", "default":"\"", "description": "自定义 wxml 自动补全是生成的引号"},
+        "minapp-vscode.pugQuoteStyle": {"type":"string", "default":"'", "description": "自定义 pug 自动补全是生成的引号"}
       }
     },
     "themes": [],

@@ -33,6 +33,9 @@ export interface Config {
 
   /** 默认在启动时会自动相关文件关联的配置项，配置成功后会将此配置自动设置成 true，避免下次启动再重新配置 */
   disableAutoConfig: boolean
+
+  wxmlQuoteStyle: string
+  pugQuoteStyle: string
 }
 
 export const config: Config = {
@@ -47,6 +50,8 @@ export const config: Config = {
   snippets: {},
   selfCloseTags: [],
   disableAutoConfig: false,
+  wxmlQuoteStyle: '"',
+  pugQuoteStyle: '\'',
 }
 
 function getConfig() {
@@ -61,6 +66,8 @@ function getConfig() {
   config.snippets = minapp.get('snippets', {})
   config.selfCloseTags = minapp.get('selfCloseTags', [])
   config.disableAutoConfig = minapp.get('disableAutoConfig', false)
+  config.wxmlQuoteStyle = minapp.get('wxmlQuoteStyle', '"')
+  config.pugQuoteStyle = minapp.get('pugQuoteStyle', '\'')
 }
 
 function getResolveRoots(doc: vscode.TextDocument) {
