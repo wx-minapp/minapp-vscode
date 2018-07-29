@@ -1,6 +1,6 @@
 # minapp-vscode
 
-wxml/pug/vue 语言中，微信小程序标签、属性的智能补全（同时提供 snippets）
+微信小程序标签、属性的智能补全（同时支持原生小程序、mpvue 和 wepy 框架，并提供 snippets）
 
 
 ## 最近更新 【[see more](https://github.com/wx-minapp/minapp-vscode/CHANGELOG.md)】
