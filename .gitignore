@@ -1,0 +1,11 @@
+*.log
+dist
+.cache
+.dtpl/dtpl.js
+vendor
+node_modules
+coverage
+.DS_Store
+
+.vscode-test/
+*.vsix
