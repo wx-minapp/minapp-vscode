@@ -3,7 +3,7 @@
 微信小程序标签、属性的智能补全（同时支持原生小程序、mpvue 和 wepy 框架，并提供 snippets）
 
 
-## 最近更新 【[see more](https://github.com/wx-minapp/minapp-vscode/CHANGELOG.md)】
+## 最近更新 【[see more](https://github.com/wx-minapp/minapp-vscode/blob/master/CHANGELOG.md)】
 
 
 * 【2018-07-29】1.7.1 添加配置项 `wxmlQuoteStyle` 和 `pugQuoteStyle`，可以配置自动生成的引号是 `"` 还是 `'`，并且 snippet 中的引号也会使用配置的引号
