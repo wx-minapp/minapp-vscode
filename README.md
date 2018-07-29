@@ -5,10 +5,12 @@ wxml/pug/vue 语言中，微信小程序标签、属性的智能补全（同时�
 
 ## 最近更新 【[see more](https://github.com/wx-minapp/minapp-vscode/CHANGELOG.md)】
 
+
+* 【2018-07-29】1.7.1 添加配置项 `wxmlQuoteStyle` 和 `pugQuoteStyle`，可以配置自动生成的引号是 `"` 还是 `'`，并且 snippet 中的引号也会使用配置的引号
 * 【2018-07-07】1.7.0 优化自动补全体验，不再需要输入空格触发自动补全，自动会在合适的时机触发
 * 【2018-06-23】1.6.0 wxml 中支持 [emmet 语法](https://docs.emmet.io/cheat-sheet/)，[详情见下文](#emmet)
 * 【2018-06-15】1.5.1 同步微信官方发布的 [2.1.0](https://developers.weixin.qq.com/miniprogram/dev/devtools/uplog.html#20180614-%E5%9F%BA%E7%A1%80%E5%BA%93%E6%9B%B4%E6%96%B0%EF%BC%88210%EF%BC%89) 的组件数据
-* 【2018-06-10】1.5.0 纯 wxml 文件中支持 [wxs 标签](https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxs/01wxs-module.html)
+
 
 
 <!-- <div style="color:red; font-size: 1.6em;">重要通知：由于旧版本不小心被我删除了，所以请 1.0.7 版本之前的用户删除旧版本再重新安装新版本；否则可能会无法成功安装新版本，并且也得不到新版本的推送！</div> -->
