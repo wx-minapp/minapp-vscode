@@ -2,7 +2,7 @@
   "name": "minapp-vscode",
   "displayName": "minapp",
   "description": "微信小程序标签、属性的智能补全（同时支持原生小程序、mpvue 和 wepy 框架，并提供 snippets）",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "publisher": "qiu8310",
   "scripts": {
     "lint": "tslint src/**/*.ts",
@@ -76,6 +76,14 @@
           "type": "number",
           "description": "格式化时，单行允许的最长的长度",
           "default": 100
+        },
+        "minapp-vscode.reserveTags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "格式化时，不处理的标签，即保持标签中的内容和格式化前一模一样，不会出现多余的换行",
+          "default": []
         },
         "minapp-vscode.disableDecorate": {
           "type": "boolean",

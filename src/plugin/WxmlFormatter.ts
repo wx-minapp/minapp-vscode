@@ -29,7 +29,8 @@ export default class implements DocumentFormattingEditProvider, DocumentRangeFor
         preferSpaces: options.insertSpaces,
         tabSize: options.tabSize,
         maxLineCharacters: this.config.formatMaxLineCharacters,
-        removeComment: false
+        removeComment: false,
+        reserveTags: this.config.reserveTags
       }))
     ]
   }

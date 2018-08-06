@@ -36,6 +36,8 @@ export interface Config {
 
   wxmlQuoteStyle: string
   pugQuoteStyle: string
+
+  reserveTags: string[]
 }
 
 export const config: Config = {
@@ -52,6 +54,7 @@ export const config: Config = {
   disableAutoConfig: false,
   wxmlQuoteStyle: '"',
   pugQuoteStyle: '\'',
+  reserveTags: [],
 }
 
 function getConfig() {
@@ -68,6 +71,7 @@ function getConfig() {
   config.disableAutoConfig = minapp.get('disableAutoConfig', false)
   config.wxmlQuoteStyle = minapp.get('wxmlQuoteStyle', '"')
   config.pugQuoteStyle = minapp.get('pugQuoteStyle', '\'')
+  config.reserveTags = minapp.get('reserveTags', [])
 }
 
 function getResolveRoots(doc: vscode.TextDocument) {
