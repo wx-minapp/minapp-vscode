@@ -6,11 +6,11 @@
 ## 最近更新 【[see more](https://github.com/wx-minapp/minapp-vscode/blob/master/CHANGELOG.md)】
 
 
+* 【2018-09-02】1.8.0 同步官方组件的最新数据
 * 【2018-08-06】1.7.2 添加配置项 `reserveTags`，表示不格式化此配置中的 tag 标签的内容（一般 text 标签不需要格式化）
 * 【2018-07-29】1.7.1 添加配置项 `wxmlQuoteStyle` 和 `pugQuoteStyle`，可以配置自动生成的引号是 `"` 还是 `'`，并且 snippet 中的引号也会使用配置的引号
 * 【2018-07-07】1.7.0 优化自动补全体验，不再需要输入空格触发自动补全，自动会在合适的时机触发
 * 【2018-06-23】1.6.0 wxml 中支持 [emmet 语法](https://docs.emmet.io/cheat-sheet/)，[详情见下文](#emmet)
-* 【2018-06-15】1.5.1 同步微信官方发布的 [2.1.0](https://developers.weixin.qq.com/miniprogram/dev/devtools/uplog.html#20180614-%E5%9F%BA%E7%A1%80%E5%BA%93%E6%9B%B4%E6%96%B0%EF%BC%88210%EF%BC%89) 的组件数据
 
 
 
