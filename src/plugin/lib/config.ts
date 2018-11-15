@@ -38,6 +38,11 @@ export interface Config {
   pugQuoteStyle: string
 
   reserveTags: string[]
+
+  /** 全局的样式文件 */
+  globalStyleFiles: string[]
+  /** 支持解析的样式文件后缀名 */
+  styleExtensions: string[]
 }
 
 export const config: Config = {
@@ -55,6 +60,8 @@ export const config: Config = {
   wxmlQuoteStyle: '"',
   pugQuoteStyle: '\'',
   reserveTags: [],
+  globalStyleFiles: [],
+  styleExtensions: [],
 }
 
 function getConfig() {
@@ -72,6 +79,8 @@ function getConfig() {
   config.wxmlQuoteStyle = minapp.get('wxmlQuoteStyle', '"')
   config.pugQuoteStyle = minapp.get('pugQuoteStyle', '\'')
   config.reserveTags = minapp.get('reserveTags', [])
+  config.globalStyleFiles = minapp.get('globalStyleFiles', [])
+  config.styleExtensions = minapp.get('styleExtensions', [])
 }
 
 function getResolveRoots(doc: vscode.TextDocument) {

@@ -158,6 +158,21 @@
           "type": "string",
           "default": "'",
           "description": "自定义 pug 自动补全是生成的引号"
+        },
+        "minapp-vscode.globalStyleFiles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "全局的样式文件，系统会自动从这些指定的文件中获取 className，用于模板中的 class 补全"
+        },
+        "minapp-vscode.styleExtensions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": ["wxss", "css", "less", "scss"],
+          "description": "当前样式文件的后缀中，系统会自动查找和当前模板同名的样式文件，用于模板中的 class 补全"
         }
       }
     },

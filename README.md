@@ -21,6 +21,7 @@
 * [标签名与属性自动补全](#tag-and-attr)
 * [根据组件已有的属性，自动筛选出对应支持的属性集合](#smart-attr)
 * [属性值自动补全](#attr-value)
+* [样式名自动补全](#attr-class-value)
 * [在 vue 模板文件中也能自动补全，同时支持 pug 语言](#vue)
 * [支持 link（纯 wxml 或 pug 文件才支持，vue 文件不支持）](#link)
 * [自定义组件自动补全（纯 wxml 文件才支持，vue 或 pug 文件不支持）](#custom-component)
@@ -58,6 +59,29 @@
 - 在属性值中输入空格可以触发，补全后自动会将空格覆盖
 
 ![示例图片](https://n1image.hjfile.cn/res7/2018/03/10/aaba780a36f1de1b87687295bc6fc922.gif)
+
+
+<a id="attr-class-value"></a>
+
+## 样式名自动补全
+
+系统会自动获取和当前模板同名的样式文件中的所有样式名，同时还能获取样式名上的 `/** */` 中的文档；如果有全局的样式，需要通过配置项 `minapp-vscode.globalStyleFiles` 来指定
+
+
+- 默认会获取和当前模板同名的样式文件中的名称
+
+  **注意：如果样式文件是 `@import` 了另一个样式文件，则程序不会去获取这个引入的样式名**
+
+- 另外可以使用 `minapp-vscode.globalStyleFiles` 来指定一些全局的样式文件，这样在输入 `class=""` 后就也会出现这些文件中的样式名
+
+  **小程序的 app.wxss 一般是全局的样式，所以需要你手动通过此配置来指定，如配置 `minapp-vscode.globalStyleFiles: ["src/app.wxss"]`**
+
+- 另外也可以使用 `minapp-vscode.styleExtensions` 来指定系统使用的样式文件的后缀
+
+
+> **注意：不支持 `sass` 这种缩进排版的样式文件**
+
+![示例图片](https://n1image.hjfile.cn/res7/2018/11/15/559184bb3ff7cc2fb76c204010f6f042.gif)
 
 
 <a id="vue"></a>

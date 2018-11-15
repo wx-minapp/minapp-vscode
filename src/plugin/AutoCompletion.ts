@@ -14,12 +14,15 @@ import {
 } from '@minapp/common'
 
 import {EOL} from 'os'
+import * as path from 'path'
+import * as fs from 'fs'
 
 import {Config} from './lib/config'
 import {getCustomOptions, getTextAtPosition} from './lib/helper'
 import {LanguageConfig} from './lib/language'
 import {getTagAtPosition} from './lib/getTagAtPosition'
 import * as s from './res/snippets'
+import { parseStyleFile } from './lib/StyleFile'
 
 export default abstract class AutoCompletion {
   abstract id: 'wxml' | 'wxml-pug'
@@ -101,6 +104,9 @@ export default abstract class AutoCompletion {
 
     item.documentation = new MarkdownString(tagAttr.markdown)
     item.sortText = sortText
+
+    if (a.name === 'class') item.command = autoSuggestCommand()
+
     return item
   }
 
@@ -178,7 +184,7 @@ export default abstract class AutoCompletion {
     if (tag.isOnAttrValue && tag.attrName) {
       let attrValue = tag.attrs[tag.attrName]
       if (tag.attrName === 'class') {
-        // TODO: 样式自动补全
+        return this.autoCompleteClassNames(doc)
       } else if (typeof attrValue === 'string' && attrValue.trim() === '') {
         let values = await autocompleteTagAttrValue(tag.name, tag.attrName, lc, this.getCustomOptions(doc))
         if (!values.length) return []
@@ -270,6 +276,39 @@ export default abstract class AutoCompletion {
       ...res.customs.map(c => this.renderTagAttr(c, 'a', kind)),
       ...res.natives.map(c => this.renderTagAttr(c, 'b', kind))
     ]
+  }
+
+  // 样式名自动补全
+  async autoCompleteClassNames(doc: TextDocument) {
+    let items: CompletionItem[] = []
+    let stylefiles = [...this.getLocalClass(doc), ...this.getGlobalClass(doc)]
+
+    stylefiles.forEach((stylefile, sfi) => {
+      stylefile.styles.forEach(sty => {
+        let i = new CompletionItem(sty.name)
+        i.kind = CompletionItemKind.Variable
+        i.detail = path.basename(stylefile.file)
+        i.sortText = 'style' + sfi
+        i.documentation = new MarkdownString(sty.doc)
+        items.push(i)
+      })
+    })
+    return items
+  }
+
+  getLocalClass(doc: TextDocument) {
+    let exts = this.config.styleExtensions || []
+    let dir = path.dirname(doc.fileName)
+    let basename = path.basename(doc.fileName, path.extname(doc.fileName))
+    let localFile = exts.map(e => path.join(dir, basename + '.' + e)).find(f => fs.existsSync(f))
+    return localFile ? [parseStyleFile(localFile)] : []
+  }
+  getGlobalClass(doc: TextDocument) {
+    let wf = workspace.getWorkspaceFolder(doc.uri)
+    if (!wf) return []
+    let root = wf.uri.fsPath
+    let files = (this.config.globalStyleFiles || []).map(f => path.resolve(root, f))
+    return files.map(parseStyleFile)
   }
 }
 
