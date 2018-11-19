@@ -230,7 +230,7 @@
     "@types/node": "^8.10.22",
     "mora-scripts": "1.6.35",
     "tslint": "^5.11.0",
-    "typescript": "^2.6.1",
+    "typescript": "^3.1.6",
     "vscode": "^1.1.6"
   }
 }

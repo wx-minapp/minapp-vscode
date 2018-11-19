@@ -2,6 +2,7 @@
 .vscode-test/**
 dist/test/**
 dist/**/*.map
+dist/**/*.d.ts
 src/**
 .gitignore
 tsconfig.json

@@ -15,14 +15,13 @@ import {
 
 import {EOL} from 'os'
 import * as path from 'path'
-import * as fs from 'fs'
 
 import {Config} from './lib/config'
-import {getCustomOptions, getTextAtPosition} from './lib/helper'
+import {getCustomOptions, getTextAtPosition, getRoot} from './lib/helper'
 import {LanguageConfig} from './lib/language'
 import {getTagAtPosition} from './lib/getTagAtPosition'
 import * as s from './res/snippets'
-import { parseStyleFile } from './lib/StyleFile'
+import { getClass } from './lib/StyleFile'
 
 export default abstract class AutoCompletion {
   abstract id: 'wxml' | 'wxml-pug'
@@ -184,7 +183,8 @@ export default abstract class AutoCompletion {
     if (tag.isOnAttrValue && tag.attrName) {
       let attrValue = tag.attrs[tag.attrName]
       if (tag.attrName === 'class') {
-        return this.autoCompleteClassNames(doc)
+        let existsClass = (tag.attrs.class || '') as string
+        return this.autoCompleteClassNames(doc, existsClass ? existsClass.trim().split(/\s+/) : [])
       } else if (typeof attrValue === 'string' && attrValue.trim() === '') {
         let values = await autocompleteTagAttrValue(tag.name, tag.attrName, lc, this.getCustomOptions(doc))
         if (!values.length) return []
@@ -279,36 +279,25 @@ export default abstract class AutoCompletion {
   }
 
   // 样式名自动补全
-  async autoCompleteClassNames(doc: TextDocument) {
+  async autoCompleteClassNames(doc: TextDocument, existsClassNames: string[]) {
     let items: CompletionItem[] = []
-    let stylefiles = [...this.getLocalClass(doc), ...this.getGlobalClass(doc)]
+    let stylefiles = getClass(doc, this.config, {unique: true})
+    let root = getRoot(doc)
 
     stylefiles.forEach((stylefile, sfi) => {
       stylefile.styles.forEach(sty => {
-        let i = new CompletionItem(sty.name)
-        i.kind = CompletionItemKind.Variable
-        i.detail = path.basename(stylefile.file)
-        i.sortText = 'style' + sfi
-        i.documentation = new MarkdownString(sty.doc)
-        items.push(i)
+        if (existsClassNames.indexOf(sty.name) < 0) {
+          let i = new CompletionItem(sty.name)
+          i.kind = CompletionItemKind.Variable
+          i.detail = root ? path.relative(root, stylefile.file) : path.basename(stylefile.file)
+          i.sortText = 'style' + sfi
+          i.documentation = new MarkdownString(sty.doc)
+          items.push(i)
+        }
       })
     })
-    return items
-  }
 
-  getLocalClass(doc: TextDocument) {
-    let exts = this.config.styleExtensions || []
-    let dir = path.dirname(doc.fileName)
-    let basename = path.basename(doc.fileName, path.extname(doc.fileName))
-    let localFile = exts.map(e => path.join(dir, basename + '.' + e)).find(f => fs.existsSync(f))
-    return localFile ? [parseStyleFile(localFile)] : []
-  }
-  getGlobalClass(doc: TextDocument) {
-    let wf = workspace.getWorkspaceFolder(doc.uri)
-    if (!wf) return []
-    let root = wf.uri.fsPath
-    let files = (this.config.globalStyleFiles || []).map(f => path.resolve(root, f))
-    return files.map(parseStyleFile)
+    return items
   }
 }
 

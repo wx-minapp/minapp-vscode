@@ -17,6 +17,7 @@ import WxmlDocumentHighlight from './plugin/WxmlDocumentHighlight'
 import ActiveTextEditorListener from './plugin/ActiveTextEditorListener'
 
 import {config, configActivate, configDeactivate} from './plugin/lib/config'
+import { StyleReferenceProvider } from './plugin/StyleReferenceProvider'
 
 export function activate(context: ExtensionContext) {
   // console.log('minapp-vscode is active!')
@@ -33,29 +34,37 @@ export function activate(context: ExtensionContext) {
   let autoCompletionPug = new PugAutoCompletion(config)
   let autoCompletionVue = new VueAutoCompletion(autoCompletionPug, autoCompletionWxml)
   let documentHighlight  = new WxmlDocumentHighlight(config)
+  let styleReferenceProvider = new StyleReferenceProvider(config)
+
+  const wxml = schemes('wxml')
+  const pug = schemes('wxml-pug')
+  const vue = schemes('vue')
 
   context.subscriptions.push(
     // 给模板中的 脚本 添加特殊颜色
     new ActiveTextEditorListener(config),
 
     // hover 效果
-    languages.registerHoverProvider(['wxml', 'wxml-pug', 'vue'], hoverProvider),
+    languages.registerHoverProvider([wxml, pug, vue], hoverProvider),
 
     // 添加 link
-    languages.registerDocumentLinkProvider(['wxml', 'wxml-pug'], linkProvider),
+    languages.registerDocumentLinkProvider([wxml, pug], linkProvider),
 
     // 高亮匹配的标签
-    languages.registerDocumentHighlightProvider('wxml', documentHighlight),
+    languages.registerDocumentHighlightProvider(wxml, documentHighlight),
 
     // 格式化
-    languages.registerDocumentFormattingEditProvider('wxml', formatter),
-    languages.registerDocumentRangeFormattingEditProvider('wxml', formatter),
+    languages.registerDocumentFormattingEditProvider(wxml, formatter),
+    languages.registerDocumentRangeFormattingEditProvider(wxml, formatter),
+
+    // reference
+    languages.registerReferenceProvider(wxml, styleReferenceProvider),
 
     // 自动补全
-    languages.registerCompletionItemProvider('wxml', autoCompletionWxml, '<', ' ', ':', '@', '.', '-', '"', '\''),
-    languages.registerCompletionItemProvider('wxml-pug', autoCompletionPug, '\n', ' ', '(', ':', '@', '.', '-', '"', '\''),
+    languages.registerCompletionItemProvider(wxml, autoCompletionWxml, '<', ' ', ':', '@', '.', '-', '"', '\''),
+    languages.registerCompletionItemProvider(pug, autoCompletionPug, '\n', ' ', '(', ':', '@', '.', '-', '"', '\''),
     // trigger 需要是上两者的和
-    languages.registerCompletionItemProvider('vue', autoCompletionVue, '<', ' ', ':', '@', '.', '-', '(', '"', '\'')
+    languages.registerCompletionItemProvider(vue, autoCompletionVue, '<', ' ', ':', '@', '.', '-', '(', '"', '\'')
   )
 }
 
@@ -94,4 +103,8 @@ function autoConfig() {
   })
 
   c.update('minapp-vscode.disableAutoConfig', true, true)
+}
+
+export function schemes(key: string) {
+  return {scheme: 'file', language: key}
 }

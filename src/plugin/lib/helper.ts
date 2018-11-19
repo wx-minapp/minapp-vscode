@@ -2,8 +2,9 @@
  MIT License http://www.opensource.org/licenses/mit-license.php
  Author Mora <qiuzhongleiabc@126.com> (https://github.com/qiu8310)
 *******************************************************************/
-import { TextDocument, Position, Range } from 'vscode'
+import { TextDocument, Position, Range, window, workspace } from 'vscode'
 import { Config } from './config'
+import * as fs from 'fs'
 import {Languages, LanguageConfig} from './language'
 
 // <template lang="wxml/pug/wxml-pug" minapp="native/wepy/mpvue"> ；默认 minapp="mpvue"
@@ -67,4 +68,39 @@ export function getTextAtPosition(doc: TextDocument, pos: Position, charRegExp: 
 
 export function getLastChar(doc: TextDocument, pos: Position) {
   return doc.getText(new Range(new Position(pos.line, pos.character - 1), pos))
+}
+
+/**
+ * 获取 vscode 编辑器打开的文件的内容
+ *
+ * 不要直接使用 fs 去读取文件内容，因为在编辑器中文件可能并没有保存到本地，也就是说 fs 拿到的可能不是最新的内容
+ */
+export function getFileContent(file: string) {
+  let editor = window.visibleTextEditors.find(e => e.document.fileName === file)
+  return editor ? editor.document.getText() : fs.readFileSync(file).toString()
+}
+
+
+/** 全局匹配 */
+export function match(content: string, regexp: RegExp) {
+  let mat: RegExpExecArray | null
+  let res: RegExpExecArray[] = []
+  // tslint:disable:no-conditional-assignment
+  while (mat = regexp.exec(content)) res.push(mat)
+  return res
+}
+
+/** 获取根目录 */
+export function getRoot(doc: TextDocument) {
+  let wf = workspace.getWorkspaceFolder(doc.uri)
+  if (!wf) return
+  return wf.uri.fsPath
+}
+
+/** 根据文件内容和位置，获取 vscode 的 Position 对象 */
+export function getPositionFromIndex(content: string, index: number) {
+  let text = content.substring(0, index)
+  let lines = text.split(/\r?\n/)
+  let line = lines.length - 1
+  return new Position(line, lines[line].length)
 }
