@@ -281,12 +281,13 @@ export default abstract class AutoCompletion {
   // 样式名自动补全
   async autoCompleteClassNames(doc: TextDocument, existsClassNames: string[]) {
     let items: CompletionItem[] = []
-    let stylefiles = getClass(doc, this.config, {unique: true})
+    let stylefiles = getClass(doc, this.config)
     let root = getRoot(doc)
 
     stylefiles.forEach((stylefile, sfi) => {
       stylefile.styles.forEach(sty => {
         if (existsClassNames.indexOf(sty.name) < 0) {
+          existsClassNames.push(sty.name)
           let i = new CompletionItem(sty.name)
           i.kind = CompletionItemKind.Variable
           i.detail = root ? path.relative(root, stylefile.file) : path.basename(stylefile.file)

@@ -18,7 +18,7 @@ export interface StyleFile {
 
 const fileCache: {[file: string]: {mtime: Date, value: StyleFile}} = {}
 
-export function parseStyleFile(file: string, options?: quickParseStyle.Options) {
+export function parseStyleFile(file: string) {
   try {
     let cache = fileCache[file]
     let editor = window.visibleTextEditors.find(e => e.document.fileName === file)
@@ -34,12 +34,12 @@ export function parseStyleFile(file: string, options?: quickParseStyle.Options) 
         mtime: stat.mtime,
         value: {
           file,
-          styles: quickParseStyle(fs.readFileSync(file).toString(), options)
+          styles: quickParseStyle(fs.readFileSync(file).toString())
         }
       }
       fileCache[file] = cache
+      return cache.value
     }
-    return cache.value
   } catch (e) {
     return {
       file,
@@ -49,21 +49,21 @@ export function parseStyleFile(file: string, options?: quickParseStyle.Options) 
 }
 
 
-export function getClass(doc: TextDocument, config: Config, options?: quickParseStyle.Options) {
-  return [...getLocalClass(doc, config, options), ...getGlobalClass(doc, config, options)]
+export function getClass(doc: TextDocument, config: Config) {
+  return [...getLocalClass(doc, config), ...getGlobalClass(doc, config)]
 }
 
-export function getLocalClass(doc: TextDocument, config: Config, options?: quickParseStyle.Options) {
+export function getLocalClass(doc: TextDocument, config: Config) {
   let exts = config.styleExtensions || []
   let dir = path.dirname(doc.fileName)
   let basename = path.basename(doc.fileName, path.extname(doc.fileName))
   let localFile = exts.map(e => path.join(dir, basename + '.' + e)).find(f => fs.existsSync(f))
-  return localFile ? [parseStyleFile(localFile, options)] : []
+  return localFile ? [parseStyleFile(localFile)] : []
 }
 
-export function getGlobalClass(doc: TextDocument, config: Config, options?: quickParseStyle.Options) {
+export function getGlobalClass(doc: TextDocument, config: Config) {
   let root = getRoot(doc) as string
   if (!root) return []
   let files = (config.globalStyleFiles || []).map(f => path.resolve(root, f))
-  return files.map(f => parseStyleFile(f, options))
+  return files.map(parseStyleFile)
 }
