@@ -28,7 +28,7 @@
 * [内置 snippets](#snippets)
 * [支持 emmet 写法](#emmet)
 
-> **所有自动补全的模板数据都来自于官方文档，通过[脚本](https://github.com/qiu8310/minapp/tree/master/packages/minapp-generator)自动获取的**
+> **所有自动补全的模板数据都来自于官方文档，通过[脚本](https://github.com/wx-minapp/minapp-generator)自动获取的**
 
 
 <a id="tag-and-attr"></a>
@@ -101,7 +101,7 @@ vue 中的 template 板支持两个属性：
 > 注意，[mpvue 中指定 lang="wxml" 会报错](https://github.com/Meituan-Dianping/mpvue/issues/208)，需要等待作者修复！不过
 > 你可以临时使用 `xlang="wxml"`，但这样同时也会触发 vue 的自动补全
 
-指定为不同的 minapp 值会触发对应框架的自动补全，由于本人没有使用 wepy 和 mpvue 开发过，所以这些自动补全是根据官方文档说明而加上的，如果有错误，欢迎 PR（只需要修改文件 [src/plugin/lib/language.ts](https://github.com/qiu8310/minapp/blob/master/packages/minapp-vscode/src/plugin/lib/language.ts))
+指定为不同的 minapp 值会触发对应框架的自动补全，由于本人没有使用 wepy 和 mpvue 开发过，所以这些自动补全是根据官方文档说明而加上的，如果有错误，欢迎 PR（只需要修改文件 [src/plugin/lib/language.ts](https://github.com/wx-minapp/minapp-vscode/blob/master/src/plugin/lib/language.ts))
 
 ![示例图片](https://n1image.hjfile.cn/res7/2018/04/09/0b4573624091b04566232c38df08e323.gif)
 
@@ -151,7 +151,7 @@ vue 中的 template 板支持两个属性：
 
 ## 内置 snippets
 
-  - 自带 swiper/icon/button/picker time/picker date/picker region/checkbox-group/radio-group，见[文件](https://github.com/qiu8310/minapp/blob/master/packages/minapp-vscode/src/plugin/res/snippets.ts)
+  - 自带 swiper/icon/button/picker time/picker date/picker region/checkbox-group/radio-group，见[文件](https://github.com/wx-minapp/minapp-vscode/blob/master/src/plugin/res/snippets.ts)
   - 可以通过配置项 `minapp-vscode.snippets` 来定义你自己的 snippets
 
   _和官方的 Snippets 的区别时，这里的 Snippets 只需要指定 key 和 body 即可，组件描述自动会根据 key 来获取（另外后期可以让配置和内置的数据结合起来）_
