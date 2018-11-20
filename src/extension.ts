@@ -58,7 +58,7 @@ export function activate(context: ExtensionContext) {
     languages.registerDocumentRangeFormattingEditProvider(wxml, formatter),
 
     // reference
-    languages.registerReferenceProvider(wxml, styleReferenceProvider),
+    languages.registerReferenceProvider([wxml, pug], styleReferenceProvider),
 
     // 自动补全
     languages.registerCompletionItemProvider(wxml, autoCompletionWxml, '<', ' ', ':', '@', '.', '-', '"', '\''),

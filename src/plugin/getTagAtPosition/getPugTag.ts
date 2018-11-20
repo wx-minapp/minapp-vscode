@@ -4,13 +4,13 @@ Author Mora <qiuzhongleiabc^126.com> (https://github.com/qiu8310)
 *******************************************************************/
 
 import {TextDocument, Position} from 'vscode'
-import {Tag, getAttrs, getAttrs2} from './getTagAtPosition'
+import {Tag, getAttrs, getAttrs2} from './base'
 
 const SINGLE_LINE_TAG_REGEXP = /^(\s*)([\w-:.]+)((?:[\.#][\w-])*)(\s*\()(.*)\)/
 const MULTIPLE_LINE_TAG_REGEXP = /^(\s*)([\w-:.]+)((?:[\.#][\w-])*)(\s*\()/
 let replacer = (char: string) => (raw: string) => char.repeat(raw.length)
 
-export function getTagAtPosition(doc: TextDocument, pos: Position): null | Tag {
+export function getPugTag(doc: TextDocument, pos: Position): null | Tag {
   // 先处理单行的 pug 语法
   let line = doc.lineAt(pos.line).text
   let index = pos.character
@@ -51,6 +51,7 @@ export function getTagAtPosition(doc: TextDocument, pos: Position): null | Tag {
       }
     }
   } else {
+    // FIXME: 多行的时候也可以 hover 在 tagName 上（即 isOnTagName 可能为 true）
     // 向上查找 ( ，不能出现 )
     // 向下查找 ) ，不能出现（
     let startLine = pos.line

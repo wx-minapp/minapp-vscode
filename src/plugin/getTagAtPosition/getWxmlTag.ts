@@ -4,11 +4,11 @@ Author Mora <qiuzhongleiabc^126.com> (https://github.com/qiu8310)
 *******************************************************************/
 
 import {TextDocument, Position} from 'vscode'
-import {Tag, getAttrs, getAttrName} from './getTagAtPosition'
+import {Tag, getAttrs, getAttrName} from './base'
 
 const TAG_REGEXP = /<([\w-:.]+)(\s+[^<>]*)?/g
 
-export function getTagAtPosition(doc: TextDocument, pos: Position): null | Tag {
+export function getWxmlTag(doc: TextDocument, pos: Position): null | Tag {
   let tag: null | Tag = null
   let line = doc.lineAt(pos.line).text
   let replacer = (char: string) => (raw: string) => char.repeat(raw.length)

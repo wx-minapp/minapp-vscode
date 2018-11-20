@@ -1,6 +1,7 @@
 import {ReferenceProvider, Position, CancellationToken, TextDocument, Location, Uri} from 'vscode'
 import { Config } from './lib/config'
-import { getTagAtPosition } from './lib/getTagAtPositionForWxml'
+import { getTagAtPosition } from './getTagAtPosition/'
+
 import { getClass } from './lib/StyleFile'
 
 export class StyleReferenceProvider implements ReferenceProvider {

@@ -19,13 +19,12 @@ import * as path from 'path'
 import {Config} from './lib/config'
 import {getCustomOptions, getTextAtPosition, getRoot} from './lib/helper'
 import {LanguageConfig} from './lib/language'
-import {getTagAtPosition} from './lib/getTagAtPosition'
+import {getTagAtPosition} from './getTagAtPosition/'
 import * as s from './res/snippets'
 import { getClass } from './lib/StyleFile'
 
 export default abstract class AutoCompletion {
   abstract id: 'wxml' | 'wxml-pug'
-  abstract getTagAtPosition: getTagAtPosition
 
   get isPug() {
     return this.id === 'wxml-pug'
@@ -178,7 +177,7 @@ export default abstract class AutoCompletion {
    * 创建组件属性的自动补全
    */
   async createComponentAttributeSnippetItems(lc: LanguageConfig, doc: TextDocument, pos: Position) {
-    let tag = this.getTagAtPosition(doc, pos)
+    let tag = getTagAtPosition(doc, pos)
     if (!tag) return []
     if (tag.isOnAttrValue && tag.attrName) {
       let attrValue = tag.attrs[tag.attrName]
@@ -249,7 +248,7 @@ export default abstract class AutoCompletion {
     let prefix = getTextAtPosition(doc, pos, /[:@\w\d\.-]/) as string
     if (!prefix) return []
 
-    let tag = this.getTagAtPosition(doc, pos)
+    let tag = getTagAtPosition(doc, pos)
     if (!tag) return []
     let isEventPrefix = lc.event.prefixes.indexOf(prefix) >= 0
 

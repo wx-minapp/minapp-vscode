@@ -11,14 +11,12 @@ import {
 import AutoCompletion from './AutoCompletion'
 
 import {getLanguage, getLastChar} from './lib/helper'
-import {getTagAtPosition} from './lib/getTagAtPositionForPug'
 import {LanguageConfig} from './lib/language'
 
 export const LINE_TAG_REGEXP = /^[\w-:.]+(?:(?:[\.#][\w-])*)\(/
 
 export default class extends AutoCompletion implements CompletionItemProvider {
   id = 'wxml-pug' as 'wxml-pug'
-  getTagAtPosition = getTagAtPosition
 
   provideCompletionItems(document: TextDocument, position: Position, token: CancellationToken, context: CompletionContext): CompletionItem[] | Promise<CompletionItem[]> {
     let items: CompletionItem[] = []

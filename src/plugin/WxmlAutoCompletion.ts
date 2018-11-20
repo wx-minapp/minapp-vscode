@@ -10,12 +10,10 @@ import {
 
 import AutoCompletion from './AutoCompletion'
 
-import {getTagAtPosition} from './lib/getTagAtPositionForWxml'
 import {getLanguage, getLastChar} from './lib/helper'
 
 export default class extends AutoCompletion implements CompletionItemProvider {
   id = 'wxml' as 'wxml'
-  getTagAtPosition = getTagAtPosition
 
   provideCompletionItems(document: TextDocument, position: Position, token: CancellationToken, context: CompletionContext): Promise<CompletionItem[]> {
     let language = getLanguage(document, position)

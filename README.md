@@ -20,7 +20,7 @@
 * [标签名与属性自动补全](#tag-and-attr)
 * [根据组件已有的属性，自动筛选出对应支持的属性集合](#smart-attr)
 * [属性值自动补全](#attr-value)
-* [样式名自动补全](#attr-class-value)
+* [样式名自动补全（纯 wxml 或 pug 文件才支持，vue 文件不完全支持）](#attr-class-value)
 * [在 vue 模板文件中也能自动补全，同时支持 pug 语言](#vue)
 * [支持 link（纯 wxml 或 pug 文件才支持，vue 文件不支持）](#link)
 * [自定义组件自动补全（纯 wxml 文件才支持，vue 或 pug 文件不支持）](#custom-component)
@@ -62,7 +62,7 @@
 
 <a id="attr-class-value"></a>
 
-## 样式名自动补全
+## 样式名自动补全（纯 wxml 或 pug 文件才支持，vue 文件不完全支持）
 
 系统会自动获取和当前模板同名的样式文件中的所有样式名，同时还能获取样式名上的 `/** */` 中的文档；如果有全局的样式，需要通过配置项 `minapp-vscode.globalStyleFiles` 来指定
 
@@ -189,6 +189,5 @@ minapp 插件会自动将 .pug 文件关联到 `wxml-pug` 文件类型。所以�
 * [ ] bind 或 catch 相关的属性可以点击，并跳转到对应的函数上
 * [x] 自动创建文件关联（.cjson, .wxss, .wxs）
 * [ ] wxml 文件中路径自动补全
-* [ ] 支持在开发者工具中预览效果
 * [x] 添加常用的 snippets
 * [x] 支持识别 self close tag
