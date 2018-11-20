@@ -17,7 +17,7 @@ import WxmlDocumentHighlight from './plugin/WxmlDocumentHighlight'
 import ActiveTextEditorListener from './plugin/ActiveTextEditorListener'
 
 import {config, configActivate, configDeactivate} from './plugin/lib/config'
-import { StyleReferenceProvider } from './plugin/StyleReferenceProvider'
+import { PropDefinitionProvider } from './plugin/PropDefinitionProvider'
 
 export function activate(context: ExtensionContext) {
   // console.log('minapp-vscode is active!')
@@ -34,7 +34,7 @@ export function activate(context: ExtensionContext) {
   let autoCompletionPug = new PugAutoCompletion(config)
   let autoCompletionVue = new VueAutoCompletion(autoCompletionPug, autoCompletionWxml)
   let documentHighlight  = new WxmlDocumentHighlight(config)
-  let styleReferenceProvider = new StyleReferenceProvider(config)
+  let propDefinitionProvider = new PropDefinitionProvider(config)
 
   const wxml = schemes('wxml')
   const pug = schemes('wxml-pug')
@@ -57,8 +57,9 @@ export function activate(context: ExtensionContext) {
     languages.registerDocumentFormattingEditProvider(wxml, formatter),
     languages.registerDocumentRangeFormattingEditProvider(wxml, formatter),
 
-    // reference
-    languages.registerReferenceProvider([wxml, pug], styleReferenceProvider),
+
+    // DefinitionProvider
+    languages.registerDefinitionProvider([wxml, pug], propDefinitionProvider),
 
     // 自动补全
     languages.registerCompletionItemProvider(wxml, autoCompletionWxml, '<', ' ', ':', '@', '.', '-', '"', '\''),

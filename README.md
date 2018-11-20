@@ -5,12 +5,10 @@
 
 ## 最近更新 【[see more](https://github.com/wx-minapp/minapp-vscode/blob/master/CHANGELOG.md)】
 
-
-* 【2018-11-19】1.10.1 优化样式自动补全(详情查看 Changelog)
-* 【2018-11-15】1.10.0 添加样式名自动补全功能
+* 【2018-11-21】1.11.0 [点击模板文件中的函数或属性跳转到 js/ts 定义的地方](#attr-definition)
+* 【2018-11-15】1.10.0 [添加样式名自动补全功能](#attr-class-value)
 * 【2018-10-07】1.9.0 同步官方组件的最新数据
 * 【2018-09-02】1.8.0 同步官方组件的最新数据
-* 【2018-08-06】1.7.2 添加配置项 `reserveTags`，表示不格式化此配置中的 tag 标签的内容（一般 text 标签不需要格式化）
 
 
 <!-- <div style="color:red; font-size: 1.6em;">重要通知：由于旧版本不小心被我删除了，所以请 1.0.7 版本之前的用户删除旧版本再重新安装新版本；否则可能会无法成功安装新版本，并且也得不到新版本的推送！</div> -->
@@ -20,6 +18,7 @@
 * [标签名与属性自动补全](#tag-and-attr)
 * [根据组件已有的属性，自动筛选出对应支持的属性集合](#smart-attr)
 * [属性值自动补全](#attr-value)
+* [点击模板文件中的函数或属性跳转到 js/ts 定义的地方（纯 wxml 或 pug 文件才支持，vue 文件不完全支持）](#attr-definition)
 * [样式名自动补全（纯 wxml 或 pug 文件才支持，vue 文件不完全支持）](#attr-class-value)
 * [在 vue 模板文件中也能自动补全，同时支持 pug 语言](#vue)
 * [支持 link（纯 wxml 或 pug 文件才支持，vue 文件不支持）](#link)
@@ -41,6 +40,12 @@
 
 ![示例图片](https://n1image.hjfile.cn/res7/2018/03/01/13631761451ae134c6eb3ea2ed1a6a12.gif)
 
+
+
+
+
+
+
 <a id="smart-attr"></a>
 
 ## 根据组件已有的属性，自动筛选出对应支持的属性集合
@@ -51,6 +56,10 @@
 ![示例图片](https://n1image.hjfile.cn/res7/2018/03/09/5c5704b51a37df84b5c6663d29a545f6.gif)
 
 
+
+
+
+
 <a id="attr-value"></a>
 
 ## 属性值自动补全（有可选值的情况下才会触发补全）
@@ -58,6 +67,22 @@
 - 在属性值中输入空格可以触发，补全后自动会将空格覆盖
 
 ![示例图片](https://n1image.hjfile.cn/res7/2018/03/10/aaba780a36f1de1b87687295bc6fc922.gif)
+
+
+
+
+
+
+<a id="attr-definition"></a>
+
+## 点击模板文件中的函数或属性跳转到 js/ts 定义的地方（纯 wxml 或 pug 文件才支持，vue 文件不完全支持）
+
+**功能还不完善，只会查找和当前模板同名的脚本文件，所以有可能会找不到JS中的定义**
+
+![示例图片](https://n1image.hjfile.cn/res7/2018/11/20/c8d41ef5bce1b2128bb7a830d06338b9.gif)
+
+
+
 
 
 <a id="attr-class-value"></a>
@@ -84,6 +109,11 @@
 ![示例图片](https://n1image.hjfile.cn/res7/2018/11/15/559184bb3ff7cc2fb76c204010f6f042.gif)
 
 
+
+
+
+
+
 <a id="vue"></a>
 
 ## 在 vue 模板文件中也能自动补全，同时支持 pug 语言
@@ -107,6 +137,10 @@ vue 中的 template 板支持两个属性：
 
 
 
+
+
+
+
 <a id="link"></a>
 
 ## 支持 link（纯 wxml 或 pug 文件才支持，vue 文件不支持）
@@ -119,6 +153,10 @@ vue 中的 template 板支持两个属性：
 ![示例图片](https://n1image.hjfile.cn/res7/2018/04/27/dd7f301dc1e1593209d7f7ac169fd047.gif)
 
 
+
+
+
+
 <a id="custom-component"></a>
 
 ## 自定义组件自动补全（纯 wxml 文件才支持，vue 或 pug 文件不支持）
@@ -128,6 +166,11 @@ vue 中的 template 板支持两个属性：
 - 自动获取组件中属性的描述
 
 ![示例图片](https://n1image.hjfile.cn/res7/2018/03/09/fce0b3e9496cae95c1c81523725a1fef.gif)
+
+
+
+
+
 
 
 <a id="highlight"></a>
@@ -147,6 +190,11 @@ vue 中的 template 板支持两个属性：
 - pug 语言中注释中的变量也会高亮 （pug 是基于缩进的，正则不太好处理）
 
 
+
+
+
+
+
 <a id="snippets"></a>
 
 ## 内置 snippets
@@ -159,6 +207,11 @@ vue 中的 template 板支持两个属性：
   ![示例图片](https://n1image.hjfile.cn/res7/2018/05/26/4a25927085e96e6bd9f05bf735621a8b.gif)
 
 
+
+
+
+
+
 <a id="emmet"></a>
 
 ## 支持 emmet 写法
@@ -166,6 +219,13 @@ vue 中的 template 板支持两个属性：
 ![示例图片](https://n1image.hjfile.cn/res7/2018/06/22/2f692e4cf499d712d34f593a3e813522.gif)
 
 [emmet cheat sheet](https://docs.emmet.io/cheat-sheet/)
+
+
+
+
+
+
+
 
 ## 常见问题
 
@@ -186,7 +246,7 @@ minapp 插件会自动将 .pug 文件关联到 `wxml-pug` 文件类型。所以�
 ## TODO
 
 * [x] 单独的 wxml 文件样式实现和 vue 中的 wxml 文件样式一样的风格
-* [ ] bind 或 catch 相关的属性可以点击，并跳转到对应的函数上
+* [x] bind 或 catch 相关的属性可以点击，并跳转到对应的函数上
 * [x] 自动创建文件关联（.cjson, .wxss, .wxs）
 * [ ] wxml 文件中路径自动补全
 * [x] 添加常用的 snippets

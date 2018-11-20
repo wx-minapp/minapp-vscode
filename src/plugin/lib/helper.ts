@@ -6,6 +6,7 @@ import { TextDocument, Position, Range, window, workspace } from 'vscode'
 import { Config } from './config'
 import * as fs from 'fs'
 import {Languages, LanguageConfig} from './language'
+import { EOL } from 'os'
 
 // <template lang="wxml/pug/wxml-pug" minapp="native/wepy/mpvue"> ；默认 minapp="mpvue"
 const vueTemplateMinappStartTag = /^\s*<template\b[^>]*(?:minapp)=['"](native|wepy|mpvue)['"][^>]*>/
@@ -103,4 +104,11 @@ export function getPositionFromIndex(content: string, index: number) {
   let lines = text.split(/\r?\n/)
   let line = lines.length - 1
   return new Position(line, lines[line].length)
+}
+
+
+export function getEOL(doc: TextDocument) {
+  const eol = workspace.getConfiguration('files', doc.uri).get('eol', EOL)
+  // vscode 更新导致获取的配置换行符可能为 "auto"，参见：https://github.com/wx-minapp/minapp-vscode/issues/6
+  return ['\n', '\r\n', '\r'].indexOf(eol) < 0 ? EOL : eol
 }

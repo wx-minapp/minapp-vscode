@@ -5,7 +5,7 @@ Author Mora <qiuzhongleiabc@126.com> (https://github.com/qiu8310)
 
 import {
   CompletionItem, CompletionItemKind, SnippetString,
-  MarkdownString, TextDocument, Position, Range, workspace
+  MarkdownString, TextDocument, Position, Range
 } from 'vscode'
 
 import {
@@ -13,11 +13,10 @@ import {
   autocompleteTagAttr, autocompleteTagAttrValue, autocompleteTagName
 } from '@minapp/common'
 
-import {EOL} from 'os'
 import * as path from 'path'
 
 import {Config} from './lib/config'
-import {getCustomOptions, getTextAtPosition, getRoot} from './lib/helper'
+import {getCustomOptions, getTextAtPosition, getRoot, getEOL} from './lib/helper'
 import {LanguageConfig} from './lib/language'
 import {getTagAtPosition} from './getTagAtPosition/'
 import * as s from './res/snippets'
@@ -111,7 +110,7 @@ export default abstract class AutoCompletion {
   renderSnippet(doc: TextDocument, name: string, snippet: s.Snippet, sortText: string) {
     let item = new CompletionItem(name + ' snippet', CompletionItemKind.Snippet)
 
-    let eol = workspace.getConfiguration('files', doc.uri).get('eol', EOL)
+    let eol = getEOL(doc)
     let body = Array.isArray(snippet.body) ? snippet.body.join(eol) : snippet.body
     body = body.replace(/___/g, this.attrQuote)
 

@@ -34,7 +34,7 @@ export function getAttrName(str: string) {
 }
 
 // 也可以是以 @ 开头的字符，触发事件
-const TAG_ATTR_REGEXP = /^(@|@?[\w:-]+)\s*(=\s*("[^"]*"|'[^']*'|\w+))?\s*/
+const TAG_ATTR_REGEXP = /^(@|@?[\w-:.]+)\s*(=\s*("[^"]*"|'[^']*'|\w+))?\s*/
 export function getAttrs(text: string) {
   let attrs: any = {}
   getAttrs2(text, attrs)
@@ -43,6 +43,9 @@ export function getAttrs(text: string) {
 export function getAttrs2(text: string, attrs: {[key: string]: any}) {
   return match(text, TAG_ATTR_REGEXP, m => {
     attrs[stripColon(m[1])] = m[2] ? strip(m[3]) : true
+
+    // 记录原生的末修改过的字段
+    attrs['__' + m[1]] = m[2] ? m[3] : true
   })
 }
 
