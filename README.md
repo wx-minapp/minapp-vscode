@@ -249,5 +249,6 @@ minapp 插件会自动将 .pug 文件关联到 `wxml-pug` 文件类型。所以�
 * [x] bind 或 catch 相关的属性可以点击，并跳转到对应的函数上
 * [x] 自动创建文件关联（.cjson, .wxss, .wxs）
 * [ ] wxml 文件中路径自动补全
+* [ ] app/page/component 的 json schema 自动关联
 * [x] 添加常用的 snippets
 * [x] 支持识别 self close tag
