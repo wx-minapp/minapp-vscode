@@ -143,5 +143,47 @@ export const Languages: Languages = {
     },
     components: [],
     noBasicAttrsComponents: []
+  },
+  mpx: {
+    id: 'mpx',
+    baseAttrs: [
+      {name: 'id'},
+      {name: 'class'},
+      {name: 'style', desc: ['组件的内联样式']},
+      {name: 'hidden', desc: ['组件是否隐藏']},
+    ],
+    event: {
+      prefixes: ['bind:', 'catch:'],
+      modifiers: [],
+      attrs: EVENT_ATTRS,
+    },
+    custom: {
+      'wx:': {
+        modifiers: [],
+        attrs: [
+          {name: 'if', addBrace: true},
+          {name: 'elif', addBrace: true},
+          {name: 'else', boolean: true},
+          {name: 'for', addBrace: true},
+          {name: 'key'},
+          {name: 'for-item'},
+          {name: 'for-index'},
+          {name: 'model', addBrace: true},
+          {name: 'class', addBrace: true}
+        ]
+      }
+    },
+    components: [
+      {
+        name: 'wxs',
+        desc: ['模板中的 wxs 模块'],
+        docLink: 'https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxs/01wxs-module.html',
+        attrs: [
+          {name: 'src'},
+          {name: 'module'},
+        ]
+      }
+    ],
+    noBasicAttrsComponents: ['wxs', 'template']
   }
 }
