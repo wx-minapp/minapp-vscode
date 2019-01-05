@@ -4,6 +4,7 @@
 *******************************************************************/
 
 import {CustomAttr, LanguageConfig} from '@minapp/common/dist/dev/config'
+import { Component } from '@minapp/common'
 
 const EVENT_ATTRS: CustomAttr[] = [
   {name: 'touchstart'},
@@ -18,6 +19,32 @@ const EVENT_ATTRS: CustomAttr[] = [
   {name: 'animationiteration'},
   {name: 'animationend'},
 ]
+const BASE_ATTRS: CustomAttr[] = [
+  {name: 'id'},
+  {name: 'class'},
+  {name: 'style', desc: ['组件的内联样式']},
+  {name: 'hidden', desc: ['组件是否隐藏']},
+]
+
+const WXS_COMPONENT: Component = {
+  name: 'wxs',
+  desc: ['模板中的 wxs 模块'],
+  docLink: 'https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxs/01wxs-module.html',
+  attrs: [
+    {name: 'src'},
+    {name: 'module'},
+  ]
+}
+const WX_SUB_ATTRS: CustomAttr[] = [
+  {name: 'if', addBrace: true},
+  {name: 'elif', addBrace: true},
+  {name: 'else', boolean: true},
+  {name: 'for', addBrace: true},
+  {name: 'key'},
+  {name: 'for-item'},
+  {name: 'for-index'},
+]
+
 export {LanguageConfig}
 export interface Languages {
   [language: string]: LanguageConfig
@@ -25,12 +52,7 @@ export interface Languages {
 export const Languages: Languages = {
   native: {
     id: 'wxml',
-    baseAttrs: [
-      {name: 'id'},
-      {name: 'class'},
-      {name: 'style', desc: ['组件的内联样式']},
-      {name: 'hidden', desc: ['组件是否隐藏']},
-    ],
+    baseAttrs: BASE_ATTRS,
     event: {
       prefixes: ['bind:', 'catch:'],
       modifiers: [],
@@ -40,37 +62,16 @@ export const Languages: Languages = {
       'wx:': {
         modifiers: [],
         attrs: [
-          {name: 'if', addBrace: true},
-          {name: 'elif', addBrace: true},
-          {name: 'else', boolean: true},
-          {name: 'for', addBrace: true},
-          {name: 'key'},
-          {name: 'for-item'},
-          {name: 'for-index'},
+          ...WX_SUB_ATTRS
         ]
       }
     },
-    components: [
-      {
-        name: 'wxs',
-        desc: ['模板中的 wxs 模块'],
-        docLink: 'https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxs/01wxs-module.html',
-        attrs: [
-          {name: 'src'},
-          {name: 'module'},
-        ]
-      }
-    ],
+    components: [WXS_COMPONENT],
     noBasicAttrsComponents: ['wxs', 'template']
   },
   wepy: {
     id: 'wepy',
-    baseAttrs: [
-      {name: 'id'},
-      {name: 'class'},
-      {name: 'style', desc: ['组件的内联样式']},
-      {name: 'hidden', desc: ['组件是否隐藏']},
-    ],
+    baseAttrs: BASE_ATTRS,
     event: {
       prefixes: ['@'],
       modifiers: ['user', 'stop', 'default'],
@@ -80,13 +81,7 @@ export const Languages: Languages = {
       'wx:': {
         modifiers: [],
         attrs: [
-          {name: 'if', addBrace: true},
-          {name: 'elif', addBrace: true},
-          {name: 'else', boolean: true},
-          {name: 'for', addBrace: true},
-          {name: 'key'},
-          {name: 'for-item'},
-          {name: 'for-index'},
+          ...WX_SUB_ATTRS
         ]
       }
     },
@@ -146,12 +141,7 @@ export const Languages: Languages = {
   },
   mpx: {
     id: 'mpx',
-    baseAttrs: [
-      {name: 'id'},
-      {name: 'class'},
-      {name: 'style', desc: ['组件的内联样式']},
-      {name: 'hidden', desc: ['组件是否隐藏']},
-    ],
+    baseAttrs: BASE_ATTRS,
     event: {
       prefixes: ['bind:', 'catch:'],
       modifiers: [],
@@ -161,28 +151,14 @@ export const Languages: Languages = {
       'wx:': {
         modifiers: [],
         attrs: [
-          {name: 'if', addBrace: true},
-          {name: 'elif', addBrace: true},
-          {name: 'else', boolean: true},
-          {name: 'for', addBrace: true},
-          {name: 'key'},
-          {name: 'for-item'},
-          {name: 'for-index'},
+          ...WX_SUB_ATTRS,
           {name: 'model', addBrace: true},
           {name: 'class', addBrace: true}
         ]
       }
     },
     components: [
-      {
-        name: 'wxs',
-        desc: ['模板中的 wxs 模块'],
-        docLink: 'https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxs/01wxs-module.html',
-        attrs: [
-          {name: 'src'},
-          {name: 'module'},
-        ]
-      }
+      WXS_COMPONENT
     ],
     noBasicAttrsComponents: ['wxs', 'template']
   }

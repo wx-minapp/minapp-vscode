@@ -5,6 +5,7 @@
 
 ## 最近更新 【[see more](https://github.com/wx-minapp/minapp-vscode/blob/master/CHANGELOG.md)】
 
+* 【2019-01-05】1.12.0 支持 [mpx 小程序框架](https://github.com/didi/mpx)
 * 【2018-11-21】1.11.0 [点击模板文件中的函数或属性跳转到 js/ts 定义的地方](#attr-definition)
 * 【2018-11-15】1.10.0 [添加样式名自动补全功能](#attr-class-value)
 * 【2018-10-07】1.9.0 同步官方组件的最新数据
@@ -119,8 +120,8 @@
 
 vue 中的 template 板支持两个属性：
 
-1. `lang` 可以设置为 `"wxml"` 或 `"pug"`，表示使用的语言
-2. `minapp` 可以设置为 `"native"`, `"wepy"` 或 `"mpvue"`，表示使用的框架，默认为 `"mpvue"`
+1. `lang` 可以设置为 `"wxml"` 或 `"pug"`，表示使用的语言（**在类 vue 框架中指定 `lang` 属性可能会导致编译报错，你可以使用 `xlang` 替代，但这样会同时出现 vue 和 minapp 的补全**）
+2. `minapp` 可以设置为 `"native"`, `"wepy"`，`"mpx"` 或 `"mpvue"`，表示使用的框架，默认为 `"mpvue"`
 
 如:
 
@@ -133,8 +134,6 @@ vue 中的 template 板支持两个属性：
 指定为不同的 minapp 值会触发对应框架的自动补全，由于本人没有使用 wepy 和 mpvue 开发过，所以这些自动补全是根据官方文档说明而加上的，如果有错误，欢迎 PR（只需要修改文件 [src/plugin/lib/language.ts](https://github.com/wx-minapp/minapp-vscode/blob/master/src/plugin/lib/language.ts))
 
 ![示例图片](https://n1image.hjfile.cn/res7/2018/04/09/0b4573624091b04566232c38df08e323.gif)
-
-
 
 
 

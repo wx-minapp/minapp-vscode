@@ -9,7 +9,7 @@ import {Languages, LanguageConfig} from './language'
 import { EOL } from 'os'
 
 // <template lang="wxml/pug/wxml-pug" minapp="native/wepy/mpvue"> ；默认 minapp="mpvue"
-const vueTemplateMinappStartTag = /^\s*<template\b[^>]*(?:minapp)=['"](native|wepy|mpvue)['"][^>]*>/
+const vueTemplateMinappStartTag = /^\s*<template\b[^>]*(?:minapp)=['"](\w+)['"][^>]*>/
 const vueTemplateLangStartTag = /^\s*<template\b[^>]*(?:x?lang)=['"]([\w-]+)['"][^>]*>/
 const vueTemplateEndTag = /<\/template>\s*$/
 
