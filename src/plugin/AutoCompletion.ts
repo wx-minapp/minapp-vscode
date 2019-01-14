@@ -140,11 +140,11 @@ export default abstract class AutoCompletion {
   async createComponentSnippetItems(lc: LanguageConfig, doc: TextDocument, pos: Position, prefix?: string) {
     let res = await autocompleteTagName(lc, this.getCustomOptions(doc))
     let filter = (key: string) => key && (!prefix || prefix.split('').every(c => key.includes(c)))
-    let fileterComponent = (t: TagItem) => filter(t.component.name)
+    let filterComponent = (t: TagItem) => filter(t.component.name)
 
     let items = [
-      ...res.customs.filter(fileterComponent).map(t => this.renderTag(t, 'a')), // 自定义的组件放在前面
-      ...res.natives.filter(fileterComponent).map(t => this.renderTag(t, 'c'))
+      ...res.customs.filter(filterComponent).map(t => this.renderTag(t, 'a')), // 自定义的组件放在前面
+      ...res.natives.filter(filterComponent).map(t => this.renderTag(t, 'c'))
     ]
 
     // 添加 Snippet
@@ -269,7 +269,6 @@ export default abstract class AutoCompletion {
 
     let res = await autocompleteSpecialTagAttr(prefix, tag.name, tag.attrs, lc, this.getCustomOptions(doc))
     let kind = isEventPrefix ? CompletionItemKind.Event : CompletionItemKind.Field
-
     return [
       ...res.customs.map(c => this.renderTagAttr(c, 'a', kind)),
       ...res.natives.map(c => this.renderTagAttr(c, 'b', kind))

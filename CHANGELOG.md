@@ -1,4 +1,9 @@
-1.12.1 / 2019-01-05
+1.12.1 / 2019-01-14
+==================
+
+* 修复组件自带的事件不支持 bind:xxx 的写法的问题，见 [issues/15](https://github.com/wx-minapp/minapp-vscode/issues/15)
+
+1.12.0 / 2019-01-05
 ==================
 
 * 支持 [mpx 小程序框架](https://github.com/didi/mpx)
