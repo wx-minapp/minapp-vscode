@@ -2,7 +2,7 @@
   "name": "minapp-vscode",
   "displayName": "minapp",
   "description": "微信小程序标签、属性的智能补全（同时支持原生小程序、mpvue 和 wepy 框架，并提供 snippets）",
-  "version": "1.12.0",
+  "version": "1.12.1",
   "publisher": "qiu8310",
   "scripts": {
     "lint": "tslint src/**/*.ts",
