@@ -221,7 +221,7 @@
     ]
   },
   "dependencies": {
-    "@minapp/common": "^2.2.2",
+    "@minapp/common": "^2.2.3",
     "@minapp/wxml-parser": "^2.1.4",
     "tslib": "^1.9.0"
   },
