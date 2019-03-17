@@ -39,7 +39,6 @@
     "workspaceContains:minapp.cjson",
     "onLanguage:wxml-pug",
     "onLanguage:wxml",
-    "onLanguage:html",
     "onLanguage:vue"
   ],
   "main": "./dist/extension",
