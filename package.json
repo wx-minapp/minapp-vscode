@@ -212,6 +212,17 @@
             "singleQuote": false
           },
           "description": "prettier 配置"
+        },
+        "minapp-vscode.documentSelector": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true,
+          "default": [
+            "wxml"
+          ],
+          "description": "The associated document types"
         }
       }
     },

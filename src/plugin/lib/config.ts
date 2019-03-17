@@ -49,7 +49,8 @@ export interface Config {
   prettyHtml: Record<string, any>,
   /** prettier 格式化 */
   prettier: Record<string, any>
-
+  /** 关联类型 */
+  documentSelector: string[],
 }
 
 export const config: Config = {
@@ -72,6 +73,7 @@ export const config: Config = {
   wxmlFormatter: 'wxml',
   prettyHtml: {},
   prettier: {},
+  documentSelector: ['wxml']
 }
 
 function getConfig() {
@@ -94,6 +96,8 @@ function getConfig() {
   config.wxmlFormatter = minapp.get('wxmlFormatter', 'wxml')
   config.prettyHtml = minapp.get('prettyHtml', {})
   config.prettier = minapp.get('prettier', {})
+  config.documentSelector = minapp.get('documentSelector', ['wxml'])
+
 }
 
 function getResolveRoots(doc: vscode.TextDocument) {

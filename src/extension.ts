@@ -50,8 +50,7 @@ export function activate(context: ExtensionContext) {
   const documentHighlight = new WxmlDocumentHighlight(config)
   const propDefinitionProvider = new PropDefinitionProvider(config)
 
-  const wxml = schemes('wxml')
-  const html = schemes('html')
+  const wxmls = config.documentSelector.map(l => schemes(l))
   const pug = schemes('wxml-pug')
   const vue = schemes('vue')
 
@@ -60,24 +59,24 @@ export function activate(context: ExtensionContext) {
     new ActiveTextEditorListener(config),
 
     // hover 效果
-    languages.registerHoverProvider([wxml, html, pug, vue], hoverProvider),
+    languages.registerHoverProvider([pug, vue].concat(wxmls), hoverProvider),
 
     // 添加 link
-    languages.registerDocumentLinkProvider([wxml, html, pug], linkProvider),
+    languages.registerDocumentLinkProvider([pug].concat(wxmls), linkProvider),
 
     // 高亮匹配的标签
-    languages.registerDocumentHighlightProvider([wxml, html], documentHighlight),
+    languages.registerDocumentHighlightProvider(wxmls, documentHighlight),
 
     // 格式化
-    languages.registerDocumentFormattingEditProvider([wxml, html], formatter),
-    languages.registerDocumentRangeFormattingEditProvider([wxml, html], formatter),
+    languages.registerDocumentFormattingEditProvider(wxmls, formatter),
+    languages.registerDocumentRangeFormattingEditProvider(wxmls, formatter),
 
 
     // DefinitionProvider
-    languages.registerDefinitionProvider([wxml, html, pug], propDefinitionProvider),
+    languages.registerDefinitionProvider([pug].concat(wxmls), propDefinitionProvider),
 
     // 自动补全
-    languages.registerCompletionItemProvider([wxml, html], autoCompletionWxml, '<', ' ', ':', '@', '.', '-', '"', '\''),
+    languages.registerCompletionItemProvider(wxmls, autoCompletionWxml, '<', ' ', ':', '@', '.', '-', '"', '\''),
     languages.registerCompletionItemProvider(pug, autoCompletionPug, '\n', ' ', '(', ':', '@', '.', '-', '"', '\''),
     // trigger 需要是上两者的和
     languages.registerCompletionItemProvider(vue, autoCompletionVue, '<', ' ', ':', '@', '.', '-', '(', '"', '\'')
