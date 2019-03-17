@@ -5,7 +5,7 @@
   "version": "1.12.1",
   "publisher": "qiu8310",
   "scripts": {
-    "lint": "tslint src/**/*.ts",
+    "lint": "tslint src/**/*.ts --fix",
     "clear": "remove-all dist",
     "vscode:prepublish": "npm run build",
     "build": "npm run clear && npm run lint && tsc -p ./",
@@ -178,6 +178,50 @@
             "scss"
           ],
           "description": "当前样式文件的后缀中，系统会自动查找和当前模板同名的样式文件，用于模板中的 class 补全"
+        },
+        "minapp-vscode.wxmlFormatter": {
+          "type": "string",
+          "default": "wxml",
+          "enum": [
+            "wxml",
+            "prettier",
+            "prettyHtml"
+          ],
+          "description": "wxml 格式化工具"
+        },
+        "minapp-vscode.prettyHtml": {
+          "type": "object",
+          "default": {
+            "useTabs": false,
+            "tabWidth": 2,
+            "printWidth": 100,
+            "singleQuote": false,
+            "usePrettier": true,
+            "wrapAttributes": false,
+            "sortAttributes": false
+          },
+          "description": "prettyHtml 配置"
+        },
+        "minapp-vscode.prettier": {
+          "type": "object",
+          "default": {
+            "useTabs": false,
+            "tabWidth": 2,
+            "printWidth": 100,
+            "singleQuote": false
+          },
+          "description": "prettier 配置"
+        },
+        "minapp-vscode.documentSelector": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true,
+          "default": [
+            "wxml"
+          ],
+          "description": "The associated document types"
         }
       }
     },
@@ -223,14 +267,17 @@
   "dependencies": {
     "@minapp/common": "^2.2.3",
     "@minapp/wxml-parser": "^2.1.4",
+    "@starptech/prettyhtml": "^0.8.16",
+    "prettier": "^1.16.4",
     "tslib": "^1.9.0"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.42",
     "@types/node": "^8.10.22",
-    "mora-scripts": "1.6.35",
-    "tslint": "^5.11.0",
-    "typescript": "^3.1.6",
+    "@types/prettier": "^1.16.1",
+    "mora-scripts": "^1.6.35",
+    "tslint": "^5.14.0",
+    "typescript": "^3.3.3333",
     "vscode": "^1.1.21"
   }
 }

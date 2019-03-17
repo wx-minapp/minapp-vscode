@@ -3,11 +3,13 @@ MIT License http://www.opensource.org/licenses/mit-license.php
 Author Mora <qiuzhongleiabc@126.com> (https://github.com/qiu8310)
 *******************************************************************/
 
-import {ExtensionContext, languages, workspace} from 'vscode'
+import { ExtensionContext, languages, workspace } from 'vscode'
 
 import LinkProvider from './plugin/LinkProvider'
 import HoverProvider from './plugin/HoverProvider'
 import WxmlFormatter from './plugin/WxmlFormatter'
+import PrettyHtmlEditProvider from './plugin/PrettyhtmlEditProvider'
+import PrettierProvider from './plugin/PrettierProvider'
 
 import WxmlAutoCompletion from './plugin/WxmlAutoCompletion'
 import PugAutoCompletion from './plugin/PugAutoCompletion'
@@ -16,8 +18,9 @@ import WxmlDocumentHighlight from './plugin/WxmlDocumentHighlight'
 
 import ActiveTextEditorListener from './plugin/ActiveTextEditorListener'
 
-import {config, configActivate, configDeactivate} from './plugin/lib/config'
+import { config, configActivate, configDeactivate } from './plugin/lib/config'
 import { PropDefinitionProvider } from './plugin/PropDefinitionProvider'
+
 
 export function activate(context: ExtensionContext) {
   // console.log('minapp-vscode is active!')
@@ -27,16 +30,27 @@ export function activate(context: ExtensionContext) {
     autoConfig()
   }
 
-  let formatter = new WxmlFormatter(config)
-  let autoCompletionWxml = new WxmlAutoCompletion(config)
-  let hoverProvider = new HoverProvider(config)
-  let linkProvider = new LinkProvider(config)
-  let autoCompletionPug = new PugAutoCompletion(config)
-  let autoCompletionVue = new VueAutoCompletion(autoCompletionPug, autoCompletionWxml)
-  let documentHighlight  = new WxmlDocumentHighlight(config)
-  let propDefinitionProvider = new PropDefinitionProvider(config)
+  let formatter
+  switch (config.wxmlFormatter) {
+    case 'prettier':
+      formatter = new PrettierProvider(config.prettier)
+      break
+    case 'prettyHtml':
+      formatter = new PrettyHtmlEditProvider(config.prettyHtml)
+      break
+    default:
+      formatter = new WxmlFormatter(config)
+      break
+  }
+  const autoCompletionWxml = new WxmlAutoCompletion(config)
+  const hoverProvider = new HoverProvider(config)
+  const linkProvider = new LinkProvider(config)
+  const autoCompletionPug = new PugAutoCompletion(config)
+  const autoCompletionVue = new VueAutoCompletion(autoCompletionPug, autoCompletionWxml)
+  const documentHighlight = new WxmlDocumentHighlight(config)
+  const propDefinitionProvider = new PropDefinitionProvider(config)
 
-  const wxml = schemes('wxml')
+  const wxmls = config.documentSelector.map(l => schemes(l))
   const pug = schemes('wxml-pug')
   const vue = schemes('vue')
 
@@ -45,24 +59,24 @@ export function activate(context: ExtensionContext) {
     new ActiveTextEditorListener(config),
 
     // hover 效果
-    languages.registerHoverProvider([wxml, pug, vue], hoverProvider),
+    languages.registerHoverProvider([pug, vue].concat(wxmls), hoverProvider),
 
     // 添加 link
-    languages.registerDocumentLinkProvider([wxml, pug], linkProvider),
+    languages.registerDocumentLinkProvider([pug].concat(wxmls), linkProvider),
 
     // 高亮匹配的标签
-    languages.registerDocumentHighlightProvider(wxml, documentHighlight),
+    languages.registerDocumentHighlightProvider(wxmls, documentHighlight),
 
     // 格式化
-    languages.registerDocumentFormattingEditProvider(wxml, formatter),
-    languages.registerDocumentRangeFormattingEditProvider(wxml, formatter),
+    languages.registerDocumentFormattingEditProvider(wxmls, formatter),
+    languages.registerDocumentRangeFormattingEditProvider(wxmls, formatter),
 
 
     // DefinitionProvider
-    languages.registerDefinitionProvider([wxml, pug], propDefinitionProvider),
+    languages.registerDefinitionProvider([pug].concat(wxmls), propDefinitionProvider),
 
     // 自动补全
-    languages.registerCompletionItemProvider(wxml, autoCompletionWxml, '<', ' ', ':', '@', '.', '-', '"', '\''),
+    languages.registerCompletionItemProvider(wxmls, autoCompletionWxml, '<', ' ', ':', '@', '.', '-', '"', '\''),
     languages.registerCompletionItemProvider(pug, autoCompletionPug, '\n', ' ', '(', ':', '@', '.', '-', '"', '\''),
     // trigger 需要是上两者的和
     languages.registerCompletionItemProvider(vue, autoCompletionVue, '<', ' ', ':', '@', '.', '-', '(', '"', '\'')
@@ -75,7 +89,7 @@ export function deactivate() {
 
 function autoConfig() {
   let c = workspace.getConfiguration()
-  const updates: Array<{key: string, map: any}> = [
+  const updates: Array<{ key: string, map: any }> = [
     {
       key: 'files.associations',
       map: {
@@ -92,14 +106,14 @@ function autoConfig() {
     }
   ]
 
-  updates.forEach(({key, map}) => {
+  updates.forEach(({ key, map }) => {
     let oldMap = c.get(key, {}) as any
     let appendMap: any = {}
     Object.keys(map).forEach(k => {
       if (!(oldMap.hasOwnProperty(k))) appendMap[k] = map[k]
     })
     if (Object.keys(appendMap).length) {
-      c.update(key, {...oldMap, ...appendMap}, true)
+      c.update(key, { ...oldMap, ...appendMap }, true)
     }
   })
 
@@ -107,5 +121,5 @@ function autoConfig() {
 }
 
 export function schemes(key: string) {
-  return {scheme: 'file', language: key}
+  return { scheme: 'file', language: key }
 }
