@@ -5,7 +5,7 @@
 
 import * as vscode from 'vscode'
 import * as path from 'path'
-import {Snippets} from '../res/snippets'
+import { Snippets } from '../res/snippets'
 
 let listener: vscode.Disposable
 
@@ -26,7 +26,7 @@ export interface Config {
   /** 自定义高亮样式 */
   decorateType: any
   /** 用户自定义的 snippets */
-  snippets: {wxml?: Snippets, pug?: Snippets}
+  snippets: { wxml?: Snippets, pug?: Snippets }
 
   /** 自我闭合的标签 */
   selfCloseTags: string[]
@@ -42,7 +42,14 @@ export interface Config {
   /** 全局的样式文件 */
   globalStyleFiles: string[]
   /** 支持解析的样式文件后缀名 */
-  styleExtensions: string[]
+  styleExtensions: string[],
+  /** wxml 格式化工具 */
+  wxmlFormatter: 'wxml' | 'prettier' | 'prettyHtml',
+  /** prettyHtml 格式化 */
+  prettyHtml: Record<string, any>,
+  /** prettier 格式化 */
+  prettier: Record<string, any>
+
 }
 
 export const config: Config = {
@@ -62,6 +69,9 @@ export const config: Config = {
   reserveTags: [],
   globalStyleFiles: [],
   styleExtensions: [],
+  wxmlFormatter: 'wxml',
+  prettyHtml: {},
+  prettier: {},
 }
 
 function getConfig() {
@@ -81,6 +91,9 @@ function getConfig() {
   config.reserveTags = minapp.get('reserveTags', [])
   config.globalStyleFiles = minapp.get('globalStyleFiles', [])
   config.styleExtensions = minapp.get('styleExtensions', [])
+  config.wxmlFormatter = minapp.get('wxmlFormatter', 'wxml')
+  config.prettyHtml = minapp.get('prettyHtml', {})
+  config.prettier = minapp.get('prettier', {})
 }
 
 function getResolveRoots(doc: vscode.TextDocument) {
