@@ -2,7 +2,7 @@
 1.13.1 / 2019-03-24
 ==================
 
-wxml格式增强 #23
+wxml格式增强 [#23](https://github.com/wx-minapp/minapp-vscode/pull/23)
 
 * [x] 支持 `prettyHtml` 格式化
 * [x] 支持 `prettier` 格式 wxml

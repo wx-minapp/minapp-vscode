@@ -5,7 +5,7 @@
 
 ## 最近更新 【[see more](https://github.com/wx-minapp/minapp-vscode/blob/master/CHANGELOG.md)】
 
-* 【2019-03-24】1.13.1 wxml 支持 `prettier`和 `prettyHtml` #23
+* 【2019-03-24】1.13.1 wxml 支持 `prettier`和 `prettyHtml`
 * 【2019-01-14】1.12.1 修复组件自带的事件不支持 bind:xxx 的写法的问题，见 [issues/15](https://github.com/wx-minapp/minapp-vscode/issues/15)
 * 【2019-01-05】1.12.0 支持 [mpx 小程序框架](https://github.com/didi/mpx)
 * 【2018-11-21】1.11.0 [点击模板文件中的函数或属性跳转到 js/ts 定义的地方](#attr-definition)
