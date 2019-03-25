@@ -1,3 +1,24 @@
+
+1.13.1 / 2019-03-24
+==================
+
+wxml格式增强 [#23](https://github.com/wx-minapp/minapp-vscode/pull/23)
+
+* [x] 支持 `prettyHtml` 格式化
+* [x] 支持 `prettier` 格式 wxml
+* [x] 支持 选择自定义其他语言 `documentSelector`
+* [x] 自动读取项目中的配置文件 (仅针对`prettyHtml`,和`prettier`)
+    1. [Prettier configuration file](https://prettier.io/docs/en/configuration.html)
+    2. `.editorconfig`
+
+新增配置
+
+* `minapp-vscode.wxmlFormatter` `string `三种(`wxml`,`prettyHtml`,`prettier`) 可选，默认`wxml` (注,目前切换后需要重启vscode)
+* `minapp-vscode.documentSelector` `string[]` 自定义关联文件类型，
+* `minapp-vscode.prettyHtml`  `{}` [prettyhtml配置项](https://github.com/Prettyhtml/prettyhtml#prettyhtmldoc-string-options-vfile) 
+* `minapp-vscode.prettier` `{}` [prettier配置项](https://prettier.io/docs/en/configuration.html)
+
+
 1.12.1 / 2019-01-14
 ==================
 
