@@ -5,6 +5,7 @@
 
 ## 最近更新 【[see more](https://github.com/wx-minapp/minapp-vscode/blob/master/CHANGELOG.md)】
 
+* 【2019-03-24】1.13.1 wxml 支持 `prettier`和 `prettyHtml`
 * 【2019-01-14】1.12.1 修复组件自带的事件不支持 bind:xxx 的写法的问题，见 [issues/15](https://github.com/wx-minapp/minapp-vscode/issues/15)
 * 【2019-01-05】1.12.0 支持 [mpx 小程序框架](https://github.com/didi/mpx)
 * 【2018-11-21】1.11.0 [点击模板文件中的函数或属性跳转到 js/ts 定义的地方](#attr-definition)
@@ -27,6 +28,7 @@
 * [模板文件中 js 变量高亮（纯 wxml 或 pug 文件才支持，vue 文件不支持）](#highlight)
 * [内置 snippets](#snippets)
 * [支持 emmet 写法](#emmet)
+* [wxml 格式化](#wxml-formatter)
 
 > **所有自动补全的模板数据都来自于官方文档，通过[脚本](https://github.com/wx-minapp/minapp-generator)自动获取的**
 
@@ -218,12 +220,44 @@ vue 中的 template 板支持两个属性：
 
 [emmet cheat sheet](https://docs.emmet.io/cheat-sheet/)
 
+<a id="wxml-formatter"></a>
 
+## wxml 格式
 
+支持`prettyHtml`和`prettier`(部分内容需要采用兼容html的方式书写)
 
-
-
-
+* 默认 `wxml`
+```jsonc
+"minapp-vscode.wxmlFormatter": "wxml", //指定格式化工具
+```
+* [prettyHtml](https://github.com/Prettyhtml/prettyhtml#prettyhtmldoc-string-options-vfile)
+```jsonc
+"minapp-vscode.wxmlFormatter": "prettyHtml", //指定格式化工具
+"minapp-vscode.prettyHtml": { //prettyHtml 默认配置
+  "useTabs": false,
+  "tabWidth": 2,
+  "printWidth": 100,
+  "singleQuote": false,
+  "usePrettier": true,
+  "wrapAttributes": false, //设置成 true 强制属性换行 
+  "sortAttributes": false
+}
+```
+* [prettier](https://github.com/prettier/prettier)
+```jsonc
+"minapp-vscode.wxmlFormatter": "prettier", //指定格式化工具
+"minapp-vscode.prettier": { //prettier 更多参考https://prettier.io/docs/en/options.html 
+ // 需指定wxml 的 parser, 推荐 angular 进行处理 
+  "useTabs": false,
+  "tabWidth": 2,
+  "printWidth": 100,
+  "singleQuote": false
+}
+```
+* tips:
+  1. 针对`prettyHtml`,和`prettier`方式,会自动读取项目下的配置文件, [Prettier configuration file](https://prettier.io/docs/en/configuration.html) `.editorconfig`
+  2. 切换格式化工具需重启vscode
+  3. 针对`prettyHtml`,和`prettier`采用html5的语法和wxml不完全一致,写法要注意兼容
 
 ## 常见问题
 
