@@ -1,5 +1,5 @@
 
-1.13.1 / 2019-03-24
+1.13.0 / 2019-04-23
 ==================
 
 wxml格式增强 [#23](https://github.com/wx-minapp/minapp-vscode/pull/23)
@@ -15,7 +15,7 @@ wxml格式增强 [#23](https://github.com/wx-minapp/minapp-vscode/pull/23)
 
 * `minapp-vscode.wxmlFormatter` `string `三种(`wxml`,`prettyHtml`,`prettier`) 可选，默认`wxml` (注,目前切换后需要重启vscode)
 * `minapp-vscode.documentSelector` `string[]` 自定义关联文件类型，
-* `minapp-vscode.prettyHtml`  `{}` [prettyhtml配置项](https://github.com/Prettyhtml/prettyhtml#prettyhtmldoc-string-options-vfile) 
+* `minapp-vscode.prettyHtml`  `{}` [prettyhtml配置项](https://github.com/Prettyhtml/prettyhtml#prettyhtmldoc-string-options-vfile)
 * `minapp-vscode.prettier` `{}` [prettier配置项](https://prettier.io/docs/en/configuration.html)
 
 

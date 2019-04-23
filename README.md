@@ -5,7 +5,7 @@
 
 ## 最近更新 【[see more](https://github.com/wx-minapp/minapp-vscode/blob/master/CHANGELOG.md)】
 
-* 【2019-03-24】1.13.1 wxml 支持 `prettier`和 `prettyHtml`
+* 【2019-04-23】1.13.0 wxml 支持 `prettier`和 `prettyHtml`
 * 【2019-01-14】1.12.1 修复组件自带的事件不支持 bind:xxx 的写法的问题，见 [issues/15](https://github.com/wx-minapp/minapp-vscode/issues/15)
 * 【2019-01-05】1.12.0 支持 [mpx 小程序框架](https://github.com/didi/mpx)
 * 【2018-11-21】1.11.0 [点击模板文件中的函数或属性跳转到 js/ts 定义的地方](#attr-definition)
@@ -239,15 +239,15 @@ vue 中的 template 板支持两个属性：
   "printWidth": 100,
   "singleQuote": false,
   "usePrettier": true,
-  "wrapAttributes": false, //设置成 true 强制属性换行 
+  "wrapAttributes": false, //设置成 true 强制属性换行
   "sortAttributes": false
 }
 ```
 * [prettier](https://github.com/prettier/prettier)
 ```jsonc
 "minapp-vscode.wxmlFormatter": "prettier", //指定格式化工具
-"minapp-vscode.prettier": { //prettier 更多参考https://prettier.io/docs/en/options.html 
- // 需指定wxml 的 parser, 推荐 angular 进行处理 
+"minapp-vscode.prettier": { //prettier 更多参考https://prettier.io/docs/en/options.html
+ // 需指定wxml 的 parser, 推荐 angular 进行处理
   "useTabs": false,
   "tabWidth": 2,
   "printWidth": 100,
