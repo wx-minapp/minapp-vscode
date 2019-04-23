@@ -126,7 +126,7 @@ export default abstract class AutoCompletion {
     if (typeof defaultValue === 'boolean' || defaultValue === 'true' || defaultValue === 'false') {
       return `{{\${${index}|true,false|}}}`
     } else {
-      return `\${${index}:${defaultValue.replace(/['"]/g, '')}}`
+      return `\${${index}:${String(defaultValue).replace(/['"]/g, '')}}`
     }
   }
 
