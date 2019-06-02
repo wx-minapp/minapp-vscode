@@ -1,13 +1,14 @@
 
 import { TextEdit, Range, TextDocument, DocumentRangeFormattingEditProvider, DocumentFormattingEditProvider, FormattingOptions, CancellationToken, window } from 'vscode'
 import { Options, resolveConfig } from 'prettier'
+import { requireLocalPkg } from './lib/requirePackage'
 
 function prettierify(
-    code: string,
+    document: TextDocument,
     options: Options,
 ): string {
-    const prettier = require('prettier')
-    const prettierifiedCode = prettier.format(code, options)
+    const prettier = requireLocalPkg(document.uri.fsPath, 'prettier')
+    const prettierifiedCode = prettier.format(document.getText(), options)
     return prettierifiedCode
 }
 
@@ -45,7 +46,7 @@ class PrettierProvider
     async _provideEdits(document: TextDocument): Promise<TextEdit[]> {
         try {
             const prettierOptions = await resolveConfig(document.uri.fsPath, { editorconfig: true })
-            const prettierifiedCode = prettierify(document.getText(), Object.assign({}, this.options, prettierOptions))
+            const prettierifiedCode = prettierify(document, Object.assign({}, this.options, prettierOptions))
             return [TextEdit.replace(fullDocumentRange(document), prettierifiedCode)]
         } catch (error) {
             console.log('Prettier format failed')

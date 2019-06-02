@@ -12,6 +12,7 @@ import {
   window
 } from 'vscode'
 import { resolveConfig } from 'prettier'
+import { requireLocalPkg } from './lib/requirePackage'
 
 async function format(
   text: string,
@@ -19,7 +20,7 @@ async function format(
   options: { [index: string]: any },
   prettyhtmlOptions: { [index: string]: any }
 ): Promise<string> {
-  const prettyhtml = require('@starptech/prettyhtml')
+  const prettyhtml = requireLocalPkg(uri.fsPath, '@starptech/prettyhtml')
 
   const op = {
     useTabs: prettyhtmlOptions.useTabs,
