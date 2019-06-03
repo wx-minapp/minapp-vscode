@@ -2,7 +2,7 @@
   "name": "minapp-vscode",
   "displayName": "minapp",
   "description": "微信小程序标签、属性的智能补全（同时支持原生小程序、mpvue 和 wepy 框架，并提供 snippets）",
-  "version": "1.13.1",
+  "version": "1.14.0",
   "publisher": "qiu8310",
   "scripts": {
     "lint": "tslint src/**/*.ts --fix",
@@ -74,7 +74,7 @@
         },
         "minapp-vscode.formatMaxLineCharacters": {
           "type": "number",
-          "description": "格式化时，单行允许的最长的长度",
+          "description": "格式化时，单行允许的最长的长度(只针对默认的格式化工具)",
           "default": 100
         },
         "minapp-vscode.reserveTags": {
@@ -82,7 +82,7 @@
           "items": {
             "type": "string"
           },
-          "description": "格式化时，不处理的标签，即保持标签中的内容和格式化前一模一样，不会出现多余的换行",
+          "description": "格式化时，不处理的标签，即保持标签中的内容和格式化前一模一样，不会出现多余的换行(只针对默认的格式化工具)",
           "default": []
         },
         "minapp-vscode.disableDecorate": {
@@ -221,7 +221,7 @@
           "default": [
             "wxml"
           ],
-          "description": "The associated document types"
+          "description": "关联的文件类型，默认关联 wxml，如可以加上 html，这样在 html 中也可以有 wxml 的功能"
         }
       }
     },
@@ -267,7 +267,6 @@
   "dependencies": {
     "@minapp/common": "^2.2.4",
     "@minapp/wxml-parser": "^2.1.4",
-    "@starptech/prettyhtml": "^0.8.16",
     "prettier": "^1.16.4",
     "tslib": "^1.9.0"
   },

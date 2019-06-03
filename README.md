@@ -5,6 +5,7 @@
 
 ## 最近更新 【[see more](https://github.com/wx-minapp/minapp-vscode/blob/master/CHANGELOG.md)】
 
+* 【2019-06-03】1.14.0 wxmlFormatter 配置支持热更新，同时 prettyHtml 不会移除自闭合标签的 `/` 符号
 * 【2019-04-23】1.13.0 wxml 支持 `prettier`和 `prettyHtml`
 * 【2019-01-14】1.12.1 修复组件自带的事件不支持 bind:xxx 的写法的问题，见 [issues/15](https://github.com/wx-minapp/minapp-vscode/issues/15)
 * 【2019-01-05】1.12.0 支持 [mpx 小程序框架](https://github.com/didi/mpx)
