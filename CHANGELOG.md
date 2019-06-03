@@ -1,3 +1,8 @@
+1.14.0 / 2019-06-03
+==================
+
+* wxmlFormatter 配置支持热更新
+* prettyHtml 不会移除自闭合标签的 `/` 符号； [#11](https://github.com/wx-minapp/minapp-vscode/issues/11)
 
 1.13.0 / 2019-04-23
 ==================

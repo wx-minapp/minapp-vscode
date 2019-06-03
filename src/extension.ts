@@ -8,8 +8,6 @@ import { ExtensionContext, languages, workspace } from 'vscode'
 import LinkProvider from './plugin/LinkProvider'
 import HoverProvider from './plugin/HoverProvider'
 import WxmlFormatter from './plugin/WxmlFormatter'
-import PrettyHtmlEditProvider from './plugin/PrettyhtmlEditProvider'
-import PrettierProvider from './plugin/PrettierProvider'
 
 import WxmlAutoCompletion from './plugin/WxmlAutoCompletion'
 import PugAutoCompletion from './plugin/PugAutoCompletion'
@@ -30,18 +28,7 @@ export function activate(context: ExtensionContext) {
     autoConfig()
   }
 
-  let formatter
-  switch (config.wxmlFormatter) {
-    case 'prettier':
-      formatter = new PrettierProvider(config.prettier)
-      break
-    case 'prettyHtml':
-      formatter = new PrettyHtmlEditProvider(config.prettyHtml)
-      break
-    default:
-      formatter = new WxmlFormatter(config)
-      break
-  }
+  const formatter = new WxmlFormatter(config)
   const autoCompletionWxml = new WxmlAutoCompletion(config)
   const hoverProvider = new HoverProvider(config)
   const linkProvider = new LinkProvider(config)
@@ -50,7 +37,7 @@ export function activate(context: ExtensionContext) {
   const documentHighlight = new WxmlDocumentHighlight(config)
   const propDefinitionProvider = new PropDefinitionProvider(config)
 
-  const wxmls = config.documentSelector.map(l => schemes(l))
+  const wxml = config.documentSelector.map(l => schemes(l))
   const pug = schemes('wxml-pug')
   const vue = schemes('vue')
 
@@ -59,24 +46,24 @@ export function activate(context: ExtensionContext) {
     new ActiveTextEditorListener(config),
 
     // hover 效果
-    languages.registerHoverProvider([pug, vue].concat(wxmls), hoverProvider),
+    languages.registerHoverProvider([pug, vue].concat(wxml), hoverProvider),
 
     // 添加 link
-    languages.registerDocumentLinkProvider([pug].concat(wxmls), linkProvider),
+    languages.registerDocumentLinkProvider([pug].concat(wxml), linkProvider),
 
     // 高亮匹配的标签
-    languages.registerDocumentHighlightProvider(wxmls, documentHighlight),
+    languages.registerDocumentHighlightProvider(wxml, documentHighlight),
 
     // 格式化
-    languages.registerDocumentFormattingEditProvider(wxmls, formatter),
-    languages.registerDocumentRangeFormattingEditProvider(wxmls, formatter),
+    languages.registerDocumentFormattingEditProvider(wxml, formatter),
+    languages.registerDocumentRangeFormattingEditProvider(wxml, formatter),
 
 
     // DefinitionProvider
-    languages.registerDefinitionProvider([pug].concat(wxmls), propDefinitionProvider),
+    languages.registerDefinitionProvider([pug].concat(wxml), propDefinitionProvider),
 
     // 自动补全
-    languages.registerCompletionItemProvider(wxmls, autoCompletionWxml, '<', ' ', ':', '@', '.', '-', '"', '\''),
+    languages.registerCompletionItemProvider(wxml, autoCompletionWxml, '<', ' ', ':', '@', '.', '-', '"', '\''),
     languages.registerCompletionItemProvider(pug, autoCompletionPug, '\n', ' ', '(', ':', '@', '.', '-', '"', '\''),
     // trigger 需要是上两者的和
     languages.registerCompletionItemProvider(vue, autoCompletionVue, '<', ' ', ':', '@', '.', '-', '(', '"', '\'')
