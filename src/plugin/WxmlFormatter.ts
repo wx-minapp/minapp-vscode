@@ -31,7 +31,7 @@ export default class implements DocumentFormattingEditProvider, DocumentRangeFor
       } else if (this.config.wxmlFormatter === 'prettyHtml') {
         let prettyHtmlOptions = this.config.prettyHtml
         if (prettyHtmlOptions.usePrettier) {
-          const prettierOptions = resolveOptions()
+          const prettierOptions = await resolveOptions()
           prettyHtmlOptions = { ...prettyHtmlOptions, ...prettierOptions, prettier: prettierOptions }
         }
 
