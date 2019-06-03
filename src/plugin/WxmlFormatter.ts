@@ -24,13 +24,13 @@ export default class implements DocumentFormattingEditProvider, DocumentRangeFor
 
     try {
       if (this.config.wxmlFormatter === 'prettier') {
-        let options = await resolveOptions()
-        content = prettier.format(code, { ...this.config.prettier, ...options})
+        let prettierOptions = await resolveOptions()
+        content = prettier.format(code, { ...this.config.prettier, ...prettierOptions})
       } else if (this.config.wxmlFormatter === 'prettyHtml') {
-        let options = this.config.prettyHtml
-        if (options.usePrettier) {
+        let prettyHtmlOptions = this.config.prettyHtml
+        if (prettyHtmlOptions.usePrettier) {
           const prettierOptions = resolveOptions()
-          options = {...options, ...prettierOptions, prettier: prettierOptions}
+          prettyHtmlOptions = {...prettyHtmlOptions, ...prettierOptions, prettier: prettierOptions}
         }
 
         /**
@@ -38,8 +38,7 @@ export default class implements DocumentFormattingEditProvider, DocumentRangeFor
          * https://github.com/prettyhtml/pretty-html-web 中的版本
          * 不会，所以将它仓库中的版本生成的 js 移到了此处
          */
-        content = require('../../res/prettyhtml.js')(code, options).contents
-        console.log(content)
+        content = require('../../res/prettyhtml.js')(code, prettyHtmlOptions).contents
       } else {
         content = parse(code).toXML({
           prefix,
