@@ -265,7 +265,7 @@
     ]
   },
   "dependencies": {
-    "@minapp/common": "^2.2.4",
+    "@minapp/common": "^2.2.5",
     "@minapp/wxml-parser": "^2.1.4",
     "prettier": "^1.16.4",
     "tslib": "^1.9.0"
