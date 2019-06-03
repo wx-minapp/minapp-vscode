@@ -7,30 +7,32 @@ import {
   Range,
   window
 } from 'vscode'
+import * as Prettier from 'prettier'
+import { parse } from '@minapp/wxml-parser'
+import { Config } from './lib/config'
+import { getEOL } from './lib/helper'
+import { requireLocalPkg } from './lib/requirePackage'
 
-import * as prettier from 'prettier'
-import {parse} from '@minapp/wxml-parser'
-import {Config} from './lib/config'
-import {getEOL} from './lib/helper'
-
+type PrettierType = (typeof Prettier)
 export default class implements DocumentFormattingEditProvider, DocumentRangeFormattingEditProvider {
-  constructor(public config: Config) {}
+  constructor(public config: Config) { }
 
   async format(doc: TextDocument, range: Range, options: FormattingOptions, prefix = '') {
 
     let code = doc.getText(range)
     let content: string = code
-    const resolveOptions = () => prettier.resolveConfig(doc.uri.fsPath, { editorconfig: true })
+    const resolveOptions = (prettier?: PrettierType) => (prettier || requireLocalPkg<PrettierType>(doc.uri.fsPath, 'prettier')).resolveConfig(doc.uri.fsPath, { editorconfig: true })
 
     try {
       if (this.config.wxmlFormatter === 'prettier') {
-        let prettierOptions = await resolveOptions()
-        content = prettier.format(code, { ...this.config.prettier, ...prettierOptions})
+        const prettier: PrettierType = requireLocalPkg(doc.uri.fsPath, 'prettier')
+        let prettierOptions = await resolveOptions(prettier)
+        content = prettier.format(code, { ...this.config.prettier, ...prettierOptions })
       } else if (this.config.wxmlFormatter === 'prettyHtml') {
         let prettyHtmlOptions = this.config.prettyHtml
         if (prettyHtmlOptions.usePrettier) {
           const prettierOptions = resolveOptions()
-          prettyHtmlOptions = {...prettyHtmlOptions, ...prettierOptions, prettier: prettierOptions}
+          prettyHtmlOptions = { ...prettyHtmlOptions, ...prettierOptions, prettier: prettierOptions }
         }
 
         /**
@@ -54,7 +56,7 @@ export default class implements DocumentFormattingEditProvider, DocumentRangeFor
       window.showErrorMessage(`${this.config.wxmlFormatter} format error: ` + e.message)
     }
 
-    return [ new TextEdit(range, content) ]
+    return [new TextEdit(range, content)]
   }
 
   provideDocumentFormattingEdits(doc: TextDocument, options: FormattingOptions): Promise<TextEdit[]> {

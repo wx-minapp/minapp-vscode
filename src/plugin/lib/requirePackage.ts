@@ -32,7 +32,7 @@ function findPkg(fspath: string, pkgName: string): string | undefined {
  * @param pkgName package's name to require
  * @returns module
  */
-export function requireLocalPkg(fspath: string, pkgName: string): any {
+export function requireLocalPkg<T>(fspath: string, pkgName: string): T {
     let modulePath
     try {
         modulePath = findPkg(fspath, pkgName)
