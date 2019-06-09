@@ -225,7 +225,7 @@
         },
         "minapp-vscode.sass": {
           "type": "object",
-          "description": "scss/sass 配置"
+          "description": "scss/sass 配置，用于解析 scss/sass 文件，方便样式名称在 wxml 模板中自动补全"
         }
       }
     },

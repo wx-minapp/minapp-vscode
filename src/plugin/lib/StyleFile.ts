@@ -24,7 +24,6 @@ function isScss(file: string): boolean {
 }
 
 export function parseStyleFile(file: string) {
-  console.log(file)
   try {
     let cache = fileCache[file]
     let editor = window.visibleTextEditors.find(e => e.document.fileName === file)
