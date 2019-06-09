@@ -6,6 +6,7 @@
 import * as vscode from 'vscode'
 import * as path from 'path'
 import { Snippets } from '../res/snippets'
+import { Options } from 'sass'
 
 let listener: vscode.Disposable
 
@@ -51,6 +52,8 @@ export interface Config {
   prettier: Record<string, any>
   /** 关联类型 */
   documentSelector: string[],
+  /** */
+  sass: Options
 }
 
 export const config: Config = {
@@ -73,7 +76,8 @@ export const config: Config = {
   wxmlFormatter: 'wxml',
   prettyHtml: {},
   prettier: {},
-  documentSelector: ['wxml']
+  documentSelector: ['wxml'],
+  sass: {}
 }
 
 function getConfig() {
@@ -97,7 +101,7 @@ function getConfig() {
   config.prettyHtml = minapp.get('prettyHtml', {})
   config.prettier = minapp.get('prettier', {})
   config.documentSelector = minapp.get('documentSelector', ['wxml'])
-
+  config.sass = minapp.get('sass', {})
 }
 
 function getResolveRoots(doc: vscode.TextDocument) {
