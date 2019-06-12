@@ -222,10 +222,6 @@
             "wxml"
           ],
           "description": "关联的文件类型，默认关联 wxml，如可以加上 html，这样在 html 中也可以有 wxml 的功能"
-        },
-        "minapp-vscode.sass": {
-          "type": "object",
-          "description": "scss/sass 配置，用于解析 scss/sass 文件，方便样式名称在 wxml 模板中自动补全"
         }
       }
     },
