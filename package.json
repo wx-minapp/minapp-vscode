@@ -271,6 +271,7 @@
   "dependencies": {
     "@minapp/common": "^2.2.5",
     "@minapp/wxml-parser": "^2.1.4",
+    "postcss-nested": "^4.1.2",
     "read-pkg-up": "^6.0.0",
     "resolve": "^1.11.0",
     "tslib": "^1.9.0"
@@ -282,7 +283,6 @@
     "@types/mocha": "^2.2.42",
     "@types/node": "^8.10.22",
     "@types/prettier": "^1.16.1",
-    "@types/sass": "^1.16.0",
     "@types/resolve": "0.0.8",
     "mora-scripts": "^1.6.35",
     "tslint": "^5.14.0",
