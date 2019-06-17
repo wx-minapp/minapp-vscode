@@ -15,12 +15,12 @@ import {Tag, getAttrs, getAttrName} from './base'
 function getBracketRange(text: string, pos: number): [number, number] | null {
   const textBeforePos = text.substr(0, pos)
   const startBracket = textBeforePos.lastIndexOf('<')
-  if(startBracket < 0 ||  textBeforePos[startBracket+1] === '!' || textBeforePos.lastIndexOf('>') > startBracket){
+  if (startBracket < 0 ||  textBeforePos[startBracket + 1] === '!' || textBeforePos.lastIndexOf('>') > startBracket) {
     // 前没有开始符<，
     // 或者正在注释中： <!-- | -->
     // 或者不在标签中： <view > | </view>
     return null
-  }  
+  }
 
   let endBracket = text.indexOf('>', pos + 1)
   if (endBracket < 0) {
@@ -40,8 +40,8 @@ function getBracketRange(text: string, pos: number): [number, number] | null {
 }
 
 /**
-* 生成指定字符的替换函数
-*/
+ * 生成指定字符的替换函数
+ */
 const replacer = (char: string) => (raw: string) => char.repeat(raw.length)
 
 /**
@@ -60,7 +60,7 @@ export function getWxmlTag(doc: TextDocument, pos: Position): null | Tag {
 
   // 标签起始位置
   const range = getBracketRange(attrFlagText, offset)
-  if(!range){
+  if (!range) {
     return null
   }
   const [start, end] = range
@@ -70,20 +70,20 @@ export function getWxmlTag(doc: TextDocument, pos: Position): null | Tag {
   pureText = pureText.substr(start, end)
   attrFlagText = attrFlagText.substr(start, end)
 
-  const tagNameMatcher = attrFlagText.match(/^<(\w+)/);
-  if(!tagNameMatcher){
+  const tagNameMatcher = attrFlagText.match(/^<(\w+)/)
+  if (!tagNameMatcher) {
     return null
   }
   const name = tagNameMatcher[1] // 标签名称
   const attrstr = text.substr(tagNameMatcher[0].length) // 属性部分原始字符串
-  
+
   const inputWordRange = doc.getWordRangeAtPosition(pos, /\b[\w-:.]+\b/) // 正在输入的词的范围
   const posWord = inputWordRange ? doc.getText(inputWordRange) : '' // 正在输入的词
   const isOnTagName = offset <= name.length + 2
   const isOnAttrValue = attrFlagText[offset] === '%'
-  const attrName = isOnAttrValue? getAttrName(attrFlagText.substring(0, offset)) : '' // 当前输入对应的属性
+  const attrName = isOnAttrValue ? getAttrName(attrFlagText.substring(0, offset)) : '' // 当前输入对应的属性
   const isOnAttrName = !isOnTagName && !isOnAttrValue && !!posWord
-  
+
   return {
         name,
         attrs: getAttrs((attrstr || '').trim()),
