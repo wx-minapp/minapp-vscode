@@ -5,6 +5,7 @@
 
 ## 最近更新 【[see more](https://github.com/wx-minapp/minapp-vscode/blob/master/CHANGELOG.md)】
 
+* 【2019-06-21】1.16.0 标签多行写法可补全，tagName 和 tagAttr 可以随时补全
 * 【2019-06-09】1.15.0 支持解析 sass/scss 文件，方便样式名自动补全
 * 【2019-06-03】1.14.0 wxmlFormatter 配置支持热更新，同时 prettyHtml 不会移除自闭合标签的 `/` 符号
 * 【2019-04-23】1.13.0 wxml 支持 `prettier`和 `prettyHtml`

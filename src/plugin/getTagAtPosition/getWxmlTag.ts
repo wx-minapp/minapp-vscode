@@ -79,7 +79,7 @@ export function getWxmlTag(doc: TextDocument, pos: Position): null | Tag {
 
   const inputWordRange = doc.getWordRangeAtPosition(pos, /\b[\w-:.]+\b/) // 正在输入的词的范围
   const posWord = inputWordRange ? doc.getText(inputWordRange) : '' // 正在输入的词
-  const isOnTagName = offset <= name.length + 2
+  const isOnTagName = offset <= name.length + 1
   const isOnAttrValue = attrFlagText[offset] === '%'
   const attrName = isOnAttrValue ? getAttrName(attrFlagText.substring(0, offset)) : '' // 当前输入对应的属性
   const isOnAttrName = !isOnTagName && !isOnAttrValue && !!posWord

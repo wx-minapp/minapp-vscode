@@ -178,7 +178,9 @@ export default abstract class AutoCompletion {
   async createComponentAttributeSnippetItems(lc: LanguageConfig, doc: TextDocument, pos: Position) {
     let tag = getTagAtPosition(doc, pos)
     if (!tag) return []
-    if (tag.isOnAttrValue && tag.attrName) {
+    if (tag.isOnTagName) {
+      return this.createComponentSnippetItems(lc, doc, pos, tag.name)
+    } else if (tag.isOnAttrValue && tag.attrName) {
       let attrValue = tag.attrs[tag.attrName]
       if (tag.attrName === 'class') {
         let existsClass = (tag.attrs.class || '') as string
