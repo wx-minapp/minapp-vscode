@@ -10,7 +10,7 @@ import {
 
 import AutoCompletion from './AutoCompletion'
 
-import {getLanguage, getLastChar} from './lib/helper'
+import { getLanguage, getLastChar } from './lib/helper'
 
 export default class extends AutoCompletion implements CompletionItemProvider {
   id = 'wxml' as 'wxml'
@@ -32,6 +32,10 @@ export default class extends AutoCompletion implements CompletionItemProvider {
       case '.': // 变量或事件的修饰符
         return this.createSpecialAttributeSnippetItems(language, document, position)
       default:
+        if (char >= 'a' && char <= 'z') {
+          // 输入属性时自动提示
+          return this.createComponentAttributeSnippetItems(language, document, position)
+        }
         return [] as any
     }
   }
