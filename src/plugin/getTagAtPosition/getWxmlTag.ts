@@ -67,7 +67,7 @@ export function getWxmlTag(doc: TextDocument, pos: Position): null | Tag {
 
   offset = offset - start
   text = text.substr(start, end)
-  pureText = pureText.substr(start, end)
+  // pureText = pureText.substr(start, end)
   attrFlagText = attrFlagText.substr(start, end)
 
   const tagNameMatcher = attrFlagText.match(/^<(\w+)/)
