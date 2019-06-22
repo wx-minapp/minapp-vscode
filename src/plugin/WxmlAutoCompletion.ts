@@ -23,9 +23,15 @@ export default class extends AutoCompletion implements CompletionItemProvider {
 
     switch (char) {
       case '<': return this.createComponentSnippetItems(language, document, position)
+      case '\n': // 换行
+      /// @ts-ignore
+      case ' ': // 空格
+        // 如果后面紧跟非空内容不触发自动提示
+        // (常用于手动调整缩进位置)
+        if (getLastChar(document, new Position(position.line, position.character + 1)).trim()) return Promise.resolve([])
       case '"':
       case '\'':
-      case ' ': return this.createComponentAttributeSnippetItems(language, document, position)
+       return this.createComponentAttributeSnippetItems(language, document, position)
       case ':': // 绑定变量 （也可以是原生小程序的控制语句或事件，如 wx:for, bind:tap）
       case '@': // 绑定事件
       case '-': // v-if
