@@ -63,7 +63,7 @@ export function activate(context: ExtensionContext) {
     languages.registerDefinitionProvider([pug].concat(wxml), propDefinitionProvider),
 
     // 自动补全
-    languages.registerCompletionItemProvider(wxml, autoCompletionWxml, '<', ' ', ':', '@', '.', '-', '"', '\''),
+    languages.registerCompletionItemProvider(wxml, autoCompletionWxml, '<', ' ', ':', '@', '.', '-', '"', '\'', '\n'),
     languages.registerCompletionItemProvider(pug, autoCompletionPug, '\n', ' ', '(', ':', '@', '.', '-', '"', '\''),
     // trigger 需要是上两者的和
     languages.registerCompletionItemProvider(vue, autoCompletionVue, '<', ' ', ':', '@', '.', '-', '(', '"', '\'')
