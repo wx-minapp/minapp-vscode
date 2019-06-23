@@ -1,5 +1,5 @@
 import { Config } from './lib/config'
-import {DefinitionProvider, TextDocument, Position, CancellationToken, Location, Uri, Range} from 'vscode'
+import { DefinitionProvider, TextDocument, Position, CancellationToken, Location, Uri, Range } from 'vscode'
 import { getTagAtPosition } from './getTagAtPosition'
 import { getClass } from './lib/StyleFile'
 import { getProp } from './lib/ScriptFile'
@@ -9,13 +9,13 @@ const reserveWords = [
 ]
 
 export class PropDefinitionProvider implements DefinitionProvider {
-  constructor(public config: Config) {}
+  constructor(public config: Config) { }
   public async provideDefinition(document: TextDocument, position: Position, token: CancellationToken) {
     const tag = getTagAtPosition(document, position)
     const locs: Location[] = []
 
     if (tag) {
-      const {attrs, attrName, posWord} = tag
+      const { attrs, attrName, posWord } = tag
       const rawAttrValue = ((attrs['__' + attrName] || '') as string).replace(/^['"]|['"]$/g, '') // 去除引号
 
       // 不在属性上
@@ -42,7 +42,7 @@ export class PropDefinitionProvider implements DefinitionProvider {
   }
 
   searchScript(type: 'prop' | 'method', word: string, doc: TextDocument) {
-    return getProp(doc.fileName, type, word)
+    return getProp(doc.fileName, type, word).map(p => p.loc)
   }
 
   searchStyle(className: string, document: TextDocument, position: Position) {

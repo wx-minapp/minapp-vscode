@@ -3,9 +3,30 @@ import * as path from 'path'
 import * as fs from 'fs'
 import { Location, Uri, Position, Range } from 'vscode'
 
+interface PropInfo {
+  loc: Location,
+  name: string,
+  detail: string,
+}
+/**
+ * js/ts 文件映射缓存
+ */
+const wxJsMapCache = new Map<string, string>()
+/**
+ * 结果缓存
+ */
+const resultCache = new Map<string, { mtime: number, data: PropInfo[] }>()
+
+/**
+ * 保留字段,
+ * 用于无限制匹配式函数过滤
+ * `if(x){}` 等满足函数正
+ */
+const reservedWords = ['if', 'switch', 'catch', 'while', 'for', 'constructor']
+
 function parseScriptFile(file: string, type: string, prop: string) {
   let content = getFileContent(file)
-  let locs: Location[] = []
+  let locs: PropInfo[] = []
 
   let reg: RegExp | null = null
   /**
@@ -27,21 +48,31 @@ function parseScriptFile(file: string, type: string, prop: string) {
      * 允许参数跨行
      * - 无参数`()`
      * - 有参数`( e )`
+     * - 有参类型`( e?:{}= )`
      * - 参数跨行
      * ```ts
      *  (
      *    e: event
      *  )
      * ```
+     * ```js
+     * /\(\s*(?:[\w\d_$]+(?:[,=:?][\s\S]*?)?)?\)/
+     * ```
      */
-    const param = `\\([\\s\\S]*?\\)`
-    const async = `(async\\s+)?`
+    const param = `\\(${s}(?:[\\w\\d_$]+(?:[,=:?][\\s\\S]*?)?)?\\)`
+    const async = `(?:async\\s+)?`
+    /**
+     * 返回值正则
+     * `:type `
+     */
+    const returnType = `(?::[\\s\\S]*?)?`
     /**
      * 方法定义正则
      * - 普通方法`prop(...){`
+     * - 返回值方法`prop(...): void {`
      * - 异步方法`async prop(...){`
      */
-    const methodReg = `${async}${prop}${s}${param}${s}\\{`
+    const methodReg = `${async}(${prop})${s}${param}${s}${returnType}\\{`
     /**
      * 属性式函数定义 正则
      * - 箭头函数`prop: (...) =>`
@@ -49,27 +80,71 @@ function parseScriptFile(file: string, type: string, prop: string) {
      * - 普通函数声明`prop: function...`
      * - 异步函数声明`prop: async function...`
      */
-    const propFuncReg = `${prop}${s}:${async}(${param}${s}=>|function\\W)`
+    const propFuncReg = `(${prop})${s}:${s}${async}(?:${param}${s}${returnType}=>|function\\W)`
     reg = new RegExp(`^${s}(${methodReg}|${propFuncReg})`, 'gm')
   }
 
-  match(content, reg!).forEach(mat => {
-    let pos = getPositionFromIndex(content, mat.index + mat[0].indexOf(prop))
-    let endPos = new Position(pos.line, pos.character + prop.length)
-    locs.push(new Location(Uri.file(file), new Range(pos, endPos)))
-  })
+  match(content, reg!)
+    .filter(mat => {
+      const property = mat[2] || mat[3]
+      // 精确匹配或者不是关键字
+      return property === prop || reservedWords.indexOf(property) === -1
+    })
+    .forEach(mat => {
+      const property = mat[2] || mat[3] || prop
+      let pos = getPositionFromIndex(content, mat.index + mat[0].indexOf(property))
+      let endPos = new Position(pos.line, pos.character + property.length)
+      locs.push({
+        loc: new Location(Uri.file(file), new Range(pos, endPos)),
+        name: property,
+        detail: mat[1] || mat[0]
+      })
+    })
   return locs
 }
 
-export function getProp(wxmlFile: string, type: string, prop: string) {
-  let dir = path.dirname(wxmlFile)
-  let base = path.basename(wxmlFile, path.extname(wxmlFile))
 
-  let exts = ['js', 'ts']
-  for (const ext of exts) {
-    let file = path.join(dir, base + '.' + ext)
-    if (fs.existsSync(file)) return parseScriptFile(file, type, prop)
+/**
+ * 解析文件映射关系
+ * @param wxmlFile
+ */
+function getScriptFile(wxmlFile: string): string | undefined {
+  if (wxJsMapCache.has(wxmlFile)) {
+    return wxJsMapCache.get(wxmlFile)
   }
+  const dir = path.dirname(wxmlFile)
+  const base = path.basename(wxmlFile, path.extname(wxmlFile))
 
-  return []
+  const exts = ['ts', 'js'] // 先ts 再js 防止读取编译后的
+  for (const ext of exts) {
+    const file = path.join(dir, base + '.' + ext)
+    if (fs.existsSync(file)) {
+      wxJsMapCache.set(wxmlFile, file)
+      return file
+    }
+  }
+  return undefined
+}
+
+/**
+ * 提取脚本文件中的定义
+ * @param wxmlFile
+ * @param type
+ * @param prop
+ */
+export function getProp(wxmlFile: string, type: string, prop: string) {
+  const scriptFile = getScriptFile(wxmlFile)
+  if (!scriptFile) return []
+
+  const key = `${scriptFile}?${type}&${prop}`
+  const cache = resultCache.get(key)
+  const mtime = fs.statSync(scriptFile).mtimeMs
+  if (cache && cache.mtime === mtime) {
+    return cache.data
+  }
+  const result = parseScriptFile(scriptFile, type, prop)
+  if (result && result.length > 0) {
+    resultCache.set(key, { mtime, data: result })
+  }
+  return result
 }
