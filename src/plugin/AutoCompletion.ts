@@ -306,7 +306,7 @@ export default abstract class AutoCompletion {
    * @param doc
    * @param pos
    */
-  autoCompletionCloseTag(doc: TextDocument, pos: Position): CompletionItem[] {
+  async createCloseTagCompletionItem(doc: TextDocument, pos: Position): Promise<CompletionItem[]> {
     const text = doc.getText(new Range(new Position(0, 0), pos))
     if (text.length < 2 || text.substr(text.length - 2) !== '</') {
       return []
@@ -314,7 +314,7 @@ export default abstract class AutoCompletion {
     const closeTag = getCloseTag(text)
     if (closeTag) {
       const completionItem = new CompletionItem(closeTag)
-      completionItem.kind = CompletionItemKind.Field
+      completionItem.kind = CompletionItemKind.Property
       completionItem.insertText = closeTag
 
       const nextPos = new Position(pos.line, pos.character + 1)
