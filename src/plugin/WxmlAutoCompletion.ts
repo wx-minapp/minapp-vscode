@@ -39,6 +39,8 @@ export default class extends AutoCompletion implements CompletionItemProvider {
       case '-': // v-if
       case '.': // 变量或事件的修饰符
         return this.createSpecialAttributeSnippetItems(language, document, position)
+      case '/': // 闭合标签
+        return Promise.resolve(this.autoCompletionCloseTag(document, position))
       default:
         if (char >= 'a' && char <= 'z') {
           // 输入属性时自动提示
