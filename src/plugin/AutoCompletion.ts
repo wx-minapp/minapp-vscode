@@ -315,7 +315,7 @@ export default abstract class AutoCompletion {
   /**
    * 闭合标签自动完成
    * @param doc
-   * @param pos 
+   * @param pos
    */
   async createCloseTagCompletionItem(doc: TextDocument, pos: Position): Promise<CompletionItem[]> {
     const text = doc.getText(new Range(new Position(0, 0), pos))
@@ -368,7 +368,7 @@ export default abstract class AutoCompletion {
        * 排序显示规则
        * 1. 正常函数 如 `onTap`
        * 2. 下划线函数 `_save`
-       * 3. 生命周期函数 `_onShow`
+       * 3. 生命周期函数 `onShow`
        */
       if (priotity > 0) {
         c.detail += '(生命周期函数)'
@@ -389,7 +389,7 @@ export default abstract class AutoCompletion {
  * @param text
  */
 function getMethodKind(text: string) {
-  return /^\s*[\w_$][\w_$\d]*\s*:/.test(text) ? CompletionItemKind.Property : CompletionItemKind.Method;
+  return /^\s*[\w_$][\w_$\d]*\s*:/.test(text) ? CompletionItemKind.Property : CompletionItemKind.Method
 }
 
 function autoSuggestCommand() {
