@@ -320,6 +320,7 @@ export default abstract class AutoCompletion {
       const nextPos = new Position(pos.line, pos.character + 1)
       if (getLastChar(doc, nextPos) === '>') {
         completionItem.range = new Range(pos, nextPos)
+        completionItem.label = closeTag.substr(0, closeTag.length - 1)
       }
       return [completionItem]
     }
