@@ -163,6 +163,7 @@
       "patterns": [
         {
           "name": "source.directive.wxml",
+          "contentName": "support.function.wxml",
           "begin": "([\"'])",
           "beginCaptures": {
             "1": {
@@ -174,19 +175,15 @@
             "0": {
               "name": "string.quoted.end.html"
             }
-          },
-          "patterns": [
-            {
-              "include": "source.js"
-            }
-          ]
+          }
         }
       ]
     },
     "wxml-interpolations": {
       "patterns": [
         {
-          "end": "\\}\\}\\}?",
+          "contentName": "markup.blob markup.heading",
+          "end": "\\}\\}",
           "patterns": [
             {
               "include": "source.js#expression"
@@ -194,14 +191,14 @@
           ],
           "beginCaptures": {
             "0": {
-              "name": "punctuation.definition.generic.begin.html"
+              "name": "support.constant.handlebars.wxml"
             }
           },
           "name": "expression.embedded.wxml",
-          "begin": "\\{\\{\\{?",
+          "begin": "\\{\\{",
           "endCaptures": {
             "0": {
-              "name": "punctuation.definition.generic.end.html"
+              "name": "support.constant.handlebars.wxml"
             }
           }
         }
@@ -371,7 +368,6 @@
         }
       }
     },
-
     {
       "end": "(<?/)(wxs)?(>)",
       "begin": "(<)(wxs)",
@@ -414,7 +410,6 @@
         }
       ]
     },
-
     {
       "end": "(</)(template)(>)",
       "begin": "(<)(template)",
