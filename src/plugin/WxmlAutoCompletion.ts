@@ -16,6 +16,9 @@ export default class extends AutoCompletion implements CompletionItemProvider {
   id = 'wxml' as 'wxml'
 
   provideCompletionItems(document: TextDocument, position: Position, token: CancellationToken, context: CompletionContext): Promise<CompletionItem[]> {
+    if (token.isCancellationRequested) {
+      return Promise.resolve([])
+    }
     let language = getLanguage(document, position)
     if (!language) return [] as any
 
@@ -39,6 +42,8 @@ export default class extends AutoCompletion implements CompletionItemProvider {
       case '-': // v-if
       case '.': // 变量或事件的修饰符
         return this.createSpecialAttributeSnippetItems(language, document, position)
+      case '/': // 闭合标签
+        return this.createCloseTagCompletionItem(document, position)
       default:
         if (char >= 'a' && char <= 'z') {
           // 输入属性时自动提示

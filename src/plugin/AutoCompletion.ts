@@ -15,12 +15,13 @@ import {
 
 import * as path from 'path'
 
-import {Config} from './lib/config'
-import {getCustomOptions, getTextAtPosition, getRoot, getEOL} from './lib/helper'
-import {LanguageConfig} from './lib/language'
-import {getTagAtPosition} from './getTagAtPosition/'
+import { Config } from './lib/config'
+import { getCustomOptions, getTextAtPosition, getRoot, getEOL, getLastChar } from './lib/helper'
+import { LanguageConfig } from './lib/language'
+import { getTagAtPosition } from './getTagAtPosition/'
 import * as s from './res/snippets'
 import { getClass } from './lib/StyleFile'
+import { getCloseTag } from './lib/closeTag'
 
 export default abstract class AutoCompletion {
   abstract id: 'wxml' | 'wxml-pug'
@@ -32,7 +33,7 @@ export default abstract class AutoCompletion {
     return this.isPug ? this.config.pugQuoteStyle : this.config.wxmlQuoteStyle
   }
 
-  constructor(public config: Config) {}
+  constructor(public config: Config) { }
 
   getCustomOptions(doc: TextDocument) {
     return getCustomOptions(this.config, doc)
@@ -42,7 +43,7 @@ export default abstract class AutoCompletion {
     let c = tag.component
     let item = new CompletionItem(c.name, CompletionItemKind.Module)
 
-    let {attrQuote, isPug} = this
+    let { attrQuote, isPug } = this
     let allAttrs = c.attrs || []
     let attrs = allAttrs
       .filter(a => a.required || a.subAttrs)
@@ -80,7 +81,7 @@ export default abstract class AutoCompletion {
       defaultValue = a.enum && a.enum[0].value
     }
 
-    let {attrQuote, isPug} = this
+    let { attrQuote, isPug } = this
 
     if (a.boolean) {
       item.insertText = new SnippetString(isPug && defaultValue === 'false' ? `${a.name}=false` : a.name)
@@ -90,7 +91,7 @@ export default abstract class AutoCompletion {
         : this.setDefault(1, defaultValue)
 
       // 是否有可选值，如果有可选值则触发命令的自动补全
-      let values = a.enum ? a.enum : a.subAttrs ? a.subAttrs.map(sa => ({value: sa.equal})) : []
+      let values = a.enum ? a.enum : a.subAttrs ? a.subAttrs.map(sa => ({ value: sa.equal })) : []
       if (values.length) {
         value = '\${1}'
         item.command = autoSuggestCommand()
@@ -149,7 +150,7 @@ export default abstract class AutoCompletion {
 
     // 添加 Snippet
     let userSnippets = this.config.snippets
-    let allSnippets: s.Snippets = (this.isPug ? {...s.PugSnippets, ...userSnippets.pug} : {...s.WxmlSnippets, ...userSnippets.wxml})
+    let allSnippets: s.Snippets = (this.isPug ? { ...s.PugSnippets, ...userSnippets.pug } : { ...s.WxmlSnippets, ...userSnippets.wxml })
     items.push(...Object.keys(allSnippets)
       .filter(k => filter(k))
       .map(k => {
@@ -207,7 +208,7 @@ export default abstract class AutoCompletion {
       let res = await autocompleteTagAttr(tag.name, tag.attrs, lc, this.getCustomOptions(doc))
       let triggers: CompletionItem[] = []
 
-      let {natives, basics} = res
+      let { natives, basics } = res
       let noBasics = lc.noBasicAttrsComponents || []
 
       if (noBasics.indexOf(tag.name) < 0) {
@@ -299,6 +300,34 @@ export default abstract class AutoCompletion {
 
     return items
   }
+
+  /**
+   * 闭合标签自动完成
+   * @param doc
+   * @param pos
+   */
+  async createCloseTagCompletionItem(doc: TextDocument, pos: Position): Promise<CompletionItem[]> {
+    const text = doc.getText(new Range(new Position(0, 0), pos))
+    if (text.length < 2 || text.substr(text.length - 2) !== '</') {
+      return []
+    }
+    const closeTag = getCloseTag(text)
+    if (closeTag) {
+      const completionItem = new CompletionItem(closeTag)
+      completionItem.kind = CompletionItemKind.Property
+      completionItem.insertText = closeTag
+
+      const nextPos = new Position(pos.line, pos.character + 1)
+      if (getLastChar(doc, nextPos) === '>') {
+        completionItem.range = new Range(pos, nextPos)
+        completionItem.label = closeTag.substr(0, closeTag.length - 1)
+      }
+      return [completionItem]
+    }
+
+    return []
+  }
+
 }
 
 function autoSuggestCommand() {
