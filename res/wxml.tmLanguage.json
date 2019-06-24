@@ -189,7 +189,7 @@
           "end": "\\}\\}\\}?",
           "patterns": [
             {
-              "include": "source.js"
+              "include": "source.js#expression"
             }
           ],
           "beginCaptures": {
