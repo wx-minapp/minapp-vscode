@@ -1,7 +1,7 @@
 import { getFileContent, match, getPositionFromIndex } from './helper'
 import * as path from 'path'
 import * as fs from 'fs'
-import { Location, Uri, Position, Range } from 'vscode'
+import { Location, Uri, Position, Range, window } from 'vscode'
 
 interface PropInfo {
   loc: Location,
@@ -15,7 +15,7 @@ const wxJsMapCache = new Map<string, string>()
 /**
  * 结果缓存
  */
-const resultCache = new Map<string, { mtime: number, data: PropInfo[] }>()
+const resultCache = new Map<string, { version: number, data: PropInfo[] }>()
 
 /**
  * 保留字段,
@@ -126,6 +126,22 @@ function getScriptFile(wxmlFile: string): string | undefined {
   return undefined
 }
 
+
+/**
+ * 获取文件版本信息,
+ * 编辑器 和 文件系统
+ * 只能用===判断
+ * @param file
+ */
+function getVersion(file: string): number {
+  const editor = window.visibleTextEditors.find(e => e.document.fileName === file)
+  if (editor) {
+    return editor.document.version
+  } else {
+    return fs.statSync(file).mtimeMs
+  }
+}
+
 /**
  * 提取脚本文件中的定义
  * @param wxmlFile
@@ -138,13 +154,13 @@ export function getProp(wxmlFile: string, type: string, prop: string) {
 
   const key = `${scriptFile}?${type}&${prop}`
   const cache = resultCache.get(key)
-  const mtime = fs.statSync(scriptFile).mtimeMs
-  if (cache && cache.mtime === mtime) {
+  const version = getVersion(scriptFile)
+  if (cache && cache.version === version) {
     return cache.data
   }
   const result = parseScriptFile(scriptFile, type, prop)
   if (result && result.length > 0) {
-    resultCache.set(key, { mtime, data: result })
+    resultCache.set(key, { version, data: result })
   }
   return result
 }
