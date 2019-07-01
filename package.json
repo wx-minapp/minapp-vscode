@@ -21,6 +21,38 @@
     "wexin"
   ],
   "license": "MIT",
+  "eslintConfig": {
+    "env": {
+      "node": false,
+      "browser": true
+    },
+    "extends": [
+      "./node_modules/@serpent/dev-kits/.eslintrc"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 2018,
+      "sourceType": "module",
+      "project": "./tsconfig.json"
+    },
+    "rules": {}
+  },
+  "eslintIgnore": [
+    "dist",
+    "coverage"
+  ],
+  "prettier": {
+    "printWidth": 120,
+    "tabWidth": 2,
+    "useTabs": false,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "bracketSpacing": true,
+    "jsxBracketSameLine": false,
+    "endOfLine": "lf",
+    "arrowParens": "avoid",
+    "jsxSingleQuote": true
+  },
   "author": "Mora <qiuzhongleiabc@126.com> (https://github.com/qiu8310)",
   "bugs": "https://github.com/wx-minapp/minapp-vscode/issues",
   "homepage": "https://github.com/wx-minapp/minapp-vscode",
@@ -279,14 +311,7 @@
     "prettier": "^1.16.4"
   },
   "devDependencies": {
-    "@types/mocha": "^2.2.42",
-    "@types/node": "^8.10.22",
-    "@types/prettier": "^1.16.1",
-    "@types/sass": "^1.16.0",
-    "@types/resolve": "0.0.8",
-    "mora-scripts": "^1.6.35",
-    "tslint": "^5.14.0",
-    "typescript": "^3.3.3333",
+    "@serpent/dev-kits": "~0.4.0",
     "vscode": "^1.1.21"
   }
 }
