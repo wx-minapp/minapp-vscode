@@ -28,7 +28,7 @@ matrix:
 #   - "12"
 
 scripts:
-  - npm run lint
+  - npm test
 
 notifications:
   email:
