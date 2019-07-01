@@ -5,7 +5,7 @@
   "version": "1.16.1",
   "publisher": "qiu8310",
   "scripts": {
-    "lint": "tslint src/**/*.ts --fix",
+    "lint": "eslint --ext .ts,.tsx ./src",
     "clear": "remove-all dist",
     "vscode:prepublish": "npm run build",
     "build": "npm run clear && npm run lint && tsc -p ./",
@@ -34,7 +34,9 @@
       "sourceType": "module",
       "project": "./tsconfig.json"
     },
-    "rules": {}
+    "rules": {
+      "@typescript-eslint/no-parameter-properties": "off"
+    }
   },
   "eslintIgnore": [
     "dist",

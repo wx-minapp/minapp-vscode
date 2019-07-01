@@ -19,7 +19,6 @@ import ActiveTextEditorListener from './plugin/ActiveTextEditorListener'
 import { config, configActivate, configDeactivate } from './plugin/lib/config'
 import { PropDefinitionProvider } from './plugin/PropDefinitionProvider'
 
-
 export function activate(context: ExtensionContext) {
   // console.log('minapp-vscode is active!')
   configActivate()
@@ -58,15 +57,27 @@ export function activate(context: ExtensionContext) {
     languages.registerDocumentFormattingEditProvider(wxml, formatter),
     languages.registerDocumentRangeFormattingEditProvider(wxml, formatter),
 
-
     // DefinitionProvider
     languages.registerDefinitionProvider([pug].concat(wxml), propDefinitionProvider),
 
     // 自动补全
-    languages.registerCompletionItemProvider(wxml, autoCompletionWxml, '<', ' ', ':', '@', '.', '-', '"', '\'', '\n', '/'),
-    languages.registerCompletionItemProvider(pug, autoCompletionPug, '\n', ' ', '(', ':', '@', '.', '-', '"', '\''),
+    languages.registerCompletionItemProvider(
+      wxml,
+      autoCompletionWxml,
+      '<',
+      ' ',
+      ':',
+      '@',
+      '.',
+      '-',
+      '"',
+      "'",
+      '\n',
+      '/'
+    ),
+    languages.registerCompletionItemProvider(pug, autoCompletionPug, '\n', ' ', '(', ':', '@', '.', '-', '"', "'"),
     // trigger 需要是上两者的和
-    languages.registerCompletionItemProvider(vue, autoCompletionVue, '<', ' ', ':', '@', '.', '-', '(', '"', '\'')
+    languages.registerCompletionItemProvider(vue, autoCompletionVue, '<', ' ', ':', '@', '.', '-', '(', '"', "'")
   )
 }
 
@@ -76,28 +87,28 @@ export function deactivate() {
 
 function autoConfig() {
   let c = workspace.getConfiguration()
-  const updates: Array<{ key: string, map: any }> = [
+  const updates: { key: string; map: any }[] = [
     {
       key: 'files.associations',
       map: {
         '*.cjson': 'jsonc',
         '*.wxss': 'css',
-        '*.wxs': 'javascript'
-      }
+        '*.wxs': 'javascript',
+      },
     },
     {
       key: 'emmet.includeLanguages',
       map: {
-        wxml: 'html'
-      }
-    }
+        wxml: 'html',
+      },
+    },
   ]
 
   updates.forEach(({ key, map }) => {
     let oldMap = c.get(key, {}) as any
     let appendMap: any = {}
     Object.keys(map).forEach(k => {
-      if (!(oldMap.hasOwnProperty(k))) appendMap[k] = map[k]
+      if (!oldMap.hasOwnProperty(k)) appendMap[k] = map[k]
     })
     if (Object.keys(appendMap).length) {
       c.update(key, { ...oldMap, ...appendMap }, true)
