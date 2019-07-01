@@ -22,6 +22,7 @@ import { getTagAtPosition } from './getTagAtPosition/'
 import * as s from './res/snippets'
 import { getClass } from './lib/StyleFile'
 import { getCloseTag } from './lib/closeTag'
+import { getProp } from './lib/ScriptFile'
 
 export default abstract class AutoCompletion {
   abstract id: 'wxml' | 'wxml-pug'
@@ -181,27 +182,37 @@ export default abstract class AutoCompletion {
     if (!tag) return []
     if (tag.isOnTagName) {
       return this.createComponentSnippetItems(lc, doc, pos, tag.name)
-    } else if (tag.isOnAttrValue && tag.attrName) {
+    }
+    if (tag.isOnAttrValue && tag.attrName) {
       let attrValue = tag.attrs[tag.attrName]
       if (tag.attrName === 'class') {
         let existsClass = (tag.attrs.class || '') as string
         return this.autoCompleteClassNames(doc, existsClass ? existsClass.trim().split(/\s+/) : [])
-      } else if (typeof attrValue === 'string' && attrValue.trim() === '') {
-        let values = await autocompleteTagAttrValue(tag.name, tag.attrName, lc, this.getCustomOptions(doc))
-        if (!values.length) return []
-        let range = doc.getWordRangeAtPosition(pos, /['"]\s*['"]/)
-        if (range) {
-          range = new Range(
-            new Position(range.start.line, range.start.character + 1),
-            new Position(range.end.line, range.end.character - 1)
-          )
+      } else if (typeof attrValue === 'string') {
+        if ((tag.attrName.startsWith('bind') || tag.attrName.startsWith('catch'))) {
+          // 函数自动补全
+          return this.autoCompleteMethods(doc, attrValue.replace(/"|'/, ''))
+        } else if (attrValue.trim() === '') {
+          let values = await autocompleteTagAttrValue(tag.name, tag.attrName, lc, this.getCustomOptions(doc))
+          if (!values.length) return []
+          let range = doc.getWordRangeAtPosition(pos, /['"]\s*['"]/)
+          if (range) {
+            range = new Range(
+              new Position(range.start.line, range.start.character + 1),
+              new Position(range.end.line, range.end.character - 1)
+            )
+          }
+          return values.map(v => {
+            let it = new CompletionItem(v.value, CompletionItemKind.Value)
+            it.documentation = new MarkdownString(v.markdown)
+            it.range = range
+            return it
+          })
         }
-        return values.map(v => {
-          let it = new CompletionItem(v.value, CompletionItemKind.Value)
-          it.documentation = new MarkdownString(v.markdown)
-          it.range = range
-          return it
-        })
+
+        // } else if ((tag.attrName.startsWith('bind') || tag.attrName.startsWith('catch')) && typeof attrValue === 'string') {
+
+        //   return this.autoCompleteMethods(doc, attrValue.replace(/"|'/, ''))
       }
       return []
     } else {
@@ -328,6 +339,57 @@ export default abstract class AutoCompletion {
     return []
   }
 
+  /**
+   * 函数自动提示
+   * @param doc
+   * @param prefix 函数前缀,空则查找所有函数
+   */
+  autoCompleteMethods(doc: TextDocument, prefix: string): CompletionItem[] {
+    /**
+     * 页面周期和组件 生命周期函数,
+     * 显示时置于最后
+     * 列表中顺序决定显示顺序
+     */
+    const lowPriority = [
+      'onPullDownRefresh', 'onReachBottom', 'onPageScroll',
+      'onShow', 'onHide', 'onTabItemTap', 'onLoad', 'onReady', 'onResize', 'onUnload', 'onShareAppMessage',
+      'error', 'creaeted', 'attached', 'ready', 'moved', 'detached', 'observer',
+    ]
+    const methods = getProp(doc.uri.fsPath, 'method', (prefix || '[\\w_$]') + '[\\w\\d_$]*')
+    const root = getRoot(doc)
+    return methods.map(l => {
+      const c = new CompletionItem(l.name, getMethodKind(l.detail))
+      const filePath = root ? path.relative(root, l.loc.uri.fsPath) : path.basename(l.loc.uri.fsPath)
+      // 低优先级排序滞后
+      const priotity = lowPriority.indexOf(l.name) + 1
+      c.detail = `${filePath}\n[${l.loc.range.start.line}行,${l.loc.range.start.character}列]`
+      c.documentation = new MarkdownString('```ts\n' + l.detail + '\n```')
+      /**
+       * 排序显示规则
+       * 1. 正常函数 如 `onTap`
+       * 2. 下划线函数 `_save`
+       * 3. 生命周期函数 `onShow`
+       */
+      if (priotity > 0) {
+        c.detail += '(生命周期函数)'
+        c.kind = CompletionItemKind.Field
+        c.sortText = '}'.repeat(priotity)
+      } else {
+        c.sortText = l.name.replace('_', '{')
+      }
+      return c
+    })
+  }
+
+}
+
+/**
+ * 是否为属性式函数声明
+ * 如 属性式声明 `foo:()=>{}`
+ * @param text
+ */
+function getMethodKind(text: string) {
+  return /^\s*[\w_$][\w_$\d]*\s*:/.test(text) ? CompletionItemKind.Property : CompletionItemKind.Method
 }
 
 function autoSuggestCommand() {
