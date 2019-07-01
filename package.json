@@ -314,6 +314,7 @@
   },
   "devDependencies": {
     "@serpent/dev-kits": "~0.4.0",
+    "@types/prettier": "~1.16.4",
     "vscode": "^1.1.21"
   }
 }

@@ -4,12 +4,10 @@ import { getTagAtPosition } from './getTagAtPosition'
 import { getClass } from './lib/StyleFile'
 import { getProp } from './lib/ScriptFile'
 
-const reserveWords = [
-  'true', 'false'
-]
+const reserveWords = ['true', 'false']
 
 export class PropDefinitionProvider implements DefinitionProvider {
-  constructor(public config: Config) { }
+  constructor(public config: Config) {}
   public async provideDefinition(document: TextDocument, position: Position, token: CancellationToken) {
     const tag = getTagAtPosition(document, position)
     const locs: Location[] = []
@@ -22,11 +20,11 @@ export class PropDefinitionProvider implements DefinitionProvider {
       if (!tag.isOnAttrValue) return locs
 
       // 忽略特殊字符或者以数字开头的单词
-      if (reserveWords.indexOf(posWord) >= 0 || /^\d/.test(posWord)) return locs
+      if (reserveWords.includes(posWord) || /^\d/.test(posWord)) return locs
 
       if (attrName === 'class') {
         return this.searchStyle(posWord, document, position)
-      } else if (/\.sync$/.test(attrName) || (rawAttrValue.startsWith('{{') && rawAttrValue.endsWith('}}'))) {
+      } else if (attrName.endsWith('.sync') || (rawAttrValue.startsWith('{{') && rawAttrValue.endsWith('}}'))) {
         return this.searchScript('prop', posWord, document)
       } else if (/^(bind|catch)/.test(attrName) || /\.(user|stop|default)$/.test(attrName)) {
         return this.searchScript('method', posWord, document)

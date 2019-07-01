@@ -5,7 +5,7 @@ import {
   TextDocument,
   TextEdit,
   Range,
-  window
+  window,
 } from 'vscode'
 import * as Prettier from 'prettier'
 import { parse } from '@minapp/wxml-parser'
@@ -13,15 +13,17 @@ import { Config } from './lib/config'
 import { getEOL } from './lib/helper'
 import { requireLocalPkg } from './lib/requirePackage'
 
-type PrettierType = (typeof Prettier)
+type PrettierType = typeof Prettier
 export default class implements DocumentFormattingEditProvider, DocumentRangeFormattingEditProvider {
-  constructor(public config: Config) { }
+  constructor(public config: Config) {}
 
   async format(doc: TextDocument, range: Range, options: FormattingOptions, prefix = '') {
-
     let code = doc.getText(range)
     let content: string = code
-    const resolveOptions = (prettier?: PrettierType) => (prettier || requireLocalPkg<PrettierType>(doc.uri.fsPath, 'prettier')).resolveConfig(doc.uri.fsPath, { editorconfig: true })
+    const resolveOptions = (prettier?: PrettierType) =>
+      (prettier || requireLocalPkg<PrettierType>(doc.uri.fsPath, 'prettier')).resolveConfig(doc.uri.fsPath, {
+        editorconfig: true,
+      })
 
     try {
       if (this.config.wxmlFormatter === 'prettier') {
@@ -49,7 +51,7 @@ export default class implements DocumentFormattingEditProvider, DocumentRangeFor
           tabSize: options.tabSize,
           maxLineCharacters: this.config.formatMaxLineCharacters,
           removeComment: false,
-          reserveTags: this.config.reserveTags
+          reserveTags: this.config.reserveTags,
         })
       }
     } catch (e) {
@@ -64,7 +66,11 @@ export default class implements DocumentFormattingEditProvider, DocumentRangeFor
     return this.format(doc, range, options)
   }
 
-  provideDocumentRangeFormattingEdits(doc: TextDocument, range: Range, options: FormattingOptions): Promise<TextEdit[]> {
+  provideDocumentRangeFormattingEdits(
+    doc: TextDocument,
+    range: Range,
+    options: FormattingOptions
+  ): Promise<TextEdit[]> {
     let prefixRange = doc.getWordRangeAtPosition(range.start, /[ \t]+/)
     let prefix = prefixRange ? doc.getText(prefixRange) : ''
     return this.format(doc, range, options, prefix)

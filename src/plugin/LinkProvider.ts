@@ -3,7 +3,7 @@
  Author Mora <qiuzhongleiabc@126.com> (https://github.com/qiu8310)
 *******************************************************************/
 
-import {DocumentLinkProvider, DocumentLink, CancellationToken, TextDocument, Uri, Range} from 'vscode'
+import { DocumentLinkProvider, DocumentLink, CancellationToken, TextDocument, Uri, Range } from 'vscode'
 import { Config } from './lib/config'
 import * as fs from 'fs'
 import * as path from 'path'
@@ -17,7 +17,7 @@ export default class implements DocumentLinkProvider {
 
   private getLinks(doc: TextDocument) {
     let links: DocumentLink[] = []
-    let {linkAttributeNames} = this.config
+    let { linkAttributeNames } = this.config
     if (!linkAttributeNames.length) return links
 
     let roots = [path.dirname(doc.fileName), ...this.config.getResolveRoots(doc)]
