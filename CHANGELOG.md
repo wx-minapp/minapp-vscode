@@ -1,3 +1,11 @@
+2.0.0 / 2019-07-01
+==================
+
+* 优化 wxml 的自动补全机制 [#40](https://github.com/wx-minapp/minapp-vscode/pull/40)
+* 优化函数自动补全 [#39](https://github.com/wx-minapp/minapp-vscode/pull/39) [#42](https://github.com/wx-minapp/minapp-vscode/pull/42)
+* `{{` 和 `}}` 在属性值中可以自动配对 [#20](https://github.com/wx-minapp/minapp-vscode/issues/20)
+* 优化语法高亮，参考 handlebars 的高亮语法 [#44](https://github.com/wx-minapp/minapp-vscode/pull/44)
+
 1.16.0 / 2019-06-21
 ==================
 

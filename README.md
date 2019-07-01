@@ -5,15 +5,11 @@
 
 ## 最近更新 【[see more](https://github.com/wx-minapp/minapp-vscode/blob/master/CHANGELOG.md)】
 
+* 【2019-07-01】2.0.0  优化 wxml 的自动补全机制，优化语法高亮
 * 【2019-06-21】1.16.0 标签多行写法可补全，tagName 和 tagAttr 可以随时补全
 * 【2019-06-09】1.15.0 支持解析 sass/scss 文件，方便样式名自动补全
 * 【2019-06-03】1.14.0 wxmlFormatter 配置支持热更新，同时 prettyHtml 不会移除自闭合标签的 `/` 符号
 * 【2019-04-23】1.13.0 wxml 支持 `prettier`和 `prettyHtml`
-* 【2019-01-14】1.12.1 修复组件自带的事件不支持 bind:xxx 的写法的问题，见 [issues/15](https://github.com/wx-minapp/minapp-vscode/issues/15)
-* 【2019-01-05】1.12.0 支持 [mpx 小程序框架](https://github.com/didi/mpx)
-* 【2018-11-21】1.11.0 [点击模板文件中的函数或属性跳转到 js/ts 定义的地方](#attr-definition)
-* 【2018-11-15】1.10.0 [添加样式名自动补全功能](#attr-class-value)
-* 【2018-10-07】1.9.0 同步官方组件的最新数据
 
 
 <!-- <div style="color:red; font-size: 1.6em;">重要通知：由于旧版本不小心被我删除了，所以请 1.0.7 版本之前的用户删除旧版本再重新安装新版本；否则可能会无法成功安装新版本，并且也得不到新版本的推送！</div> -->
@@ -180,7 +176,7 @@ vue 中的 template 板支持两个属性：
 
 ## 模板文件中 js 变量高亮（纯 wxml 或 pug 文件才支持，vue 文件不支持）
 
-- 默认开启高亮，可以配置 `minapp-vscode.disableDecorate` 为 `true` 来关闭高亮
+- 默认关闭高亮，可以配置 `minapp-vscode.disableDecorate` 为 `true` 来开启高亮
 - 默认高亮颜色使用紫色，可以配置 `minapp-vscode.decorateType` 来使用你喜欢的颜色，如 `{"color": "red"}`
 - 默认会将 "{{" 与 "}}" 之间的所有字符都高亮，可以配置 `minapp-vscode.decorateComplexInterpolation` 为 `false`，这样只有变量（如：`foo`, `foo.prop`, `foo[1]`）会高亮，而表达式（如：`foo + bar`, `foo < 3`）不会高亮，而使用原本的颜色
 
@@ -268,7 +264,6 @@ vue 中的 template 板支持两个属性：
 
 1. 确保安装后有重启过 vscode
 2. 确保当前文件的格式是 wxml 或 wxml-pug 或 vue (不能看文件后缀名，因为可能在配置文件中把它们关联的其它文件格式；需要看 vscode 右下解显示的文件类型)
-3. wxml 需要输入 `<` 才会触发标签补全，而 pug 中只需要输入标签名就会出来自动补全
 
 ### 在非小程序项目，pug 文件不想要小程序的自动补全
 
