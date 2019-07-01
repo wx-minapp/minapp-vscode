@@ -37,7 +37,6 @@ export default class extends AutoCompletion implements CompletionItemProvider {
       case '<':
         return this.createComponentSnippetItems(language, document, position)
       case '\n': // 换行
-      /* eslint-disable-next-line */
       /// @ts-ignore
       case ' ': // 空格
         // 如果后面紧跟字母数字或_不触发自动提示

@@ -4,7 +4,7 @@ Author Mora <qiuzhongleiabc^126.com> (https://github.com/qiu8310)
 *******************************************************************/
 
 // tslint:disable: no-conditional-assignment
-import {TextDocument, Position} from 'vscode'
+import { TextDocument, Position } from 'vscode'
 
 export interface Tag {
   /** Tag 的名称 */
@@ -40,7 +40,7 @@ export function getAttrs(text: string) {
   getAttrs2(text, attrs)
   return attrs
 }
-export function getAttrs2(text: string, attrs: {[key: string]: any}) {
+export function getAttrs2(text: string, attrs: { [key: string]: any }) {
   return match(text, TAG_ATTR_REGEXP, m => {
     attrs[stripColon(m[1])] = m[2] ? strip(m[3]) : true
 
@@ -50,10 +50,12 @@ export function getAttrs2(text: string, attrs: {[key: string]: any}) {
 }
 
 function stripColon(name: string) {
-  return name
-    // .replace(':', '')
-    // .replace(/^@/, 'bind')
-    .replace(/\..*$/, '') // 去除修饰字符，如 .default, .stop, .user, .sync
+  return (
+    name
+      // .replace(':', '')
+      // .replace(/^@/, 'bind')
+      .replace(/\..*$/, '')
+  ) // 去除修饰字符，如 .default, .stop, .user, .sync
 }
 
 function strip(val: string) {

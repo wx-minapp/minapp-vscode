@@ -1,9 +1,8 @@
-
-import {TextDocument, Position} from 'vscode'
-import {Tag} from './base'
-import {getLangForVue} from '../lib/helper'
-import {getPugTag} from './getPugTag'
-import {getWxmlTag} from './getWxmlTag'
+import { TextDocument, Position } from 'vscode'
+import { Tag } from './base'
+import { getLangForVue } from '../lib/helper'
+import { getPugTag } from './getPugTag'
+import { getWxmlTag } from './getWxmlTag'
 
 export function getVueTag(doc: TextDocument, pos: Position): null | Tag {
   let lang = doc.languageId
@@ -12,7 +11,7 @@ export function getVueTag(doc: TextDocument, pos: Position): null | Tag {
     if (!lang) return null
   }
 
-  if (/pug/.test(lang)) return getPugTag(doc, pos)
+  if (lang.includes('pug')) return getPugTag(doc, pos)
   if ('wxml' === lang) return getWxmlTag(doc, pos)
   return null
 }

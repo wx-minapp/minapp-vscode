@@ -17,7 +17,7 @@ export interface StyleFile {
   styles: Style[]
 }
 
-const fileCache: { [file: string]: { mtime: Date, value: StyleFile } } = {}
+const fileCache: { [file: string]: { mtime: Date; value: StyleFile } } = {}
 
 function isScss(file: string): boolean {
   return /\.s[ac]ss/.test(file)
@@ -39,8 +39,8 @@ export function parseStyleFile(file: string) {
         mtime: stat.mtime,
         value: {
           file,
-          styles: quickParseStyle(isScss(file) ? loadScss({ file }) : fs.readFileSync(file).toString())
-        }
+          styles: quickParseStyle(isScss(file) ? loadScss({ file }) : fs.readFileSync(file).toString()),
+        },
       }
       fileCache[file] = cache
       return cache.value
@@ -48,11 +48,10 @@ export function parseStyleFile(file: string) {
   } catch (e) {
     return {
       file,
-      styles: []
+      styles: [],
     }
   }
 }
-
 
 export function getClass(doc: TextDocument, config: Config) {
   return [...getLocalClass(doc, config), ...getGlobalClass(doc, config)]

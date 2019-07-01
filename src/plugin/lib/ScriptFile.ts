@@ -4,9 +4,9 @@ import * as fs from 'fs'
 import { Location, Uri, Position, Range, window } from 'vscode'
 
 interface PropInfo {
-  loc: Location,
-  name: string,
-  detail: string,
+  loc: Location
+  name: string
+  detail: string
 }
 /**
  * js/ts 文件映射缓存
@@ -15,7 +15,7 @@ const wxJsMapCache = new Map<string, string>()
 /**
  * 结果缓存
  */
-const resultCache = new Map<string, { version: number, data: PropInfo[] }>()
+const resultCache = new Map<string, { version: number; data: PropInfo[] }>()
 
 /**
  * 保留字段,
@@ -84,11 +84,13 @@ function parseScriptFile(file: string, type: string, prop: string) {
     reg = new RegExp(`^${s}(${methodReg}|${propFuncReg})`, 'gm')
   }
 
-  match(content, reg!)
+  if (!reg) return locs
+
+  match(content, reg)
     .filter(mat => {
       const property = mat[2] || mat[3]
       // 精确匹配或者不是关键字
-      return property === prop || reservedWords.indexOf(property) === -1
+      return property === prop || !reservedWords.includes(property)
     })
     .forEach(mat => {
       const property = mat[2] || mat[3] || prop
@@ -97,12 +99,11 @@ function parseScriptFile(file: string, type: string, prop: string) {
       locs.push({
         loc: new Location(Uri.file(file), new Range(pos, endPos)),
         name: property,
-        detail: mat[1] || mat[0]
+        detail: mat[1] || mat[0],
       })
     })
   return locs
 }
-
 
 /**
  * 解析文件映射关系
@@ -125,7 +126,6 @@ function getScriptFile(wxmlFile: string): string | undefined {
   }
   return undefined
 }
-
 
 /**
  * 获取文件版本信息,

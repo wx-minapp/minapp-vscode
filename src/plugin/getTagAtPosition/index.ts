@@ -1,5 +1,5 @@
-import {getVueTag} from './getVueTag'
+import { getVueTag } from './getVueTag'
 
-export {Tag} from './base'
+export { Tag } from './base'
 
 export const getTagAtPosition = getVueTag

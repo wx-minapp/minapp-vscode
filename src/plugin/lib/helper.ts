@@ -5,7 +5,7 @@
 import { TextDocument, Position, Range, window, workspace } from 'vscode'
 import { Config } from './config'
 import * as fs from 'fs'
-import {Languages, LanguageConfig} from './language'
+import { Languages, LanguageConfig } from './language'
 import { EOL } from 'os'
 
 // <template lang="wxml/pug/wxml-pug" minapp="native/wepy/mpvue"> ；默认 minapp="mpvue"
@@ -18,12 +18,15 @@ export function getLanguage(doc: TextDocument, pos: Position): undefined | Langu
   if (doc.languageId === 'wxml' || doc.languageId === 'wxml-pug') {
     minapp = 'native'
   } else {
-    doc.getText().split(/\r?\n/).some((text, i) => {
-      if (!minapp && vueTemplateMinappStartTag.test(text)) minapp = RegExp.$1.replace(/['"]/g, '')
-      if (i === pos.line) return true
-      if (minapp && vueTemplateEndTag.test(text)) minapp = undefined
-      return false
-    })
+    doc
+      .getText()
+      .split(/\r?\n/)
+      .some((text, i) => {
+        if (!minapp && vueTemplateMinappStartTag.test(text)) minapp = RegExp.$1.replace(/['"]/g, '')
+        if (i === pos.line) return true
+        if (minapp && vueTemplateEndTag.test(text)) minapp = undefined
+        return false
+      })
     if (!minapp) minapp = 'mpvue'
   }
 
@@ -32,25 +35,28 @@ export function getLanguage(doc: TextDocument, pos: Position): undefined | Langu
 
 export function getLangForVue(doc: TextDocument, pos: Position) {
   let lang: string | undefined
-  doc.getText().split(/\r?\n/).some((text, i) => {
-    if (!lang && vueTemplateLangStartTag.test(text)) lang = RegExp.$1.replace(/['"]/g, '')
-    if (i === pos.line) return true
-    if (lang && vueTemplateEndTag.test(text)) lang = undefined
-    return false
-  })
+  doc
+    .getText()
+    .split(/\r?\n/)
+    .some((text, i) => {
+      if (!lang && vueTemplateLangStartTag.test(text)) lang = RegExp.$1.replace(/['"]/g, '')
+      if (i === pos.line) return true
+      if (lang && vueTemplateEndTag.test(text)) lang = undefined
+      return false
+    })
   return lang
 }
 
 export function getCustomOptions(config: Config, document: TextDocument) {
   return config.disableCustomComponentAutocomponent || document.languageId !== 'wxml'
     ? undefined
-    : {filename: document.fileName, resolves: config.getResolveRoots(document)}
+    : { filename: document.fileName, resolves: config.getResolveRoots(document) }
 }
 
 export function getTextAtPosition(doc: TextDocument, pos: Position, charRegExp: RegExp) {
   let line = doc.lineAt(pos.line).text
   let mid = pos.character - 1
-  if (!(charRegExp.test(line[mid]))) return
+  if (!charRegExp.test(line[mid])) return
   let str = line[mid]
 
   let i = mid
@@ -81,13 +87,12 @@ export function getFileContent(file: string) {
   return editor ? editor.document.getText() : fs.readFileSync(file).toString()
 }
 
-
 /** 全局匹配 */
 export function match(content: string, regexp: RegExp) {
   let mat: RegExpExecArray | null
   let res: RegExpExecArray[] = []
   // tslint:disable:no-conditional-assignment
-  while (mat = regexp.exec(content)) res.push(mat)
+  while ((mat = regexp.exec(content))) res.push(mat)
   return res
 }
 
@@ -106,9 +111,8 @@ export function getPositionFromIndex(content: string, index: number) {
   return new Position(line, lines[line].length)
 }
 
-
 export function getEOL(doc: TextDocument) {
   const eol = workspace.getConfiguration('files', doc.uri).get('eol', EOL)
   // vscode 更新导致获取的配置换行符可能为 "auto"，参见：https://github.com/wx-minapp/minapp-vscode/issues/6
-  return ['\n', '\r\n', '\r'].indexOf(eol) < 0 ? EOL : eol
+  return !['\n', '\r\n', '\r'].includes(eol) ? EOL : eol
 }

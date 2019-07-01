@@ -3,8 +3,8 @@ MIT License http://www.opensource.org/licenses/mit-license.php
 Author Mora <qiuzhongleiabc^126.com> (https://github.com/qiu8310)
 *******************************************************************/
 
-import {TextDocument, Position} from 'vscode'
-import {Tag, getAttrs, getAttrName} from './base'
+import { TextDocument, Position } from 'vscode'
+import { Tag, getAttrs, getAttrName } from './base'
 
 /**
  * 获取标签的起始位置
@@ -15,7 +15,7 @@ import {Tag, getAttrs, getAttrName} from './base'
 function getBracketRange(text: string, pos: number): [number, number] | null {
   const textBeforePos = text.substr(0, pos)
   const startBracket = textBeforePos.lastIndexOf('<')
-  if (startBracket < 0 ||  textBeforePos[startBracket + 1] === '!' || textBeforePos.lastIndexOf('>') > startBracket) {
+  if (startBracket < 0 || textBeforePos[startBracket + 1] === '!' || textBeforePos.lastIndexOf('>') > startBracket) {
     // 前没有开始符<，
     // 或者正在注释中： <!-- | -->
     // 或者不在标签中： <view > | </view>
@@ -85,12 +85,12 @@ export function getWxmlTag(doc: TextDocument, pos: Position): null | Tag {
   const isOnAttrName = !isOnTagName && !isOnAttrValue && !!posWord
 
   return {
-        name,
-        attrs: getAttrs((attrstr || '').trim()),
-        posWord,
-        isOnTagName,
-        isOnAttrName,
-        isOnAttrValue,
-        attrName
-      }
+    name,
+    attrs: getAttrs((attrstr || '').trim()),
+    posWord,
+    isOnTagName,
+    isOnAttrName,
+    isOnAttrValue,
+    attrName,
+  }
 }

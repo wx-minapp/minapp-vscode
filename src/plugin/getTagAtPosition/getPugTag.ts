@@ -3,8 +3,8 @@ MIT License http://www.opensource.org/licenses/mit-license.php
 Author Mora <qiuzhongleiabc^126.com> (https://github.com/qiu8310)
 *******************************************************************/
 
-import {TextDocument, Position} from 'vscode'
-import {Tag, getAttrs, getAttrs2} from './base'
+import { TextDocument, Position } from 'vscode'
+import { Tag, getAttrs, getAttrs2 } from './base'
 
 const SINGLE_LINE_TAG_REGEXP = /^(\s*)([\w-:.]+)((?:[\.#][\w-])*)(\s*\()(.*)\)/
 const MULTIPLE_LINE_TAG_REGEXP = /^(\s*)([\w-:.]+)((?:[\.#][\w-])*)(\s*\()/
@@ -31,7 +31,7 @@ export function getPugTag(doc: TextDocument, pos: Position): null | Tag {
         isOnTagName: true,
         isOnAttrName: false,
         isOnAttrValue: false,
-        attrName: ''
+        attrName: '',
       }
     } else if (
       index < prefix.length + name.length + classOrId.length + rest.length ||
@@ -39,7 +39,7 @@ export function getPugTag(doc: TextDocument, pos: Position): null | Tag {
     ) {
       return null
     } else {
-      let {posWord, attrName, isOnAttrValue} = parseLine(line, doc, pos)
+      let { posWord, attrName, isOnAttrValue } = parseLine(line, doc, pos)
       return {
         name,
         attrs: getAttrs(attrstr),
@@ -47,7 +47,7 @@ export function getPugTag(doc: TextDocument, pos: Position): null | Tag {
         isOnTagName: false,
         isOnAttrName: !isOnAttrValue && !!posWord,
         isOnAttrValue,
-        attrName
+        attrName,
       }
     }
   } else {
@@ -59,7 +59,7 @@ export function getPugTag(doc: TextDocument, pos: Position): null | Tag {
     let name = searchUp(doc, startLine, attrs)
     if (!name) return null
     if (!searchDown(doc, startLine + 1, attrs)) return null
-    let {posWord, attrName, isOnAttrValue} = parseLine(doc.lineAt(startLine).text, doc, pos)
+    let { posWord, attrName, isOnAttrValue } = parseLine(doc.lineAt(startLine).text, doc, pos)
     return {
       name,
       attrs,
@@ -67,7 +67,7 @@ export function getPugTag(doc: TextDocument, pos: Position): null | Tag {
       isOnTagName: false,
       isOnAttrName: !isOnAttrValue && !!posWord,
       isOnAttrValue,
-      attrName
+      attrName,
     }
   }
 }
@@ -75,8 +75,7 @@ export function getPugTag(doc: TextDocument, pos: Position): null | Tag {
 function parseLine(line: string, doc: TextDocument, pos: Position) {
   // 因为双大括号里可能会有任何字符，估优先处理
   // 用特殊字符替换 "{{" 与 "}}" 和 "{" 与 "}" 之间的语句，并保证字符数一致
-  line = line.replace(/\{\{[^\}]*?\}\}/g, replacer('^'))
-              .replace(/\{[^\}]*?\}/g, replacer('^'))  // a(style={color: 'red', background: 'green'}) => a(style=^^^^^^^^)
+  line = line.replace(/\{\{[^\}]*?\}\}/g, replacer('^')).replace(/\{[^\}]*?\}/g, replacer('^')) // a(style={color: 'red', background: 'green'}) => a(style=^^^^^^^^)
 
   let attrFlagLine = line.replace(/("[^"]*"|'[^']*')/g, replacer('%')) // 将引号中的内容也替换了
 
@@ -89,16 +88,18 @@ function parseLine(line: string, doc: TextDocument, pos: Position) {
     attrName = getAttrName(attrFlagLine.substring(0, pos.character))
   }
   return {
-    posWord, attrName, isOnAttrValue
+    posWord,
+    attrName,
+    isOnAttrValue,
   }
 }
 
-function searchUp(doc: TextDocument, lineNum: number, attrs: {[key: string]: any}) {
+function searchUp(doc: TextDocument, lineNum: number, attrs: { [key: string]: any }) {
   while (lineNum >= 0) {
     let text = doc.lineAt(lineNum).text.trim()
     if (text) {
-      if (text[0] === '-') return false
-      if (text.indexOf(')') >= 0) return false
+      if (text.startsWith('-')) return false
+      if (text.includes(')')) return false
       if (text.indexOf('(') > 0 && MULTIPLE_LINE_TAG_REGEXP.test(text)) {
         let name = RegExp.$2
         Object.assign(attrs, getAttrs((RegExp.$5 || '').trim()))
@@ -111,13 +112,13 @@ function searchUp(doc: TextDocument, lineNum: number, attrs: {[key: string]: any
   }
   return false
 }
-function searchDown(doc: TextDocument, lineNum: number, attrs: {[key: string]: any}) {
+function searchDown(doc: TextDocument, lineNum: number, attrs: { [key: string]: any }) {
   while (lineNum < doc.lineCount) {
     let text = doc.lineAt(lineNum).text.trim()
     if (text) {
-      if (text[0] === '-') return false
+      if (text.startsWith('-')) return false
       if (text.indexOf('(') > 0) return false
-      if (text.indexOf(')') >= 0) return true
+      if (text.includes(')')) return true
 
       let left = getAttrs2(text, attrs)
       if (left) return false
