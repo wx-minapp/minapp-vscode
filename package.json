@@ -123,7 +123,7 @@
         "minapp-vscode.disableDecorate": {
           "type": "boolean",
           "description": "禁用模板文件中 js 变量自定义样式的功能",
-          "default": false
+          "default": true
         },
         "minapp-vscode.decorateComplexInterpolation": {
           "type": "boolean",
