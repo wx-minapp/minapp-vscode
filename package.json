@@ -24,8 +24,8 @@
   "license": "MIT",
   "eslintConfig": {
     "env": {
-      "node": false,
-      "browser": true
+      "node": true,
+      "browser": false
     },
     "extends": [
       "./node_modules/@serpent/dev-kits/.eslintrc"
