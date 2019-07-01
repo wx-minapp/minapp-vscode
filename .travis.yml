@@ -1,0 +1,35 @@
+# https://docs.travis-ci.com/user/customizing-the-build
+# https://docs.travis-ci.com/user/languages/javascript-with-nodejs
+
+language: node_js
+
+env:
+  - CI=true
+
+matrix:
+  include:
+    - os: linux
+      node_js: 8
+
+    - os: osx
+      node_js: 8
+
+    # travis 上的 windows 平台不稳定
+    # - os: windows
+    #   node_js: lts
+
+# os:
+#   - linux
+#   - osx
+#   - windows
+# node_js:
+#   - "8"
+#   - "10"
+#   - "12"
+
+scripts:
+  - npm run lint
+
+notifications:
+  email:
+    - qiuzhongleiabc@126.com

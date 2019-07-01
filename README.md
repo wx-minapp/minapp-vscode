@@ -1,5 +1,7 @@
 # minapp-vscode
 
+[![Build Status][travis-image]][travis-url]
+
 微信小程序标签、属性的智能补全（同时支持原生小程序、mpvue 和 wepy 框架，并提供 snippets）
 
 
@@ -282,3 +284,7 @@ minapp 插件会自动将 .pug 文件关联到 `wxml-pug` 文件类型。所以�
 * [ ] app/page/component 的 json schema 自动关联
 * [x] 添加常用的 snippets
 * [x] 支持识别 self close tag
+
+
+[travis-image]: https://travis-ci.org/wx-minapp/minapp-vscode.svg?branch=master
+[travis-url]: https://travis-ci.org/wx-minapp/minapp-vscode
