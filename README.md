@@ -7,6 +7,7 @@
 
 ## 最近更新 【[see more](https://github.com/wx-minapp/minapp-vscode/blob/master/CHANGELOG.md)】
 
+* 【2019-07-06】2.1.0  添加 `showSuggestionOnEnter` 配置，按 Enter 键默认不出现补全，需要将 `showSuggestionOnEnter` 设置成 true
 * 【2019-07-01】2.0.0  优化 wxml 的自动补全机制，优化语法高亮
 * 【2019-06-21】1.16.0 标签多行写法可补全，tagName 和 tagAttr 可以随时补全
 * 【2019-06-09】1.15.0 支持解析 sass/scss 文件，方便样式名自动补全

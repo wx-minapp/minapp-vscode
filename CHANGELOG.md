@@ -1,3 +1,8 @@
+2.1.0 / 2019-07-06
+==================
+
+* 添加 `showSuggestionOnEnter` 配置，按 Enter 键默认不出现补全，需要将 `showSuggestionOnEnter` 设置成 true
+
 2.0.0 / 2019-07-01
 ==================
 
