@@ -14,6 +14,8 @@ export interface Config {
   getResolveRoots: (doc: vscode.TextDocument) => string[]
   /** wxml 格式化时一行中允许的最长的字符串长度 */
   formatMaxLineCharacters: number
+  /** 是否在按下 Enter 键后出自动补全 */
+  showSuggestionOnEnter: boolean
   /** 是否禁用自定义的组件补全 */
   disableCustomComponentAutocomponent: boolean
   /** 解析自定义组件的根目录 */
@@ -59,6 +61,7 @@ export interface Config {
 export const config: Config = {
   formatMaxLineCharacters: 100,
   disableCustomComponentAutocomponent: false,
+  showSuggestionOnEnter: false,
   resolveRoots: [],
   getResolveRoots,
   linkAttributeNames: [],
@@ -83,6 +86,7 @@ export const config: Config = {
 function getConfig() {
   const minapp = vscode.workspace.getConfiguration('minapp-vscode')
   config.disableCustomComponentAutocomponent = minapp.get('disableCustomComponentAutocomponent', false)
+  config.showSuggestionOnEnter = minapp.get('showSuggestionOnEnter', false)
   config.resolveRoots = minapp.get('resolveRoots', ['src', 'node_modules'])
   config.linkAttributeNames = minapp.get('linkAttributeNames', ['src'])
   config.formatMaxLineCharacters = minapp.get('formatMaxLineCharacters', 100)

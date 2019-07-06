@@ -39,6 +39,7 @@ export function activate(context: ExtensionContext) {
   const wxml = config.documentSelector.map(l => schemes(l))
   const pug = schemes('wxml-pug')
   const vue = schemes('vue')
+  const enter = config.showSuggestionOnEnter ? ['\n'] : []
 
   context.subscriptions.push(
     // 给模板中的 脚本 添加特殊颜色
@@ -72,8 +73,8 @@ export function activate(context: ExtensionContext) {
       '-',
       '"',
       "'",
-      '\n',
-      '/'
+      '/',
+      ...enter
     ),
     languages.registerCompletionItemProvider(pug, autoCompletionPug, '\n', ' ', '(', ':', '@', '.', '-', '"', "'"),
     // trigger 需要是上两者的和
