@@ -43,7 +43,7 @@ export default abstract class AutoCompletion {
     return this.isPug ? this.config.pugQuoteStyle : this.config.wxmlQuoteStyle
   }
 
-  constructor(public config: Config) { }
+  constructor(public config: Config) {}
 
   getCustomOptions(doc: TextDocument) {
     return getCustomOptions(this.config, doc)
