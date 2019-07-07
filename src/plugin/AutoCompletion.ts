@@ -43,7 +43,7 @@ export default abstract class AutoCompletion {
     return this.isPug ? this.config.pugQuoteStyle : this.config.wxmlQuoteStyle
   }
 
-  constructor(public config: Config) {}
+  constructor(public config: Config) { }
 
   getCustomOptions(doc: TextDocument) {
     return getCustomOptions(this.config, doc)
@@ -195,8 +195,9 @@ export default abstract class AutoCompletion {
     }
     if (tag.isOnAttrValue && tag.attrName) {
       let attrValue = tag.attrs[tag.attrName]
-      if (tag.attrName === 'class') {
-        let existsClass = (tag.attrs.class || '') as string
+      if (tag.attrName === 'class' || /^[\w\d-]+-class/.test(tag.attrName)) {
+        // `class` 或者 `xxx-class` 自动提示 class 名
+        let existsClass = (tag.attrs[tag.attrName] || '') as string
         return this.autoCompleteClassNames(doc, existsClass ? existsClass.trim().split(/\s+/) : [])
       } else if (typeof attrValue === 'string') {
         if (tag.attrName.startsWith('bind') || tag.attrName.startsWith('catch')) {
