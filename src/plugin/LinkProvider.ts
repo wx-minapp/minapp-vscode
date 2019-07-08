@@ -21,7 +21,7 @@ export default class implements DocumentLinkProvider {
     if (!linkAttributeNames.length) return links
 
     let roots = this.config.getResolveRoots(doc)
-    const dir = path.dirname(doc.fileName)
+    const rootsWithDir = [path.dirname(doc.fileName), ...roots]
     let regexp = new RegExp(`\\b(${linkAttributeNames.join('|')})=['"]([^'"]+)['"]`, 'g')
     let remote = /^\w+:\/\// // 是否是远程路径，如 "http://" ...
     doc.getText().replace(regexp, (raw, tag: string, key: string, index: number) => {
@@ -32,8 +32,8 @@ export default class implements DocumentLinkProvider {
       } else if (key.startsWith('/')) {
         // 绝对路径解析
         file = roots.map(root => path.join(root, key)).find(f => fs.existsSync(f))
-      } else if (fs.existsSync(path.resolve(dir, key))) {
-        file = path.resolve(dir, key)
+      } else {
+        file = rootsWithDir.map(dir => path.resolve(dir, key)).find(file => fs.existsSync(file))
       }
 
       if (file) {
