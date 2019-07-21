@@ -320,7 +320,7 @@
     "prettier": "^1.16.4"
   },
   "devDependencies": {
-    "@serpent/dev-kits": "~0.4.0",
+    "@serpent/dev-kits": "~0.7.2",
     "@types/prettier": "~1.16.4",
     "@types/resolve": "0.0.8",
     "@types/sass": "~1.16.0",
