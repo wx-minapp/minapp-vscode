@@ -1,6 +1,5 @@
 .vscode/**
 .vscode-test/**
-node_modules/**
 dist/test/**
 dist/**/*.map
 dist/**/*.d.ts
