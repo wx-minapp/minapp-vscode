@@ -310,7 +310,7 @@
     ]
   },
   "dependencies": {
-    "@minapp/common": "^2.2.5",
+    "@minapp/common": "^3.0.0",
     "@minapp/wxml-parser": "^2.1.4",
     "read-pkg-up": "^6.0.0",
     "resolve": "^1.11.0",
