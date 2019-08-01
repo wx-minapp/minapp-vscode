@@ -6,9 +6,9 @@
     "lib": [
       "es6"
     ],
-    "sourceMap": false,
+    "sourceMap": true,
     "rootDir": "src",
-    "declaration": false,
+    "declaration": true,
     "removeComments": false,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": false,
