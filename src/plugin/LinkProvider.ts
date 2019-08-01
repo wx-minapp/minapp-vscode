@@ -20,12 +20,22 @@ export default class implements DocumentLinkProvider {
     let { linkAttributeNames } = this.config
     if (!linkAttributeNames.length) return links
 
-    let roots = [path.dirname(doc.fileName), ...this.config.getResolveRoots(doc)]
+    let roots = this.config.getResolveRoots(doc)
+    const rootsWithDir = [path.dirname(doc.fileName), ...roots]
     let regexp = new RegExp(`\\b(${linkAttributeNames.join('|')})=['"]([^'"]+)['"]`, 'g')
     let remote = /^\w+:\/\// // 是否是远程路径，如 "http://" ...
     doc.getText().replace(regexp, (raw, tag: string, key: string, index: number) => {
       let isRemote = remote.test(key)
-      let file = isRemote ? key : roots.map(root => path.resolve(root, key)).find(f => fs.existsSync(f))
+      let file: string | undefined
+      if (isRemote) {
+        file = key
+      } else if (key.startsWith('/')) {
+        // 绝对路径解析
+        file = roots.map(root => path.join(root, key)).find(f => fs.existsSync(f))
+      } else {
+        file = rootsWithDir.map(dir => path.resolve(dir, key)).find(file => fs.existsSync(file))
+      }
+
       if (file) {
         let offset = index + tag.length + 2
         let startPoint = doc.positionAt(offset)
