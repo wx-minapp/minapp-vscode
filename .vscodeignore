@@ -1,5 +1,6 @@
 .vscode/**
 .vscode-test/**
+node_modules/**
 dist/test/**
 dist/**/*.map
 dist/**/*.d.ts
@@ -7,5 +8,4 @@ src/**
 .gitignore
 tsconfig.json
 vsc-extension-quickstart.md
-tslint.json
 vendor/**
