@@ -151,7 +151,7 @@
     "wxml-directives": {
       "end": "(?<='|\")|(?=[\\s<>`])",
       "name": "meta.directive.wxml",
-      "begin": "((?:\\b(v-|bind:|catch:)|(:|@))([a-zA-Z\\-]+)(?:\\:([a-zA-Z\\-]+))?(?:\\.([a-zA-Z\\-]+))*)\\s*(=)",
+      "begin": "((?:\\b(v-|bind:?|catch:?|capture-bind:?|capture-catch:)|(:|@))([a-zA-Z\\-]+)(?:\\:([a-zA-Z\\-]+))?(?:\\.([a-zA-Z\\-]+))*)\\s*(=)",
       "captures": {
         "1": {
           "name": "entity.other.attribute-name.html"

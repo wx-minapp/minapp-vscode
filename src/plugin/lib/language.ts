@@ -6,6 +6,7 @@
 import { CustomAttr, LanguageConfig } from '@minapp/common/dist/dev/config'
 import { Component } from '@minapp/common'
 
+// https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxml/event.html
 const EVENT_ATTRS: CustomAttr[] = [
   { name: 'touchstart' },
   { name: 'touchmove' },
@@ -18,6 +19,7 @@ const EVENT_ATTRS: CustomAttr[] = [
   { name: 'animationstart' },
   { name: 'animationiteration' },
   { name: 'animationend' },
+  { name: 'touchforcechange', desc: ['在支持 3D Touch 的 iPhone 设备，重按时会触发'], since: '1.9.90' },
 ]
 const BASE_ATTRS: CustomAttr[] = [
   { name: 'id' },
@@ -51,7 +53,7 @@ export const Languages: Languages = {
     id: 'wxml',
     baseAttrs: BASE_ATTRS,
     event: {
-      prefixes: ['bind:', 'catch:'],
+      prefixes: ['bind:', 'catch:', 'capture-bind:', 'capture-catch:'],
       modifiers: [],
       attrs: EVENT_ATTRS,
     },
