@@ -1,21 +1,18 @@
-# minapp-vscode
+<p align="center"><a href="https://github.com/wx-minapp/minapp-vscode" target="_blank" rel="noopener noreferrer"><img width="150" src="./res/icon.png" alt="wxml language features logo"></a></p>
 
-[![Build Status][travis-image]][travis-url]
+[![Visual Studio Marketplace](https://img.shields.io/visual-studio-marketplace/v/qiu8310.minapp-vscode?color=brightgreen&label=Visual%20Studio%20Marketplace)](https://marketplace.visualstudio.com/items?itemName=qiu8310.minapp-vscode)
+[![CI Status](https://github.com/wx-minapp/minapp-vscode/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/wx-minapp/minapp-vscode/actions?query=branch%3Amaster)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-brightgreen.svg)](https://github.com/stylus/stylus/pulse)
+![Marketplace Downloads](https://img.shields.io/visual-studio-marketplace/d/qiu8310.minapp-vscode)
+![Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/qiu8310.minapp-vscode)
+![Marketplace Rating](https://img.shields.io/visual-studio-marketplace/r/qiu8310.minapp-vscode)
+# wxml language features
+> 插件原名`minapp`,现已更名为`wxml language features`,将来将持续专注微信原生小程序wxml的支持
 
-微信小程序标签、属性的智能补全（同时支持原生小程序、mpvue 和 wepy 框架，并提供 snippets）
+微信小程序.wxml文件代码高亮，标签、属性的智能补全（同时支持原生小程序、mpvue 和 wepy 框架，并提供code snippets）
 
-
-## 最近更新 【[see more](https://github.com/wx-minapp/minapp-vscode/blob/master/CHANGELOG.md)】
-
-* 【2019-07-06】2.1.0  添加 `showSuggestionOnEnter` 配置，按 Enter 键默认不出现补全，需要将 `showSuggestionOnEnter` 设置成 true
-* 【2019-07-01】2.0.0  优化 wxml 的自动补全机制，优化语法高亮
-* 【2019-06-21】1.16.0 标签多行写法可补全，tagName 和 tagAttr 可以随时补全
-* 【2019-06-09】1.15.0 支持解析 sass/scss 文件，方便样式名自动补全
-* 【2019-06-03】1.14.0 wxmlFormatter 配置支持热更新，同时 prettyHtml 不会移除自闭合标签的 `/` 符号
-* 【2019-04-23】1.13.0 wxml 支持 `prettier`和 `prettyHtml`
-
-
-<!-- <div style="color:red; font-size: 1.6em;">重要通知：由于旧版本不小心被我删除了，所以请 1.0.7 版本之前的用户删除旧版本再重新安装新版本；否则可能会无法成功安装新版本，并且也得不到新版本的推送！</div> -->
+## 最近更新 【[CHANGELOG.md](https://github.com/wx-minapp/minapp-vscode/blob/master/CHANGELOG.md)】
+> [@iChenLei](https://github.com/ichenlei)已接手维护本插件，希望大家多提意见。
 
 ## 主要功能
 
