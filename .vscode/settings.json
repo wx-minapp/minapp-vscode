@@ -5,22 +5,5 @@
     },
     "search.exclude": {
         "out": true // set this to false to include "out" folder in search results
-    },
-    "cSpell.words": [
-        "stylefile",
-        "stylefiles"
-    ],
-    "eslint.autoFixOnSave": true,
-    "eslint.validate": [
-      "javascript",
-      "javascriptreact",
-      {
-        "language": "typescript",
-        "autoFix": true
-      },
-      {
-        "language": "typescriptreact",
-        "autoFix": true
-      }
-    ],
+    }
 }

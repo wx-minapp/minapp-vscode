@@ -31,7 +31,7 @@ const BASE_ATTRS: CustomAttr[] = [
 const WXS_COMPONENT: Component = {
   name: 'wxs',
   desc: ['模板中的 wxs 模块'],
-  docLink: 'https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxs/01wxs-module.html',
+  docLink: 'https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxs',
   attrs: [{ name: 'src' }, { name: 'module' }],
 }
 const WX_SUB_ATTRS: CustomAttr[] = [
@@ -85,7 +85,7 @@ export const Languages: Languages = {
         name: 'repeat',
         desc: ['类似于通过wx:for循环渲染原生的wxml标签'],
         docLink:
-          'https://tencent.github.io/wepy/document.html#/?id=%E7%BB%84%E4%BB%B6%E7%9A%84%E5%BE%AA%E7%8E%AF%E6%B8%B2%E6%9F%93',
+          'https://wepyjs.gitee.io/wepy-docs/1.x/#/?id=%e7%bb%84%e4%bb%b6%e7%9a%84%e5%be%aa%e7%8e%af%e6%b8%b2%e6%9f%93',
         attrs: [
           // @ts-ignore
           { name: 'for', addBrace: true },

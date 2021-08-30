@@ -1,63 +1,40 @@
 {
   "name": "minapp-vscode",
-  "displayName": "minapp",
-  "description": "微信小程序标签、属性的智能补全（同时支持原生小程序、mpvue 和 wepy 框架，并提供 snippets）",
-  "version": "2.2.2",
+  "displayName": "wxml language features",
+  "description": "Provides rich language support for WXML and wechat miniprogram, also support mpvue wepy framework and code snippet. Origin name is 'minapp'",
+  "version": "2.3.0",
   "publisher": "qiu8310",
+  "extensionKind": [
+    "workspace"
+  ],
   "scripts": {
-    "lint": "eslint --ext .ts,.tsx ./src",
-    "clear": "remove-all dist",
-    "vscode:prepublish": "npm run build",
-    "build": "npm run clear && npm run lint && tsc -p ./",
+    "build:vsix": "npx vsce package",
+    "vscode:prepublish": "npm run clear && webpack --mode production",
+    "webpack": "webpack --mode development",
+    "webpack-dev": "webpack --mode development --watch",
+    "test-compile": "npm run clear && tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "postinstall": "node ./node_modules/vscode/bin/install",
-    "test": "npm run build",
-    "test__": "npm run build && node ./node_modules/vscode/bin/test"
+    "lint": "eslint --ext .ts,.tsx ./src",
+    "clear": "rm -rf ./dist"
   },
   "keywords": [
-    "wxml",
     "小程序",
     "微信",
+    "wxml",
+    "wxss",
+    "wxs",
     "wechat",
     "wexin"
   ],
   "license": "MIT",
-  "eslintConfig": {
-    "env": {
-      "node": true,
-      "browser": false
-    },
-    "extends": [
-      "./node_modules/@serpent/dev-kits/.eslintrc"
-    ],
-    "parserOptions": {
-      "ecmaVersion": 2018,
-      "sourceType": "module",
-      "project": "./tsconfig.json"
-    },
-    "rules": {
-      "@typescript-eslint/no-parameter-properties": "off",
-      "@typescript-eslint/ban-ts-ignore": "off"
-    }
-  },
-  "eslintIgnore": [
-    "dist",
-    "coverage"
-  ],
-  "prettier": {
-    "printWidth": 120,
-    "tabWidth": 2,
-    "useTabs": false,
-    "semi": false,
-    "singleQuote": true,
-    "trailingComma": "es5",
-    "bracketSpacing": true,
-    "jsxBracketSameLine": false,
-    "endOfLine": "lf",
-    "arrowParens": "avoid",
-    "jsxSingleQuote": true
-  },
   "author": "Mora <qiuzhongleiabc@126.com> (https://github.com/qiu8310)",
+  "contributors": [
+    {
+      "name": "Lei Chen",
+      "email": "chenleicoder@foxmail.com",
+      "url": "https://github.com/iChenLei"
+    }
+  ],
   "bugs": "https://github.com/wx-minapp/minapp-vscode/issues",
   "homepage": "https://github.com/wx-minapp/minapp-vscode",
   "repository": {
@@ -65,7 +42,7 @@
     "url": "https://github.com/wx-minapp/minapp-vscode"
   },
   "engines": {
-    "vscode": "^1.19.0"
+    "vscode": "^1.59.1"
   },
   "icon": "res/icon.png",
   "categories": [
@@ -277,7 +254,7 @@
         "extensions": [
           ".wxml"
         ],
-        "configuration": "./res/wxml.language-configuration.json"
+        "configuration": "./syntaxes/wxml.language-configuration.json"
       },
       {
         "id": "wxml-pug",
@@ -285,14 +262,14 @@
           ".wpug",
           ".pug"
         ],
-        "configuration": "./res/wxml-pug.language-configuration.json"
+        "configuration": "./syntaxes/wxml-pug.language-configuration.json"
       }
     ],
     "grammars": [
       {
         "language": "wxml",
         "scopeName": "text.html.wxml",
-        "path": "./res/wxml.tmLanguage.json",
+        "path": "./syntaxes/wxml.tmLanguage.json",
         "embeddedLanguages": {
           "text.html": "html",
           "source.js": "js"
@@ -301,7 +278,7 @@
       {
         "language": "wxml-pug",
         "scopeName": "text.jade.wxml",
-        "path": "./res/wxml-pug.tmLanguage.json",
+        "path": "./syntaxes/wxml-pug.tmLanguage.json",
         "embeddedLanguages": {
           "text.html": "html",
           "source.js": "js"
@@ -311,19 +288,30 @@
   },
   "dependencies": {
     "@minapp/common": "^3.0.0",
-    "@minapp/wxml-parser": "^2.1.4",
-    "read-pkg-up": "^6.0.0",
-    "resolve": "^1.11.0",
-    "tslib": "^1.9.0"
+    "@minapp/wxml-parser": "^2.1.5",
+    "mora-scripts": "^1.6.28",
+    "read-pkg-up": "^8.0.0",
+    "resolve": "^1.20.0",
+    "tslib": "^2.3.1"
   },
   "optionalDependencies": {
-    "prettier": "^1.16.4"
+    "prettier": "^2.3.2"
   },
   "devDependencies": {
-    "@serpent/dev-kits": "~0.7.2",
-    "@types/prettier": "~1.16.4",
-    "@types/resolve": "0.0.8",
-    "@types/sass": "~1.16.0",
-    "vscode": "^1.1.21"
+    "@types/mocha": "^9.0.0",
+    "@types/prettier": "~2.3.2",
+    "@types/resolve": "1.20.1",
+    "@types/sass": "~1.16.1",
+    "@types/vscode": "^1.59.0",
+    "@typescript-eslint/eslint-plugin": "^4.29.3",
+    "@typescript-eslint/parser": "^4.29.3",
+    "@vscode/test-electron": "^1.6.2",
+    "eslint": "7.32.0",
+    "mocha": "^9.1.1",
+    "ts-loader": "^9.2.5",
+    "typescript": "^4.3.5",
+    "vsce": "^1.96.1",
+    "webpack": "^5.51.1",
+    "webpack-cli": "^4.8.0"
   }
 }

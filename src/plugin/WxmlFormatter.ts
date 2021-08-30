@@ -55,7 +55,7 @@ export default class implements DocumentFormattingEditProvider, DocumentRangeFor
         })
       }
     } catch (e) {
-      window.showErrorMessage(`${this.config.wxmlFormatter} format error: ` + e.message)
+      window.showErrorMessage(`${this.config.wxmlFormatter} format error: ` + (e as any)?.message)
     }
 
     return [new TextEdit(range, content)]

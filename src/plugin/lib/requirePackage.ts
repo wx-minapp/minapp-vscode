@@ -1,16 +1,16 @@
 import * as path from 'path'
 import * as resolve from 'resolve'
-import * as readPkgUp from 'read-pkg-up'
+import { readPackageUpSync } from 'read-pkg-up'
 import { existsSync } from 'fs'
 
 function findPkg(fspath: string, pkgName: string): string | undefined {
-  const res = readPkgUp.sync({ cwd: fspath, normalize: false })
+  const res = readPackageUpSync({ cwd: fspath, normalize: false })
   const { root } = path.parse(fspath)
   if (
     res &&
-    res.package &&
-    ((res.package.dependencies && res.package.dependencies[pkgName]) ||
-      (res.package.devDependencies && res.package.devDependencies[pkgName]) ||
+    res.packageJson &&
+    ((res.packageJson.dependencies && res.packageJson.dependencies[pkgName]) ||
+      (res.packageJson.devDependencies && res.packageJson.devDependencies[pkgName]) ||
       existsSync(path.join(path.dirname(res.path), 'node_modules', pkgName)))
   ) {
     return resolve.sync(pkgName, { basedir: res.path })

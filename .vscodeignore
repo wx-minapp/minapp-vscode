@@ -5,6 +5,9 @@ dist/**/*.map
 dist/**/*.d.ts
 src/**
 .gitignore
+.eslintignore
+.prettierrc
 tsconfig.json
 vsc-extension-quickstart.md
 vendor/**
+node_modules
