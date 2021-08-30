@@ -1,0 +1,25 @@
+name: Deploy Extension
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-node@v2
+        with:
+         node-version: '14'
+         cache: 'npm'
+      - run: npm install
+      - name: Publish to Visual Studio Marketplace
+        uses: HaaLeo/publish-vscode-extension@v0
+        with:
+          pat: ${{ secrets.VSCODE_TOKEN }}
+          registryUrl: https://marketplace.visualstudio.com
+          yarn: false

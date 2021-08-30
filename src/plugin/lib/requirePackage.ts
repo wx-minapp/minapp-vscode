@@ -1,10 +1,10 @@
 import * as path from 'path'
 import * as resolve from 'resolve'
-import { readPackageUpSync } from 'read-pkg-up'
+import * as readPkgUp from 'read-pkg-up'
 import { existsSync } from 'fs'
 
 function findPkg(fspath: string, pkgName: string): string | undefined {
-  const res = readPackageUpSync({ cwd: fspath, normalize: false })
+  const res = readPkgUp.sync({ cwd: fspath, normalize: false })
   const { root } = path.parse(fspath)
   if (
     res &&
