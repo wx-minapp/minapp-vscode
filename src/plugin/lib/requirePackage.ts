@@ -8,9 +8,9 @@ function findPkg(fspath: string, pkgName: string): string | undefined {
   const { root } = path.parse(fspath)
   if (
     res &&
-    res.package &&
-    ((res.package.dependencies && res.package.dependencies[pkgName]) ||
-      (res.package.devDependencies && res.package.devDependencies[pkgName]) ||
+    res.packageJson &&
+    ((res.packageJson.dependencies && res.packageJson.dependencies[pkgName]) ||
+      (res.packageJson.devDependencies && res.packageJson.devDependencies[pkgName]) ||
       existsSync(path.join(path.dirname(res.path), 'node_modules', pkgName)))
   ) {
     return resolve.sync(pkgName, { basedir: res.path })
