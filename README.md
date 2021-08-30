@@ -1,7 +1,7 @@
 <p align="center"><a href="https://github.com/wx-minapp/minapp-vscode" target="_blank" rel="noopener noreferrer"><img width="150" src="./res/icon.png" alt="wxml language features logo"></a></p>
 
+[![CI Status](https://github.com/wx-minapp/minapp-vscode/actions/workflows/ci.yml/badge.svg)](https://github.com/wx-minapp/minapp-vscode/actions?query=branch%3Amaster)
 [![Visual Studio Marketplace](https://img.shields.io/visual-studio-marketplace/v/qiu8310.minapp-vscode?color=brightgreen&label=Visual%20Studio%20Marketplace)](https://marketplace.visualstudio.com/items?itemName=qiu8310.minapp-vscode)
-[![CI Status](https://github.com/wx-minapp/minapp-vscode/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/wx-minapp/minapp-vscode/actions?query=branch%3Amaster)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-brightgreen.svg)](https://github.com/stylus/stylus/pulse)
 ![Marketplace Downloads](https://img.shields.io/visual-studio-marketplace/d/qiu8310.minapp-vscode)
 ![Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/qiu8310.minapp-vscode)
@@ -12,7 +12,7 @@
 微信小程序.wxml文件代码高亮，标签、属性的智能补全（同时支持原生小程序、mpvue 和 wepy 框架，并提供code snippets）
 
 ## 最近更新 【[CHANGELOG.md](https://github.com/wx-minapp/minapp-vscode/blob/master/CHANGELOG.md)】
-> [@iChenLei](https://github.com/ichenlei)已接手维护本插件，希望大家多提意见。
+> [@iChenLei](https://github.com/ichenlei)已接手维护本插件，欢迎大家来[issues区](https://github.com/wx-minapp/minapp-vscode/issues)提意见。
 
 ## 主要功能
 
