@@ -77,7 +77,7 @@
     },
     "tag-generic-attribute": {
       "name": "entity.other.attribute-name.html",
-      "match": "(?<=[^=])\\b([a-zA-Z0-9:-]+)"
+      "match": "(?<=[^=])\\b([a-zA-Z0-9:\\-\\_]+)"
     },
     "unquoted-attribute": {
       "name": "string.unquoted.html",
@@ -151,7 +151,7 @@
     "wxml-directives": {
       "end": "(?<='|\")|(?=[\\s<>`])",
       "name": "meta.directive.wxml",
-      "begin": "((?:\\b(v-|bind:?|catch:?|capture-bind:?|capture-catch:)|(:|@))([a-zA-Z\\-]+)(?:\\:([a-zA-Z\\-]+))?(?:\\.([a-zA-Z\\-]+))*)\\s*(=)",
+      "begin": "((?:\\b(v-|bind:?|catch:?|capture-bind:?|capture-catch:)|(:|@))([a-zA-Z\\-\\_]+)(?:\\:([a-zA-Z\\-\\_]+))?(?:\\.([a-zA-Z\\-\\_]+))*)\\s*(=)",
       "captures": {
         "1": {
           "name": "entity.other.attribute-name.html"
