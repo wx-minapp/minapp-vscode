@@ -1,4 +1,4 @@
-<p align="center"><a href="https://github.com/wx-minapp/minapp-vscode" target="_blank" rel="noopener noreferrer"><img width="150" src="./res/icon.png" alt="wxml language features logo"></a></p>
+<p align="center"><a href="https://github.com/wx-minapp/minapp-vscode" target="_blank" rel="noopener noreferrer"><img width="100" src="./res/icon.png" alt="wxml language features logo"></a></p>
 
 [![CI Status](https://github.com/wx-minapp/minapp-vscode/actions/workflows/ci.yml/badge.svg)](https://github.com/wx-minapp/minapp-vscode/actions?query=branch%3Amaster)
 [![Visual Studio Marketplace](https://img.shields.io/visual-studio-marketplace/v/qiu8310.minapp-vscode?color=brightgreen&label=Visual%20Studio%20Marketplace)](https://marketplace.visualstudio.com/items?itemName=qiu8310.minapp-vscode)
@@ -6,15 +6,15 @@
 ![Marketplace Downloads](https://img.shields.io/visual-studio-marketplace/d/qiu8310.minapp-vscode)
 ![Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/qiu8310.minapp-vscode)
 ![Marketplace Rating](https://img.shields.io/visual-studio-marketplace/r/qiu8310.minapp-vscode)
-# wxml language features
+## wxml language features
 > 插件原名`minapp`,现已更名为`wxml language features`,将来将持续专注微信原生小程序wxml的支持
 
 微信小程序.wxml文件代码高亮，标签、属性的智能补全（同时支持原生小程序、mpvue 和 wepy 框架，并提供code snippets）
 
-## 最近更新 【[CHANGELOG.md](https://github.com/wx-minapp/minapp-vscode/blob/master/CHANGELOG.md)】
+### 最近更新 【[CHANGELOG.md](https://github.com/wx-minapp/minapp-vscode/blob/master/CHANGELOG.md)】
 > [@iChenLei](https://github.com/ichenlei)已接手维护本插件，欢迎大家来[issues区](https://github.com/wx-minapp/minapp-vscode/issues)提意见。
 
-## 主要功能
+### 主要功能
 
 * [标签名与属性自动补全](#tag-and-attr)
 * [根据组件已有的属性，自动筛选出对应支持的属性集合](#smart-attr)
@@ -34,7 +34,7 @@
 
 <a id="tag-and-attr"></a>
 
-## 标签名与属性名自动补全
+### 标签名与属性名自动补全
 
 * wxml 中需要输入 `<` 才会触发标签补全，而 pug 语言只需要写标签开头即能触发标签补全
 * 输入空格会触发对应标签的属性补全
@@ -49,7 +49,7 @@
 
 <a id="smart-attr"></a>
 
-## 根据组件已有的属性，自动筛选出对应支持的属性集合
+### 根据组件已有的属性，自动筛选出对应支持的属性集合
 
 - 当 picker 的 mode="selector" 时，有 `range` 和 `range-key` 的属性
 - 当 picker 的 mode="time" 时，有 `start` 和 `end` 的属性
@@ -63,7 +63,7 @@
 
 <a id="attr-value"></a>
 
-## 属性值自动补全（有可选值的情况下才会触发补全）
+### 属性值自动补全（有可选值的情况下才会触发补全）
 
 - 在属性值中输入空格可以触发，补全后自动会将空格覆盖
 
@@ -76,7 +76,7 @@
 
 <a id="attr-definition"></a>
 
-## 点击模板文件中的函数或属性跳转到 js/ts 定义的地方（纯 wxml 或 pug 文件才支持，vue 文件不完全支持）
+### 点击模板文件中的函数或属性跳转到 js/ts 定义的地方（纯 wxml 或 pug 文件才支持，vue 文件不完全支持）
 
 **功能还不完善，只会查找和当前模板同名的脚本文件，所以有可能会找不到JS中的定义**
 
@@ -88,7 +88,7 @@
 
 <a id="attr-class-value"></a>
 
-## 样式名自动补全（纯 wxml 或 pug 文件才支持，vue 文件不完全支持）
+### 样式名自动补全（纯 wxml 或 pug 文件才支持，vue 文件不完全支持）
 
 系统会自动获取和当前模板同名的样式文件中的所有样式名，同时还能获取样式名上的 `/** */` 中的文档；如果有全局的样式，需要通过配置项 `minapp-vscode.globalStyleFiles` 来指定
 
@@ -117,7 +117,7 @@
 
 <a id="vue"></a>
 
-## 在 vue 模板文件中也能自动补全，同时支持 pug 语言
+### 在 vue 模板文件中也能自动补全，同时支持 pug 语言
 
 vue 中的 template 板支持两个属性：
 
@@ -142,7 +142,7 @@ vue 中的 template 板支持两个属性：
 
 <a id="link"></a>
 
-## 支持 link（纯 wxml 或 pug 文件才支持，vue 文件不支持）
+### 支持 link（纯 wxml 或 pug 文件才支持，vue 文件不支持）
 
 - 默认只会 link src 标签，并且文件需要存在，不存在不会加 link
 - 可以配置 `minapp-vscode.linkAttributeNames` 来扩展额外的支持 link 的标签，将此值配置成空数组，可以禁用 link 功能
@@ -158,7 +158,7 @@ vue 中的 template 板支持两个属性：
 
 <a id="custom-component"></a>
 
-## 自定义组件自动补全（纯 wxml 文件才支持，vue 或 pug 文件不支持）
+### 自定义组件自动补全（纯 wxml 文件才支持，vue 或 pug 文件不支持）
 
 - 自动获取对应 json 文件中的组件信息
 - 优先提示自定义组件
@@ -174,7 +174,7 @@ vue 中的 template 板支持两个属性：
 
 <a id="highlight"></a>
 
-## 模板文件中 js 变量高亮（纯 wxml 或 pug 文件才支持，vue 文件不支持）
+### 模板文件中 js 变量高亮（纯 wxml 或 pug 文件才支持，vue 文件不支持）
 
 - 默认关闭高亮，可以配置 `minapp-vscode.disableDecorate` 为 `true` 来开启高亮
 - 默认高亮颜色使用紫色，可以配置 `minapp-vscode.decorateType` 来使用你喜欢的颜色，如 `{"color": "red"}`
@@ -196,7 +196,7 @@ vue 中的 template 板支持两个属性：
 
 <a id="snippets"></a>
 
-## 内置 snippets
+### 内置 snippets
 
   - 自带 swiper/icon/button/picker time/picker date/picker region/checkbox-group/radio-group，见[文件](https://github.com/wx-minapp/minapp-vscode/blob/master/src/plugin/res/snippets.ts)
   - 可以通过配置项 `minapp-vscode.snippets` 来定义你自己的 snippets
@@ -213,7 +213,7 @@ vue 中的 template 板支持两个属性：
 
 <a id="emmet"></a>
 
-## 支持 emmet 写法
+### 支持 emmet 写法
 
 ![示例图片](https://n1image.hjfile.cn/res7/2018/06/22/2f692e4cf499d712d34f593a3e813522.gif)
 
@@ -221,7 +221,7 @@ vue 中的 template 板支持两个属性：
 
 <a id="wxml-formatter"></a>
 
-## wxml 格式
+### wxml 格式
 
 支持`prettyHtml`和`prettier`(部分内容需要采用兼容html的方式书写)
 
@@ -258,14 +258,14 @@ vue 中的 template 板支持两个属性：
   2. 切换格式化工具需重启vscode
   3. 针对`prettyHtml`,和`prettier`采用html5的语法和wxml不完全一致,写法要注意兼容
 
-## 常见问题
+### 常见问题
 
-### 安装插件后没有出现自动补全
+#### 安装插件后没有出现自动补全
 
 1. 确保安装后有重启过 vscode
 2. 确保当前文件的格式是 wxml 或 wxml-pug 或 vue (不能看文件后缀名，因为可能在配置文件中把它们关联的其它文件格式；需要看 vscode 右下解显示的文件类型)
 
-### 在非小程序项目，pug 文件不想要小程序的自动补全
+#### 在非小程序项目，pug 文件不想要小程序的自动补全
 
 minapp 插件会自动将 .pug 文件关联到 `wxml-pug` 文件类型。所以你只需要在具体的项目中配置一下文件关联就行了。
 
@@ -273,7 +273,7 @@ minapp 插件会自动将 .pug 文件关联到 `wxml-pug` 文件类型。所以�
 * 小程序项目中，将 .pug 后缀的文件关联到 `wxml-pug` 文件类型
 
 
-## TODO
+### TODO
 
 * [x] 单独的 wxml 文件样式实现和 vue 中的 wxml 文件样式一样的风格
 * [x] bind 或 catch 相关的属性可以点击，并跳转到对应的函数上
