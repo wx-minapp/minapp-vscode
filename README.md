@@ -1,4 +1,7 @@
-<p align="center"><a href="https://github.com/wx-minapp/minapp-vscode" target="_blank" rel="noopener noreferrer"><img width="100" src="./res/icon.png" alt="wxml language features logo"></a></p>
+<img align="right" width="90px" src="https://funimg.pddpic.com/mobile_piggy/0fe81c13-7691-49ae-bb6e-39586d58a1d7.png.slim.png" alt="wxml language features logo" />
+
+## WXML - Language Services
+> 插件原名`minapp`,现已更名为`WXML - Language Services`, 未来将持续专注微信原生小程序wxml的支持
 
 [![CI Status](https://github.com/wx-minapp/minapp-vscode/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/wx-minapp/minapp-vscode/actions/workflows/ci.yml?query=branch%3Amaster)
 [![Deploy Status](https://github.com/wx-minapp/minapp-vscode/actions/workflows/deploy.yml/badge.svg)](https://github.com/wx-minapp/minapp-vscode/actions/workflows/deploy.yml)
@@ -6,13 +9,19 @@
 ![Marketplace Downloads](https://img.shields.io/visual-studio-marketplace/d/qiu8310.minapp-vscode)
 ![Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/qiu8310.minapp-vscode)
 ![Marketplace Rating](https://img.shields.io/visual-studio-marketplace/r/qiu8310.minapp-vscode)
-## WXML - Language Services
-> 插件原名`minapp`,现已更名为`WXML - Language Services`, 未来将持续专注微信原生小程序wxml的支持
 
 微信小程序.wxml文件代码高亮，标签、属性的智能补全（同时支持原生小程序、mpvue 和 wepy 框架，并提供code snippets）
 
 ### 最近更新 【[CHANGELOG.md](https://github.com/wx-minapp/minapp-vscode/blob/master/CHANGELOG.md)】
-> [@iChenLei](https://github.com/ichenlei)已接手维护本插件，欢迎大家来[issues区](https://github.com/wx-minapp/minapp-vscode/issues)提意见。
+> [@iChenLei](https://github.com/ichenlei)已接手维护本插件，欢迎大家在钉钉群或者[Github issues](https://github.com/wx-minapp/minapp-vscode/issues)提意见。
+
+### 用户交流钉钉群
+
+| 用户1群 | 用户2群 | 用户3群 |
+| :-----:  | :------: | :----- |
+| <img src="https://funimg.pddpic.com/mobile_piggy/548df6a0-47e9-4c8c-99c6-cee4cea53ff2.jpg.slim.c2.jpeg" width="200px" /> | <img src="https://funimg.pddpic.com/mobile_piggy/23c4af30-d384-43cd-8c2e-9252287387aa.jpg.slim.c2.jpeg" width="200px" /> | <p width="200px">暂无</p> |
+
+> 请使用阿里巴巴旗下[钉钉(DingDing)](https://www.dingtalk.com)APP扫码进入交流群，反馈Bug/给插件维护者提需求，相比Github issues更加接地气地与插件维护者交流。加一个群即可，1群满了试试加2群。如果遇到二维码过期或者群都满了的问题请提[issue](https://github.com/wx-minapp/minapp-vscode/issues)给插件维护者。
 
 ### 主要功能
 
