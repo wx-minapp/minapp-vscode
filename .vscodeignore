@@ -10,4 +10,5 @@ src/**
 tsconfig.json
 vsc-extension-quickstart.md
 vendor/**
-node_modules
+node_modules/**
+!node_modules/prettier/
