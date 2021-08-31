@@ -1,4 +1,4 @@
-name: Deploy Extension
+name: Deploy
 
 on:
   push:

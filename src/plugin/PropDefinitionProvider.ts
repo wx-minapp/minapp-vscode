@@ -8,7 +8,7 @@ const reserveWords = ['true', 'false']
 
 export class PropDefinitionProvider implements DefinitionProvider {
   constructor(public config: Config) {}
-  public async provideDefinition(document: TextDocument, position: Position, token: CancellationToken) {
+  public async provideDefinition(document: TextDocument, position: Position, token: CancellationToken): Promise<Location[]> {
     const tag = getTagAtPosition(document, position)
     const locs: Location[] = []
 
@@ -31,26 +31,26 @@ export class PropDefinitionProvider implements DefinitionProvider {
       }
     } else {
       // 判断是否是在 {{ }} 中
-      let range = document.getWordRangeAtPosition(position, /\{\{[\s\w]+\}\}/)
+      const range = document.getWordRangeAtPosition(position, /\{\{[\s\w]+\}\}/)
       if (!range) return locs
-      let text = document.getText(range).replace(/^\{\{\s*|\s*\}\}$/g, '')
+      const text = document.getText(range).replace(/^\{\{\s*|\s*\}\}$/g, '')
       return this.searchScript('prop', text, document)
     }
     return locs
   }
 
-  searchScript(type: 'prop' | 'method', word: string, doc: TextDocument) {
+  searchScript(type: 'prop' | 'method', word: string, doc: TextDocument): Location[] {
     return getProp(doc.fileName, type, word).map(p => p.loc)
   }
 
-  searchStyle(className: string, document: TextDocument, position: Position) {
+  searchStyle(className: string, document: TextDocument, position: Position): Location[] {
     const locs: Location[] = []
 
     getClass(document, this.config).forEach(styfile => {
       styfile.styles.forEach(sty => {
         if (sty.name === className) {
-          let start = sty.pos
-          let end = new Position(start.line, 1 + start.character + className.length)
+          const start = sty.pos
+          const end = new Position(start.line, 1 + start.character + className.length)
           locs.push(new Location(Uri.file(styfile.file), new Range(start, end)))
         }
       })
