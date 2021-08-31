@@ -6,7 +6,7 @@
 ![Marketplace Downloads](https://img.shields.io/visual-studio-marketplace/d/qiu8310.minapp-vscode)
 ![Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/qiu8310.minapp-vscode)
 ![Marketplace Rating](https://img.shields.io/visual-studio-marketplace/r/qiu8310.minapp-vscode)
-## wxml language features
+## WXML - Language Services
 > 插件原名`minapp`,现已更名为`WXML - Language Services`, 未来将持续专注微信原生小程序wxml的支持
 
 微信小程序.wxml文件代码高亮，标签、属性的智能补全（同时支持原生小程序、mpvue 和 wepy 框架，并提供code snippets）
