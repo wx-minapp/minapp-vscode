@@ -1,3 +1,4 @@
+.github/**
 .vscode/**
 .vscode-test/**
 dist/test/**
@@ -10,5 +11,6 @@ src/**
 tsconfig.json
 vsc-extension-quickstart.md
 vendor/**
-node_modules/**
-!node_modules/prettier/
+
+node_modules/
+!node_modules/prettier
