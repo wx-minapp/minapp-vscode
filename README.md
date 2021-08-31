@@ -18,8 +18,8 @@
 ### 用户交流钉钉群
 
 | 用户1群 | 用户2群 | 用户3群 |
-| :-----:  | :------: | :----- |
-| <img src="https://funimg.pddpic.com/mobile_piggy/548df6a0-47e9-4c8c-99c6-cee4cea53ff2.jpg.slim.c2.jpeg" width="200px" /> | <img src="https://funimg.pddpic.com/mobile_piggy/23c4af30-d384-43cd-8c2e-9252287387aa.jpg.slim.c2.jpeg" width="200px" /> | <p width="200px">暂无</p> |
+| :-----:  | :------: | :-----: |
+| <img src="https://funimg.pddpic.com/mobile_piggy/548df6a0-47e9-4c8c-99c6-cee4cea53ff2.jpg.slim.c2.jpeg" width="200px" /> | <img src="https://funimg.pddpic.com/mobile_piggy/23c4af30-d384-43cd-8c2e-9252287387aa.jpg.slim.c2.jpeg" width="200px" /> | 暂无 |
 
 > 请使用阿里巴巴旗下[钉钉(DingDing)](https://www.dingtalk.com)APP扫码进入交流群，反馈Bug/给插件维护者提需求，相比Github issues更加接地气地与插件维护者交流。加一个群即可，1群满了试试加2群。如果遇到二维码过期或者群都满了的问题请提[issue](https://github.com/wx-minapp/minapp-vscode/issues)给插件维护者。
 
