@@ -3,8 +3,8 @@
  Author Mora <qiuzhongleiabc@126.com> (https://github.com/qiu8310)
 *******************************************************************/
 
-import { CustomAttr, LanguageConfig } from '@minapp/common/dist/dev/config'
-import { Component } from '@minapp/common'
+import { CustomAttr, LanguageConfig } from '../../common/src/dev/config'
+import { Component } from '../../common/src'
 
 // https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxml/event.html
 const EVENT_ATTRS: CustomAttr[] = [

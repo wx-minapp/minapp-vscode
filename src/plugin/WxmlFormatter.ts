@@ -8,7 +8,7 @@ import {
   window,
 } from 'vscode'
 import * as Prettier from 'prettier'
-import { parse } from '@minapp/wxml-parser'
+import { parse } from '../wxml-parser'
 import { Config } from './lib/config'
 import { getEOL } from './lib/helper'
 import { requireLocalPkg } from './lib/requirePackage'
@@ -18,7 +18,7 @@ export default class implements DocumentFormattingEditProvider, DocumentRangeFor
   constructor(public config: Config) {}
 
   async format(doc: TextDocument, range: Range, options: FormattingOptions, prefix = '') {
-    let code = doc.getText(range)
+    const code = doc.getText(range)
     let content: string = code
     const resolveOptions = (prettier?: PrettierType) =>
       (prettier || requireLocalPkg<PrettierType>(doc.uri.fsPath, 'prettier')).resolveConfig(doc.uri.fsPath, {
@@ -28,7 +28,7 @@ export default class implements DocumentFormattingEditProvider, DocumentRangeFor
     try {
       if (this.config.wxmlFormatter === 'prettier') {
         const prettier: PrettierType = requireLocalPkg(doc.uri.fsPath, 'prettier')
-        let prettierOptions = await resolveOptions(prettier)
+        const prettierOptions = await resolveOptions(prettier)
         content = prettier.format(code, { ...this.config.prettier, ...prettierOptions })
       } else if (this.config.wxmlFormatter === 'prettyHtml') {
         let prettyHtmlOptions = this.config.prettyHtml
@@ -62,7 +62,7 @@ export default class implements DocumentFormattingEditProvider, DocumentRangeFor
   }
 
   provideDocumentFormattingEdits(doc: TextDocument, options: FormattingOptions): Promise<TextEdit[]> {
-    let range = new Range(doc.lineAt(0).range.start, doc.lineAt(doc.lineCount - 1).range.end)
+    const range = new Range(doc.lineAt(0).range.start, doc.lineAt(doc.lineCount - 1).range.end)
     return this.format(doc, range, options)
   }
 
@@ -71,8 +71,8 @@ export default class implements DocumentFormattingEditProvider, DocumentRangeFor
     range: Range,
     options: FormattingOptions
   ): Promise<TextEdit[]> {
-    let prefixRange = doc.getWordRangeAtPosition(range.start, /[ \t]+/)
-    let prefix = prefixRange ? doc.getText(prefixRange) : ''
+    const prefixRange = doc.getWordRangeAtPosition(range.start, /[ \t]+/)
+    const prefix = prefixRange ? doc.getText(prefixRange) : ''
     return this.format(doc, range, options, prefix)
   }
 }

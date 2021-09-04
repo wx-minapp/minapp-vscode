@@ -2,9 +2,7 @@ import * as path from 'path'
 import * as resolve from 'resolve'
 import * as readPkgUp from 'read-pkg-up'
 import { existsSync } from 'fs'
-
-declare const __webpack_require__: typeof require;
-declare const __non_webpack_require__: typeof require;
+import { noderequire } from '../../utils/noderequire'
 
 function findPkg(fspath: string, pkgName: string): string | undefined {
   const res = readPkgUp.sync({ cwd: fspath, normalize: false })
@@ -34,19 +32,14 @@ function findPkg(fspath: string, pkgName: string): string | undefined {
  */
 export function requireLocalPkg<T>(fspath: string, pkgName: string): T {
   let modulePath
-  // Source: https://github.com/microsoft/vscode-eslint/blob/master/server/src/eslintServer.ts
-  const r =
-    typeof __webpack_require__ === "function"
-      ? __non_webpack_require__
-      : require;
   try {
     modulePath = findPkg(fspath, pkgName)
     if (modulePath !== void 0) {
-      return r(modulePath)
+      return noderequire(modulePath)
     }
   } catch (e) {
     console.warn(`Failed to load ${pkgName} from ${modulePath}. Using bundled.`)
   }
 
-  return r(pkgName)
+  return noderequire(pkgName)
 }
