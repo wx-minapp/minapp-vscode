@@ -20,7 +20,7 @@ import {
   autocompleteTagAttr,
   autocompleteTagAttrValue,
   autocompleteTagName,
-} from '@minapp/common'
+} from '../common/src'
 
 import * as path from 'path'
 

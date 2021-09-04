@@ -4,7 +4,7 @@ Author Mora <qiuzhongleiabc@126.com> (https://github.com/qiu8310)
 *******************************************************************/
 
 import { HoverProvider, TextDocument, Position, CancellationToken, Hover, MarkdownString } from 'vscode'
-import { hoverComponentAttrMarkdown, hoverComponentMarkdown } from '@minapp/common'
+import { hoverComponentAttrMarkdown, hoverComponentMarkdown } from '../common/src'
 import { getTagAtPosition } from './getTagAtPosition/'
 import { Config } from './lib/config'
 import { getLanguage, getCustomOptions } from './lib/helper'
