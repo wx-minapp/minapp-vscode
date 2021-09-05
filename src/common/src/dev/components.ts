@@ -18,8 +18,8 @@ export function getComponentMarkdown(c: Component) {
   rows.push(...list('Tip', c.tips))
   rows.push(...list('Note', c.notices))
 
-  if (c.relateApis) rows.push(...list('相关接口', c.relateApis.map(l => link(l.name, l.link))))
-  if (c.docLink) rows.push(link('官方文档', c.docLink))
+  if (c.relateApis) rows.push(...list('API Interface', c.relateApis.map(l => link(l.name, l.link))))
+  if (c.docLink) rows.push(link('Wechat Document Reference', c.docLink))
 
   return rows.join('\n\n')
 }

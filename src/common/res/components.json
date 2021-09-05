@@ -5455,7 +5455,7 @@
       }
     ],
     "name": "slot",
-    "docLink": "https://mp.weixin.qq.com/debug/wxadoc/dev/framework/custom-component/wxml-wxss.html#%E7%BB%84%E4%BB%B6wxml%E7%9A%84slot"
+    "docLink": "https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/wxml-wxss.html#%E7%BB%84%E4%BB%B6-wxml-%E7%9A%84-slot"
   },
   {
     "attrs": [
@@ -5479,15 +5479,15 @@
       }
     ],
     "name": "template",
-    "docLink": "https://mp.weixin.qq.com/debug/wxadoc/dev/framework/view/wxml/template.html"
+    "docLink": "https://developers.weixin.qq.com/miniprogram/dev/reference/wxml/template.html"
   },
   {
     "name": "block",
-    "docLink": "https://mp.weixin.qq.com/debug/wxadoc/dev/framework/view/wxml/conditional.html#block-wxif"
+    "docLink": "https://developers.weixin.qq.com/miniprogram/dev/reference/wxml/conditional.html#block-wx-if"
   },
   {
     "desc": [
-      "import 有作用域的概念，即只会 import 目标文件中定义的 template，而不会 import 目标文件 import 的 template"
+      "`import`有作用域的概念，即只会`import`目标文件中定义的`template`，而不会`import`目标文件`import`的`template`"
     ],
     "attrs": [
       {
@@ -5498,11 +5498,11 @@
       }
     ],
     "name": "import",
-    "docLink": "https://mp.weixin.qq.com/debug/wxadoc/dev/framework/view/wxml/import.html#import"
+    "docLink": "https://developers.weixin.qq.com/miniprogram/dev/reference/wxml/import.html"
   },
   {
     "desc": [
-      "include 可以将目标文件除了 <template/> <wxs/> 外的整个代码引入，相当于是拷贝到 include 位置"
+      "`include`可以将目标文件除了 `<template />` `<wxs />` 外的整个代码引入，相当于是拷贝到`include`位置"
     ],
     "attrs": [
       {
@@ -5513,6 +5513,6 @@
       }
     ],
     "name": "include",
-    "docLink": "https://mp.weixin.qq.com/debug/wxadoc/dev/framework/view/wxml/import.html#include"
+    "docLink": "https://developers.weixin.qq.com/miniprogram/dev/reference/wxml/import.html#include"
   }
 ]

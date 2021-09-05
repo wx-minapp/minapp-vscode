@@ -26,6 +26,8 @@ const BASE_ATTRS: CustomAttr[] = [
   { name: 'class' },
   { name: 'style', desc: ['组件的内联样式'] },
   { name: 'hidden', desc: ['组件是否隐藏'] },
+  { name: 'data-', desc: ['自定义数据\n\n[Wechat Document Reference](https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxml/event.html#dataset)'] },
+  { name: 'mark:', desc: ['事件标记数据\n\n[Wechat Document Reference](https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxml/event.html#mark)'], since: '2.7.1' }
 ]
 
 const WXS_COMPONENT: Component = {
@@ -53,7 +55,7 @@ export const Languages: Languages = {
     id: 'wxml',
     baseAttrs: BASE_ATTRS,
     event: {
-      prefixes: ['bind:', 'catch:', 'capture-bind:', 'capture-catch:'],
+      prefixes: ['bind:', 'catch:', 'capture-bind:', 'capture-catch:', 'mut-bind:'],
       modifiers: [],
       attrs: EVENT_ATTRS,
     },
