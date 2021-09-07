@@ -26,8 +26,35 @@ const BASE_ATTRS: CustomAttr[] = [
   { name: 'class' },
   { name: 'style', desc: ['组件的内联样式'] },
   { name: 'hidden', desc: ['组件是否隐藏'] },
-  { name: 'data-', desc: ['自定义数据\n\n[Wechat Document Reference](https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxml/event.html#dataset)'] },
-  { name: 'mark:', desc: ['事件标记数据\n\n[Wechat Document Reference](https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxml/event.html#mark)'], since: '2.7.1' }
+  { name: 'mark:', desc: [
+    '事件标记数据',
+    '[Wechat Document Reference](https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxml/event.html#mark)'
+  ], since: '2.7.1' },
+  // 无障碍访问 a11y
+  { name: "aria-hidden", since: "2.7.1"},
+  { name: "aria-role", since: "2.7.1"},
+  { name: "aria-label", since: "2.7.1"},
+  { name: "aria-checked", since: "2.7.1"},
+  { name: "aria-disabled", since: "2.7.1"},
+  { name: "aria-describedby", since: "2.7.1"},
+  { name: "aria-expanded", since: "2.7.1"},
+  { name: "aria-haspopup", since: "2.7.1"},
+  { name: "aria-selected", since: "2.7.1"},
+  { name: "aria-required", since: "2.7.1"},
+  { name: "aria-orientation", since: "2.7.1"},
+  { name: "aria-valuemin", since: "2.7.1"},
+  { name: "aria-valuemax", since: "2.7.1"},
+  { name: "aria-valuenow", since: "2.7.1"},
+  { name: "aria-readonly", since: "2.7.1"},
+  { name: "aria-multiselectable", since: "2.7.1"},
+  { name: "aria-controls", since: "2.7.1"},
+  { name: "tabindex", since: "2.7.1"},
+  { name: "aria-labelledby", since: "2.7.1"},
+  { name: "aria-orientation", since: "2.7.1"},
+  { name: "aria-modal", since: "2.7.1"},
+  { name: "aria-live", since: "2.7.1"},
+  { name: "aria-atomic", since: "2.7.1"},
+  { name: "aria-relevant", since: "2.7.1"}
 ]
 
 const WXS_COMPONENT: Component = {
