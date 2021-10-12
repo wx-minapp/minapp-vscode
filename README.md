@@ -255,7 +255,6 @@ vue 中的 template 板支持两个属性：
 ```jsonc
 "minapp-vscode.wxmlFormatter": "prettier", //指定格式化工具
 "minapp-vscode.prettier": { //prettier 更多参考https://prettier.io/docs/en/options.html
- // 需指定wxml 的 parser, 推荐 angular 进行处理
   "useTabs": false,
   "tabWidth": 2,
   "printWidth": 100,
