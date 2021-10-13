@@ -2,7 +2,7 @@
   "name": "minapp-vscode",
   "displayName": "WXML - Language Services",
   "description": "微信小程序.wxml文件代码高亮，标签、属性的智能补全（同时支持原生小程序、mpvue 和 wepy 框架，并提供code snippets）",
-  "version": "2.3.6",
+  "version": "2.3.7",
   "publisher": "qiu8310",
   "extensionKind": [
     "workspace"
@@ -305,9 +305,9 @@
     "@vscode/test-electron": "^1.6.2",
     "eslint": "7.32.0",
     "mocha": "^9.1.1",
-    "ts-loader": "^9.2.5",
-    "typescript": "^4.3.5",
-    "vsce": "^1.96.3",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.4.4",
+    "vsce": "^1.100.1",
     "webpack": "^5.51.1",
     "webpack-cli": "^4.8.0"
   }

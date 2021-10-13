@@ -81,7 +81,12 @@ function parseScriptFile(file: string, type: string, prop: string) {
      * - 异步函数声明`prop: async function...`
      */
     const propFuncReg = `(${prop})${s}:${s}${async}(?:${param}${s}${returnType}=>|function\\W)`
-    reg = new RegExp(`^${s}(${methodReg}|${propFuncReg})`, 'gm')
+    /**
+     * 直接认为如下格式的是函数进行模糊匹配
+     * - 对象申明 func : throttle(() => {})
+     */
+    const fuzzyMatchReg = `${prop}${s}:`
+    reg = new RegExp(`^${s}(${methodReg}|${propFuncReg}|${fuzzyMatchReg})`, 'gm')
   }
 
   if (!reg) return locs
