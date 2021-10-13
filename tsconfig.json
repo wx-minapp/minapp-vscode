@@ -1,16 +1,13 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es6",
+    "target": "es2018",
     "outDir": "dist",
-    "lib": [
-      "es6"
-    ],
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "sourceMap": true,
     "rootDir": "src",
-    "declaration": true,
+    "declaration": false,
     "removeComments": false,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": false,

@@ -1,3 +1,10 @@
+2.3.7 / 2021-10-13
+==================
+
+* 更改配置webpack#resolve.resolvemainfields修复JSON5导入的问题
+* 支持ObjectProperty形式申明的函数跳转，Fix [#99](https://github.com/wx-minapp/minapp-vscode/issues/99)
+* wxml内函数跳转支持`mut-bind`,`capture-catch`and`capture-bind`
+
 2.3.6 / 2021-10-13
 ==================
 

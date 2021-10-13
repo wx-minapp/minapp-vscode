@@ -38,7 +38,7 @@ export class PropDefinitionProvider implements DefinitionProvider {
         return this.searchStyle(posWord, document, position)
       } else if (attrName.endsWith('.sync') || (rawAttrValue.startsWith('{{') && rawAttrValue.endsWith('}}'))) {
         return this.searchScript('prop', posWord, document)
-      } else if (/^(bind|catch)/.test(attrName) || /\.(user|stop|default)$/.test(attrName)) {
+      } else if (/^(mut-bind|capture-catch|capture-bind|bind|catch)/.test(attrName) || /\.(user|stop|default)$/.test(attrName)) {
         return this.searchScript('method', posWord, document)
       }
     } else {
