@@ -1,6 +1,7 @@
 /* tslint:disable */
 export interface Component {
   name: string
+  path?: string
   docLink?: string
   since?: string
   desc: string[]
