@@ -3,6 +3,8 @@ import { DefinitionProvider, TextDocument, Position, CancellationToken, Location
 import { getTagAtPosition } from './getTagAtPosition'
 import { getClass } from './lib/StyleFile'
 import { getProp } from './lib/ScriptFile'
+import { definitionTagName } from '../common/src'
+import { getCustomOptions, getLanguage } from './lib/helper'
 
 const reserveWords = ['true', 'false']
 
@@ -13,6 +15,16 @@ export class PropDefinitionProvider implements DefinitionProvider {
     const locs: Location[] = []
 
     if (tag) {
+      const language = getLanguage(document, position);
+      if (tag.isOnTagName) {
+        if (language) {
+          const component = await definitionTagName(tag.name, language, getCustomOptions(this.config, document));
+          if (component && component.path) {
+            locs.push(new Location(Uri.file(component.path), new Position(0, 0)))
+          }
+        }
+        return locs;
+      }
       const { attrs, attrName, posWord } = tag
       const rawAttrValue = ((attrs['__' + attrName] || '') as string).replace(/^['"]|['"]$/g, '') // 去除引号
 

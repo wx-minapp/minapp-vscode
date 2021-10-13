@@ -100,7 +100,8 @@ async function parseComponentFile(
     }
     // 实时解析
     const attrs = parseAttrs((await readFile(found)).toString())
-    if (attrs.length) return { attrs } as any
+    if (attrs.length) return { attrs, path: found } as any
+    return { path: found } as any;
   }
   return {} as any
 }

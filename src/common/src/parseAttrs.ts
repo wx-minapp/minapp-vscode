@@ -93,7 +93,7 @@ function parseObjStr(objstr: string) {
     return attrs
   } catch (e) {
     console.log('解析失败:', (e as any)?.message)
-    console.log(`{${objstr}}`)
+    // console.log(`{${objstr}}`)
   }
   return
 }
