@@ -3,7 +3,7 @@ name: "\U0001F41E Bug report"
 about: Something isn’t working as expected
 title: "[Bug]: "
 labels: 'bug'
-assignees: ''
+assignees: 'iChenLei'
 ---
 
 **如何复现:**
