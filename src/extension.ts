@@ -19,7 +19,7 @@ import ActiveTextEditorListener from './plugin/ActiveTextEditorListener'
 import { config, configActivate, configDeactivate } from './plugin/lib/config'
 import { PropDefinitionProvider } from './plugin/PropDefinitionProvider'
 
-export function activate(context: ExtensionContext) {
+export function activate(context: ExtensionContext): void {
   // console.log('minapp-vscode is active!')
   configActivate()
 
@@ -82,12 +82,12 @@ export function activate(context: ExtensionContext) {
   )
 }
 
-export function deactivate() {
+export function deactivate(): void {
   configDeactivate()
 }
 
 function autoConfig() {
-  let c = workspace.getConfiguration()
+  const c = workspace.getConfiguration()
   const updates: { key: string; map: any }[] = [
     {
       key: 'files.associations',
@@ -106,8 +106,8 @@ function autoConfig() {
   ]
 
   updates.forEach(({ key, map }) => {
-    let oldMap = c.get(key, {}) as any
-    let appendMap: any = {}
+    const oldMap = c.get(key, {}) as any
+    const appendMap: any = {}
     Object.keys(map).forEach(k => {
       if (!oldMap.hasOwnProperty(k)) appendMap[k] = map[k]
     })
@@ -119,6 +119,6 @@ function autoConfig() {
   c.update('minapp-vscode.disableAutoConfig', true, true)
 }
 
-export function schemes(key: string) {
+export function schemes(key: string): any {
   return { scheme: 'file', language: key }
 }
