@@ -2768,6 +2768,50 @@
         "defaultValue": "true"
       },
       {
+        "name": "hold-keyboard",
+        "type": {
+          "name": "boolean"
+        },
+        "desc": [
+          "focus时，点击页面的时候不收起键盘"
+        ],
+        "since": "2.8.2",
+        "defaultValue": "false"
+      },
+      {
+        "name": "disable-default-padding",
+        "type": {
+          "name": "boolean"
+        },
+        "desc": [
+          "是否去掉 iOS 下的默认内边距"
+        ],
+        "since": "2.10.0",
+        "defaultValue": "false"
+      },
+      {
+        "name": "confirm-type",
+        "type": {
+          "name": "string"
+        },
+        "desc": [
+          "设置键盘右下角按钮的文字"
+        ],
+        "since": "2.13.0",
+        "defaultValue": "return"
+      },
+      {
+        "name": "confirm-hold",
+        "type": {
+          "name": "boolean"
+        },
+        "desc": [
+          "点击键盘右下角按钮时是否保持键盘不收起"
+        ],
+        "since": "2.16.0",
+        "defaultValue": "false"
+      },
+      {
         "name": "bindfocus",
         "type": {
           "name": "function",
@@ -2826,6 +2870,19 @@
         "desc": [
           "点击完成时， 触发 confirm 事件，event.detail = {value: value}"
         ]
+      },
+      {
+        "name": "bindkeyboardheightchange",
+        "type": {
+          "name": "function",
+          "returns": {
+            "name": "any"
+          }
+        },
+        "desc": [
+          "键盘高度发生变化的时候触发此事件，event.detail = {height: height, duration: duration}"
+        ],
+        "since": "2.7.0"
       }
     ],
     "tips": [
@@ -2952,6 +3009,16 @@
         ],
         "since": "2.0.7",
         "defaultValue": "release"
+      },
+      {
+        "name": "short-link",
+        "type": {
+          "name": "string"
+        },
+        "desc": [
+          "当target=\"miniProgram\"时有效，当传递该参数后，可以不传 app-id 和 path。链接可以通过【小程序菜单】->【复制链接】获取。"
+        ],
+        "since": "2.18.1"
       },
       {
         "name": "hover-class",
@@ -3271,55 +3338,59 @@
         "enum": [
           {
             "value": "scaleToFill",
-            "desc": "缩放: 不保持纵横比缩放图片，使图片的宽高完全拉伸至填满 image 元素  原图：![](https://developers.weixin.qq.com/miniprogram/dev/image/cat/0.jpg) 处理后: ![](https://developers.weixin.qq.com/miniprogram/dev/image/cat/1.png)"
+            "desc": "缩放: 不保持纵横比缩放图片，使图片的宽高完全拉伸至填满 image 元素"
           },
           {
             "value": "aspectFit",
-            "desc": "缩放: 保持纵横比缩放图片，使图片的长边能完全显示出来。也就是说，可以完整地将图片显示出来。  原图：![](https://developers.weixin.qq.com/miniprogram/dev/image/cat/0.jpg) 处理后: ![](https://developers.weixin.qq.com/miniprogram/dev/image/cat/2.png)"
+            "desc": "缩放: 保持纵横比缩放图片，使图片的长边能完全显示出来。也就是说，可以完整地将图片显示出来。"
           },
           {
             "value": "aspectFill",
-            "desc": "缩放: 保持纵横比缩放图片，只保证图片的短边能完全显示出来。也就是说，图片通常只在水平或垂直方向是完整的，另一个方向将会发生截取。  原图：![](https://developers.weixin.qq.com/miniprogram/dev/image/cat/0.jpg) 处理后: ![](https://developers.weixin.qq.com/miniprogram/dev/image/cat/3.png)"
+            "desc": "缩放: 保持纵横比缩放图片，只保证图片的短边能完全显示出来。也就是说，图片通常只在水平或垂直方向是完整的，另一个方向将会发生截取。"
           },
           {
             "value": "widthFix",
             "desc": "缩放: 宽度不变，高度自动变化，保持原图宽高比不变"
           },
           {
+            "value": "heightFix",
+            "desc": "缩放模式，高度不变，宽度自动变化，保持原图宽高比不变"
+          },
+          {
             "value": "top",
-            "desc": "裁剪: 不缩放图片，只显示图片的顶部区域  原图：![](https://developers.weixin.qq.com/miniprogram/dev/image/cat/0.jpg) 处理后: ![](https://developers.weixin.qq.com/miniprogram/dev/image/cat/4.png)"
+            "desc": "裁剪: 不缩放图片，只显示图片的顶部区域"
           },
           {
             "value": "bottom",
-            "desc": "裁剪: 不缩放图片，只显示图片的底部区域  原图：![](https://developers.weixin.qq.com/miniprogram/dev/image/cat/0.jpg) 处理后: ![](https://developers.weixin.qq.com/miniprogram/dev/image/cat/5.png)"
+            "desc": "裁剪: 不缩放图片，只显示图片的底部区域"
           },
           {
             "value": "center",
-            "desc": "裁剪: 不缩放图片，只显示图片的中间区域  原图：![](https://developers.weixin.qq.com/miniprogram/dev/image/cat/0.jpg) 处理后: ![](https://developers.weixin.qq.com/miniprogram/dev/image/cat/6.png)"
+            "desc": "裁剪: 不缩放图片，只显示图片的中间区域"
           },
           {
             "value": "left",
-            "desc": "裁剪: 不缩放图片，只显示图片的左边区域  原图：![](https://developers.weixin.qq.com/miniprogram/dev/image/cat/0.jpg) 处理后: ![](https://developers.weixin.qq.com/miniprogram/dev/image/cat/7.png)"
+            "desc": "裁剪: 不缩放图片，只显示图片的左边区域"
           },
           {
             "value": "right",
-            "desc": "裁剪: 不缩放图片，只显示图片的右边区域  原图：![](https://developers.weixin.qq.com/miniprogram/dev/image/cat/0.jpg) 处理后: ![](https://developers.weixin.qq.com/miniprogram/dev/image/cat/8.png)"
+            "desc": "裁剪: 不缩放图片，只显示图片的右边区域"
           },
           {
             "value": "top left",
-            "desc": "裁剪: 不缩放图片，只显示图片的左上边区域  原图：![](https://developers.weixin.qq.com/miniprogram/dev/image/cat/0.jpg) 处理后: ![](https://developers.weixin.qq.com/miniprogram/dev/image/cat/9.png)"
+            "desc": "裁剪: 不缩放图片，只显示图片的左上边区域"
           },
           {
             "value": "top right",
-            "desc": "裁剪: 不缩放图片，只显示图片的右上边区域  原图：![](https://developers.weixin.qq.com/miniprogram/dev/image/cat/0.jpg) 处理后: ![](https://developers.weixin.qq.com/miniprogram/dev/image/cat/10.png)"
+            "desc": "裁剪: 不缩放图片，只显示图片的右上边区域"
           },
           {
             "value": "bottom left",
-            "desc": "裁剪: 不缩放图片，只显示图片的左下边区域  原图：![](https://developers.weixin.qq.com/miniprogram/dev/image/cat/0.jpg) 处理后: ![](https://developers.weixin.qq.com/miniprogram/dev/image/cat/11.png)"
+            "desc": "裁剪: 不缩放图片，只显示图片的左下边区域"
           },
           {
             "value": "bottom right",
-            "desc": "裁剪: 不缩放图片，只显示图片的右下边区域  原图：![](https://developers.weixin.qq.com/miniprogram/dev/image/cat/0.jpg) 处理后: ![](https://developers.weixin.qq.com/miniprogram/dev/image/cat/12.png)"
+            "desc": "裁剪: 不缩放图片，只显示图片的右下边区域"
           }
         ],
         "name": "mode",
@@ -3574,6 +3645,249 @@
         ]
       },
       {
+        "name": "show-mute-btn",
+        "type": {
+          "name": "boolean"
+        },
+        "desc": [
+          "是否显示静音按钮"
+        ],
+        "defaultValue": "false",
+        "since": "2.4.0"
+      },
+      {
+        "name": "title",
+        "type": {
+          "name": "string"
+        },
+        "desc": [
+          "视频的标题，全屏时在顶部展示"
+        ],
+        "since": "2.4.0"
+      },
+      {
+        "name": "play-btn-position",
+        "type": {
+          "name": "string"
+        },
+        "desc": [
+          "播放按钮的位置"
+        ],
+        "defaultValue": "bottom",
+        "since": "2.4.0"
+      },
+      {
+        "name": "enable-play-gesture",
+        "type": {
+          "name": "boolean"
+        },
+        "desc": [
+          "是否开启播放手势，即双击切换播放/暂停"
+        ],
+        "defaultValue": "false",
+        "since": "2.4.0"
+      },
+      {
+        "name": "auto-pause-if-navigate",
+        "type": {
+          "name": "boolean"
+        },
+        "desc": [
+          "当跳转到本小程序的其他页面时，是否自动暂停本页面的视频播放"
+        ],
+        "defaultValue": "true",
+        "since": "2.5.0"
+      },
+      {
+        "name": "auto-pause-if-open-native",
+        "type": {
+          "name": "boolean"
+        },
+        "desc": [
+          "当跳转到其它微信原生页面时，是否自动暂停本页面的视频"
+        ],
+        "defaultValue": "true",
+        "since": "2.5.0"
+      },
+      {
+        "name": "vslide-gesture",
+        "type": {
+          "name": "boolean"
+        },
+        "desc": [
+          "在非全屏模式下，是否开启亮度与音量调节手势（同 page-gesture）"
+        ],
+        "defaultValue": "false",
+        "since": "2.6.2"
+      },
+      {
+        "name": "vslide-gesture-in-fullscreen",
+        "type": {
+          "name": "boolean"
+        },
+        "desc": [
+          "在全屏模式下，是否开启亮度与音量调节手势"
+        ],
+        "defaultValue": "true",
+        "since": "2.6.2"
+      },
+      {
+        "name": "ad-unit-id",
+        "type": {
+          "name": "string"
+        },
+        "desc": [
+          "视频前贴广告单元ID，更多详情可参考开放能力视频前贴广告"
+        ],
+        "since": "2.8.1"
+      },
+      {
+        "name": "poster-for-crawler",
+        "type": {
+          "name": "string"
+        },
+        "desc": [
+          "用于给搜索等场景作为视频封面展示，建议使用无播放 icon 的视频封面图，只支持网络地址"
+        ]
+      },
+      {
+        "name": "show-casting-button",
+        "type": {
+          "name": "boolean"
+        },
+        "desc": [
+          "显示投屏按钮。安卓在同层渲染下生效，支持 DLNA 协议；iOS 支持 AirPlay 和 DLNA 协议"
+        ],
+        "defaultValue": "false",
+        "since": "2.10.2"
+      },
+      {
+        "name": "picture-in-picture-mode",
+        "type": {
+          "name": "string/Array"
+        },
+        "desc": [
+          "设置小窗模式： push, pop，空字符串或通过数组形式设置多种模式（如： [\"push\", \"pop\"]）"
+        ],
+        "since": "2.11.0"
+      },
+      {
+        "name": "picture-in-picture-show-progress",
+        "type": {
+          "name": "boolean"
+        },
+        "desc": [
+          "是否在小窗模式下显示播放进度"
+        ],
+        "defaultValue": "false",
+        "since": "2.11.0"
+      },
+      {
+        "name": "enable-auto-rotation",
+        "type": {
+          "name": "boolean"
+        },
+        "desc": [
+          "是否开启手机横屏时自动全屏，当系统设置开启自动旋转时生效"
+        ],
+        "defaultValue": "false",
+        "since": "2.11.0"
+      },
+      {
+        "name": "show-screen-lock-button",
+        "type": {
+          "name": "boolean"
+        },
+        "desc": [
+          "是否显示锁屏按钮，仅在全屏时显示，锁屏后控制栏的操作"
+        ],
+        "defaultValue": "false",
+        "since": "2.11.0"
+      },
+      {
+        "name": "show-snapshot-button",
+        "type": {
+          "name": "boolean"
+        },
+        "desc": [
+          "是否显示截屏按钮，仅在全屏时显示"
+        ],
+        "defaultValue": "false",
+        "since": "2.13.0"
+      },
+      {
+        "name": "show-background-playback-button",
+        "type": {
+          "name": "boolean"
+        },
+        "desc": [
+          "是否展示后台音频播放按钮"
+        ],
+        "defaultValue": "false",
+        "since": "2.14.3"
+      },
+      {
+        "name": "background-poster",
+        "type": {
+          "name": "string"
+        },
+        "desc": [
+          "进入后台音频播放后的通知栏图标（Android 独有）"
+        ],
+        "since": "2.14.3"
+      },
+      {
+        "name": "referrer-policy",
+        "type": {
+          "name": "string"
+        },
+        "desc": [
+          "格式固定为 https://servicewechat.com/{appid}/{version}/page-frame.html，其中 {appid} 为小程序的 appid，{version} 为小程序的版本号，版本号为 0 表示为开发版、体验版以及审核版本，版本号为 devtools 表示为开发者工具，其余为正式版本；"
+        ],
+        "defaultValue": "no-referrer",
+        "since": "2.13.0"
+      },
+      {
+        "name": "is-drm",
+        "type": {
+          "name": "boolean"
+        },
+        "desc": [
+          "是否是 DRM 视频源"
+        ],
+        "since": "2.19.3"
+      },
+      {
+        "name": "provision-url",
+        "type": {
+          "name": "string"
+        },
+        "desc": [
+          "DRM 设备身份认证 url，仅 is-drm 为 true 时生效 (Android)"
+        ],
+        "since": "2.19.3"
+      },
+      {
+        "name": "certificate-url",
+        "type": {
+          "name": "string"
+        },
+        "desc": [
+          "DRM 设备身份认证 url，仅 is-drm 为 true 时生效 (iOS)"
+        ],
+        "since": "2.19.3"
+      },
+      {
+        "name": "license-url",
+        "type": {
+          "name": "string"
+        },
+        "desc": [
+          "DRM 获取加密信息 url，仅 is-drm 为 true 时生效"
+        ],
+        "since": "2.19.3"
+      },
+      {
         "name": "bindplay",
         "type": {
           "name": "function",
@@ -3659,6 +3973,84 @@
           "视频播放出错时触发"
         ],
         "since": "1.7.0"
+      },
+      {
+        "name": "bindprogress",
+        "type": {
+          "name": "function",
+          "returns": {
+            "name": "any"
+          }
+        },
+        "desc": [
+          "加载进度变化时触发，只支持一段加载。event.detail = {buffered}，百分比"
+        ],
+        "since": "2.4.0"
+      },
+      {
+        "name": "bindloadedmetadata",
+        "type": {
+          "name": "function",
+          "returns": {
+            "name": "any"
+          }
+        },
+        "desc": [
+          "视频元数据加载完成时触发。event.detail = {width, height, duration}"
+        ],
+        "since": "2.7.0"
+      },
+      {
+        "name": "bindcontrolstoggle",
+        "type": {
+          "name": "function",
+          "returns": {
+            "name": "any"
+          }
+        },
+        "desc": [
+          "切换 controls 显示隐藏时触发。event.detail = {show}"
+        ],
+        "since": "2.9.5"
+      },
+      {
+        "name": "bindenterpictureinpicture",
+        "type": {
+          "name": "function",
+          "returns": {
+            "name": "any"
+          }
+        },
+        "desc": [
+          "播放器进入小窗"
+        ],
+        "since": "2.11.0"
+      },
+      {
+        "name": "bindleavepictureinpicture",
+        "type": {
+          "name": "function",
+          "returns": {
+            "name": "any"
+          }
+        },
+        "desc": [
+          "播放器退出小窗"
+        ],
+        "since": "2.11.0"
+      },
+      {
+        "name": "bindseekcomplete",
+        "type": {
+          "name": "function",
+          "returns": {
+            "name": "any"
+          }
+        },
+        "desc": [
+          "seek 完成时触发 (position iOS 单位 s, Android 单位 ms)"
+        ],
+        "since": "2.12.0"
       }
     ],
     "relateApis": [
