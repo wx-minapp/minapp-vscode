@@ -1,3 +1,9 @@
+2.4.0 / 2021-11-03
+==================
+
+* 新增配置`minapp-vscode.disableFormat`,解决[#83 (comment)](https://github.com/wx-minapp/minapp-vscode/issues/83#issuecomment-958626391)
+* 更新同步微信小程序组件元数据至基础库版本v2.20.1
+
 2.3.7 / 2021-10-13
 ==================
 

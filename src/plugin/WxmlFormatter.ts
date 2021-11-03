@@ -62,6 +62,9 @@ export default class implements DocumentFormattingEditProvider, DocumentRangeFor
   }
 
   provideDocumentFormattingEdits(doc: TextDocument, options: FormattingOptions): Promise<TextEdit[]> {
+    if (this.config.disableFormat) {
+      return Promise.resolve([]);
+    }
     const range = new Range(doc.lineAt(0).range.start, doc.lineAt(doc.lineCount - 1).range.end)
     return this.format(doc, range, options)
   }
@@ -71,6 +74,9 @@ export default class implements DocumentFormattingEditProvider, DocumentRangeFor
     range: Range,
     options: FormattingOptions
   ): Promise<TextEdit[]> {
+    if (this.config.disableFormat) {
+      return Promise.resolve([]);
+    }
     const prefixRange = doc.getWordRangeAtPosition(range.start, /[ \t]+/)
     const prefix = prefixRange ? doc.getText(prefixRange) : ''
     return this.format(doc, range, options, prefix)
