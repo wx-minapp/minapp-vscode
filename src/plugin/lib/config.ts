@@ -37,6 +37,13 @@ export interface Config {
   /** 默认在启动时会自动相关文件关联的配置项，配置成功后会将此配置自动设置成 true，避免下次启动再重新配置 */
   disableAutoConfig: boolean
 
+  /**
+   * 禁止插件的format功能，防止设置"editor.formatOnSave": true了的同学format产生不可预期的错误
+   * 
+   * https://github.com/wx-minapp/minapp-vscode/issues/83#issuecomment-958626391
+   */
+  disableFormat: boolean
+
   wxmlQuoteStyle: string
   pugQuoteStyle: string
 
@@ -71,6 +78,7 @@ export const config: Config = {
   snippets: {},
   selfCloseTags: [],
   disableAutoConfig: false,
+  disableFormat: false,
   wxmlQuoteStyle: '"',
   pugQuoteStyle: "'",
   reserveTags: [],
@@ -96,6 +104,7 @@ function getConfig() {
   config.snippets = minapp.get('snippets', {})
   config.selfCloseTags = minapp.get('selfCloseTags', [])
   config.disableAutoConfig = minapp.get('disableAutoConfig', false)
+  config.disableFormat = minapp.get('disableFormat', false)
   config.wxmlQuoteStyle = minapp.get('wxmlQuoteStyle', '"')
   config.pugQuoteStyle = minapp.get('pugQuoteStyle', "'")
   config.reserveTags = minapp.get('reserveTags', [])
