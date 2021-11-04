@@ -1,7 +1,7 @@
 <img align="right" width="90px" src="https://funimg.pddpic.com/mobile_piggy/0fe81c13-7691-49ae-bb6e-39586d58a1d7.png.slim.png" alt="wxml language features logo" />
 
-## WXML - Language Services
-> 插件原名`minapp`,现已更名为`WXML - Language Services`, 未来将持续专注微信原生小程序wxml的支持
+## WXML - Language Service
+> 插件原名`minapp`,现已更名为`WXML - Language Service`, 未来将持续专注微信原生小程序wxml的支持
 
 [![CI Status](https://github.com/wx-minapp/minapp-vscode/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/wx-minapp/minapp-vscode/actions/workflows/ci.yml?query=branch%3Amaster)
 [![Deploy Status](https://github.com/wx-minapp/minapp-vscode/actions/workflows/deploy.yml/badge.svg)](https://github.com/wx-minapp/minapp-vscode/actions/workflows/deploy.yml)
