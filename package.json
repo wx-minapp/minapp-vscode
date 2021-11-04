@@ -1,6 +1,6 @@
 {
   "name": "minapp-vscode",
-  "displayName": "WXML - Language Services",
+  "displayName": "WXML - Language Service",
   "description": "微信小程序.wxml文件代码高亮，标签、属性的智能补全（同时支持原生小程序、mpvue 和 wepy 框架，并提供code snippets）",
   "version": "2.4.0",
   "publisher": "qiu8310",
