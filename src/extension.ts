@@ -20,7 +20,6 @@ import { config, configActivate, configDeactivate } from './plugin/lib/config'
 import { PropDefinitionProvider } from './plugin/PropDefinitionProvider'
 
 export function activate(context: ExtensionContext): void {
-  // console.log('minapp-vscode is active!')
   configActivate()
 
   if (!config.disableAutoConfig) {

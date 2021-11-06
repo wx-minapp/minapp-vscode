@@ -17,7 +17,7 @@ type PrettierType = typeof Prettier
 export default class implements DocumentFormattingEditProvider, DocumentRangeFormattingEditProvider {
   constructor(public config: Config) {}
 
-  async format(doc: TextDocument, range: Range, options: FormattingOptions, prefix = '') {
+  async format(doc: TextDocument, range: Range, options: FormattingOptions, prefix = ''): Promise<TextEdit[]> {
     const code = doc.getText(range)
     let content: string = code
     const resolveOptions = (prettier?: PrettierType) =>
