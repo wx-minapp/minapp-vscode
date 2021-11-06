@@ -8,6 +8,7 @@ module.exports = {
   extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
   rules: {
       "no-empty": 0,
+      "no-prototype-builtins": 0,
 
       "@typescript-eslint/ban-ts-comment": 0,
       "@typescript-eslint/no-namespace": 0,

@@ -25,8 +25,8 @@ const resultCache = new Map<string, { version: number; data: PropInfo[] }>()
 const reservedWords = ['if', 'switch', 'catch', 'while', 'for', 'constructor']
 
 function parseScriptFile(file: string, type: string, prop: string) {
-  let content = getFileContent(file)
-  let locs: PropInfo[] = []
+  const content = getFileContent(file)
+  const locs: PropInfo[] = []
 
   let reg: RegExp | null = null
   /**
@@ -99,14 +99,29 @@ function parseScriptFile(file: string, type: string, prop: string) {
     })
     .forEach(mat => {
       const property = mat[2] || mat[3] || prop
-      let pos = getPositionFromIndex(content, mat.index + mat[0].indexOf(property))
-      let endPos = new Position(pos.line, pos.character + property.length)
+      const pos = getPositionFromIndex(content, mat.index + mat[0].indexOf(property))
+      const endPos = new Position(pos.line, pos.character + property.length)
       locs.push({
         loc: new Location(Uri.file(file), new Range(pos, endPos)),
         name: property,
         detail: mat[1] || mat[0],
       })
     })
+
+  /**
+   * 没有匹配到任何有效的定义就直接字符搜索
+   * 取第一个作为返回
+   */
+  if (locs.length === 0 && content && content.indexOf(prop) !== -1) {
+    const pos = getPositionFromIndex(content, content.indexOf(prop))
+    const endPos = new Position(pos.line, pos.character + prop.length)
+    locs.push({
+      loc: new Location(Uri.file(file), new Range(pos, endPos)),
+      name: prop,
+      detail: prop,
+    })
+  }
+
   return locs
 }
 
@@ -153,7 +168,7 @@ function getVersion(file: string): number {
  * @param type
  * @param prop
  */
-export function getProp(wxmlFile: string, type: string, prop: string) {
+export function getProp(wxmlFile: string, type: string, prop: string): PropInfo[] {
   const scriptFile = getScriptFile(wxmlFile)
   if (!scriptFile) return []
 
