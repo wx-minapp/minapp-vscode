@@ -49,6 +49,17 @@ export interface Config {
 
   reserveTags: string[]
 
+  /**
+   * 创建组件时文件后缀类型
+   */
+  /** css文件 */
+  cssExtname: 'wxss' | 'css' | 'styl' | 'less' | 'sass'| 'scss'
+  /** js文件 */
+  jsExtname: 'js' | 'coffee' | 'ts'
+  /** wxml文件 */
+  wxmlExtname: 'wxml' | 'vue' | 'wpy'
+
+
   /** 全局的样式文件 */
   globalStyleFiles: string[]
   /** 支持解析的样式文件后缀名 */
@@ -80,9 +91,12 @@ export const config: Config = {
   disableAutoConfig: false,
   disableFormat: false,
   wxmlQuoteStyle: '"',
-  pugQuoteStyle: "'",
+  pugQuoteStyle: '\'',
   reserveTags: [],
   globalStyleFiles: [],
+  cssExtname: 'wxss',
+  jsExtname: 'js',
+  wxmlExtname: 'wxml',
   styleExtensions: [],
   wxmlFormatter: 'wxml',
   prettyHtml: {},
@@ -106,10 +120,13 @@ function getConfig() {
   config.disableAutoConfig = minapp.get('disableAutoConfig', false)
   config.disableFormat = minapp.get('disableFormat', false)
   config.wxmlQuoteStyle = minapp.get('wxmlQuoteStyle', '"')
-  config.pugQuoteStyle = minapp.get('pugQuoteStyle', "'")
+  config.pugQuoteStyle = minapp.get('pugQuoteStyle', '\'')
   config.reserveTags = minapp.get('reserveTags', [])
   config.globalStyleFiles = minapp.get('globalStyleFiles', [])
   config.styleExtensions = minapp.get('styleExtensions', [])
+  config.cssExtname = minapp.get('cssExtname', 'wxss'),
+  config.jsExtname = minapp.get('jsExtname', 'js'),
+  config.wxmlExtname = minapp.get('wxmlExtname', 'wxml'),
   config.wxmlFormatter = minapp.get('wxmlFormatter', 'wxml')
   config.prettyHtml = minapp.get('prettyHtml', {})
   config.prettier = minapp.get('prettier', {})
@@ -117,16 +134,16 @@ function getConfig() {
   config.sass = minapp.get('sass', {})
 }
 
-function getResolveRoots(doc: vscode.TextDocument) {
-  let root = vscode.workspace.getWorkspaceFolder(doc.uri) as vscode.WorkspaceFolder
+function getResolveRoots(doc: vscode.TextDocument): string[] {
+  const root = vscode.workspace.getWorkspaceFolder(doc.uri) as vscode.WorkspaceFolder
   return root ? config.resolveRoots.map(r => path.resolve(root.uri.fsPath, r)) : []
 }
 
-export function configActivate() {
+export function configActivate(): void {
   listener = vscode.workspace.onDidChangeConfiguration(getConfig)
   getConfig()
 }
 
-export function configDeactivate() {
+export function configDeactivate(): void {
   listener.dispose()
 }
