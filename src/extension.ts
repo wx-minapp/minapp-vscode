@@ -3,21 +3,19 @@ MIT License http://www.opensource.org/licenses/mit-license.php
 Author Mora <qiuzhongleiabc@126.com> (https://github.com/qiu8310)
 *******************************************************************/
 
-import { ExtensionContext, languages, workspace } from 'vscode'
+import { ExtensionContext, commands, languages, workspace } from 'vscode'
 
 import LinkProvider from './plugin/LinkProvider'
 import HoverProvider from './plugin/HoverProvider'
 import WxmlFormatter from './plugin/WxmlFormatter'
-
+import { PropDefinitionProvider } from './plugin/PropDefinitionProvider'
 import WxmlAutoCompletion from './plugin/WxmlAutoCompletion'
 import PugAutoCompletion from './plugin/PugAutoCompletion'
 import VueAutoCompletion from './plugin/VueAutoCompletion'
-import WxmlDocumentHighlight from './plugin/WxmlDocumentHighlight'
-
 import ActiveTextEditorListener from './plugin/ActiveTextEditorListener'
-
 import { config, configActivate, configDeactivate } from './plugin/lib/config'
-import { PropDefinitionProvider } from './plugin/PropDefinitionProvider'
+import { createMiniprogramComponent } from './commands/createMiniprogramComponent'
+import { COMMANDS } from './commands/constants'
 
 export function activate(context: ExtensionContext): void {
   configActivate()
@@ -32,7 +30,6 @@ export function activate(context: ExtensionContext): void {
   const linkProvider = new LinkProvider(config)
   const autoCompletionPug = new PugAutoCompletion(config)
   const autoCompletionVue = new VueAutoCompletion(autoCompletionPug, autoCompletionWxml)
-  const documentHighlight = new WxmlDocumentHighlight(config)
   const propDefinitionProvider = new PropDefinitionProvider(config)
 
   const wxml = config.documentSelector.map(l => schemes(l))
@@ -41,6 +38,9 @@ export function activate(context: ExtensionContext): void {
   const enter = config.showSuggestionOnEnter ? ['\n'] : []
 
   context.subscriptions.push(
+    // 注册命令
+    commands.registerCommand(COMMANDS.createComponent, createMiniprogramComponent),
+
     // 给模板中的 脚本 添加特殊颜色
     new ActiveTextEditorListener(config),
 
@@ -49,9 +49,6 @@ export function activate(context: ExtensionContext): void {
 
     // 添加 link
     languages.registerDocumentLinkProvider([pug].concat(wxml), linkProvider),
-
-    // 高亮匹配的标签
-    languages.registerDocumentHighlightProvider(wxml, documentHighlight),
 
     // 格式化
     languages.registerDocumentFormattingEditProvider(wxml, formatter),

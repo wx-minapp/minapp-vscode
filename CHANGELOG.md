@@ -1,3 +1,13 @@
+2.4.2 / 2021-11-16
+==================
+
+* 新增`New Miniprogram Component`文件右键选项，快速创建一个小程序组件文件，支持配置
+* 新增`minapp-vscode.cssExtname`配置
+* 新增`minapp-vscode.jsExtname`配置
+* 新增`minapp-vscode.wxmlExtname`配置
+* 优化`跳转到定义`功能，支持style属性内插值的跳转
+* 优化插件启动条件,加入`"workspaceContains:**/project.config.json"`和`"workspaceContains:**/app.wxss"`
+
 2.4.1 / 2021-11-07
 ==================
 

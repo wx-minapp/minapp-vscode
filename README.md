@@ -25,6 +25,7 @@
 
 ### 主要功能
 
+* [一键创建小程序组件](#create-component)
 * [标签名与属性自动补全](#tag-and-attr)
 * [根据组件已有的属性，自动筛选出对应支持的属性集合](#smart-attr)
 * [属性值自动补全](#attr-value)
@@ -40,6 +41,27 @@
 
 > **所有自动补全的模板数据都来自于官方文档，通过[脚本](https://github.com/wx-minapp/minapp-generator)自动获取的**
 
+<a id="create-component"></a>
+
+### 一键创建小程序组件
+
+* 右键可以看到`New Miniprogram Component`选项，输入组件名即可一键创建`.wxml`,`.js`,`.wxss`,`.json`以及组件文件夹
+* 创建成功后自动打开`js`文件
+
+![示例图片](https://funimg.pddpic.com/mobile_piggy/958baa82-f263-402f-8887-b1eaabffbc7c.gif)
+
+* 创建组件支持配置css/wxml/js后缀，比如项目使用less/vue/ts
+
+![示例图片](https://funimg.pddpic.com/mobile_piggy/a4af85c2-d4cb-44f2-aa47-831b80b20c7a.gif)
+
+```jsonc
+{
+  "minapp-vscode.cssExtname": "less", // 默认wxss,支持styl sass scss less css
+  "minapp-vscode.wxmlExtname": "vue", // 默认wxml,支持vue wpy 
+  "minapp-vscode.jsExtname": "ts" // 默认js,支持ts coffee
+}
+```
+
 
 <a id="tag-and-attr"></a>
 
@@ -49,11 +71,6 @@
 * 输入空格会触发对应标签的属性补全
 
 ![示例图片](https://n1image.hjfile.cn/res7/2018/03/01/13631761451ae134c6eb3ea2ed1a6a12.gif)
-
-
-
-
-
 
 
 <a id="smart-attr"></a>
@@ -66,10 +83,6 @@
 ![示例图片](https://n1image.hjfile.cn/res7/2018/03/09/5c5704b51a37df84b5c6663d29a545f6.gif)
 
 
-
-
-
-
 <a id="attr-value"></a>
 
 ### 属性值自动补全（有可选值的情况下才会触发补全）
@@ -79,10 +92,6 @@
 ![示例图片](https://n1image.hjfile.cn/res7/2018/03/10/aaba780a36f1de1b87687295bc6fc922.gif)
 
 
-
-
-
-
 <a id="attr-definition"></a>
 
 ### 点击模板文件中的函数或属性跳转到 js/ts 定义的地方（纯 wxml 或 pug 文件才支持，vue 文件不完全支持）
@@ -90,9 +99,6 @@
 **功能还不完善，只会查找和当前模板同名的脚本文件，所以有可能会找不到JS中的定义**
 
 ![示例图片](https://n1image.hjfile.cn/res7/2018/11/20/c8d41ef5bce1b2128bb7a830d06338b9.gif)
-
-
-
 
 
 <a id="attr-class-value"></a>
@@ -119,11 +125,6 @@
 ![示例图片](https://n1image.hjfile.cn/res7/2018/11/15/559184bb3ff7cc2fb76c204010f6f042.gif)
 
 
-
-
-
-
-
 <a id="vue"></a>
 
 ### 在 vue 模板文件中也能自动补全，同时支持 pug 语言
@@ -146,9 +147,6 @@ vue 中的 template 板支持两个属性：
 ![示例图片](https://n1image.hjfile.cn/res7/2018/04/09/0b4573624091b04566232c38df08e323.gif)
 
 
-
-
-
 <a id="link"></a>
 
 ### 支持 link（纯 wxml 或 pug 文件才支持，vue 文件不支持）
@@ -161,10 +159,6 @@ vue 中的 template 板支持两个属性：
 ![示例图片](https://n1image.hjfile.cn/res7/2018/04/27/dd7f301dc1e1593209d7f7ac169fd047.gif)
 
 
-
-
-
-
 <a id="custom-component"></a>
 
 ### 自定义组件自动补全（纯 wxml 文件才支持，vue 或 pug 文件不支持）
@@ -174,11 +168,6 @@ vue 中的 template 板支持两个属性：
 - 自动获取组件中属性的描述
 
 ![示例图片](https://n1image.hjfile.cn/res7/2018/03/09/fce0b3e9496cae95c1c81523725a1fef.gif)
-
-
-
-
-
 
 
 <a id="highlight"></a>
@@ -198,11 +187,6 @@ vue 中的 template 板支持两个属性：
 - pug 语言中注释中的变量也会高亮 （pug 是基于缩进的，正则不太好处理）
 
 
-
-
-
-
-
 <a id="snippets"></a>
 
 ### 内置 snippets
@@ -213,11 +197,6 @@ vue 中的 template 板支持两个属性：
   _和官方的 Snippets 的区别时，这里的 Snippets 只需要指定 key 和 body 即可，组件描述自动会根据 key 来获取（另外后期可以让配置和内置的数据结合起来）_
 
   ![示例图片](https://n1image.hjfile.cn/res7/2018/05/26/4a25927085e96e6bd9f05bf735621a8b.gif)
-
-
-
-
-
 
 
 <a id="emmet"></a>
@@ -290,7 +269,3 @@ minapp 插件会自动将 .pug 文件关联到 `wxml-pug` 文件类型。所以�
 * [ ] app/page/component 的 json schema 自动关联
 * [x] 添加常用的 snippets
 * [x] 支持识别 self close tag
-
-
-[travis-image]: https://travis-ci.org/wx-minapp/minapp-vscode.svg?branch=master
-[travis-url]: https://travis-ci.org/wx-minapp/minapp-vscode

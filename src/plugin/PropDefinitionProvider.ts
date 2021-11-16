@@ -40,6 +40,14 @@ export class PropDefinitionProvider implements DefinitionProvider {
         return this.searchScript('prop', posWord, document)
       } else if (/^(mut-bind|capture-catch|capture-bind|bind|catch)/.test(attrName) || /\.(user|stop|default)$/.test(attrName)) {
         return this.searchScript('method', posWord, document)
+      } else if (document.getWordRangeAtPosition(position, /\{\{[\s\w]+\}\}/)) {
+        /**
+         * fix case like:
+         * ```wxml
+         * style="height: {{bottom}}rpx"
+         * ```
+         */
+        return this.searchScript('method', posWord, document)
       }
     } else {
       // 判断是否是在 {{ }} 中

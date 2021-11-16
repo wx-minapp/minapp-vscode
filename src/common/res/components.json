@@ -1689,6 +1689,17 @@
         "defaultValue": "done"
       },
       {
+        "name": "always-embed",
+        "type": {
+          "name": "boolean"
+        },
+        "desc": [
+          "强制 input 处于同层状态，默认 focus 时 input 会切到非同层状态 (仅在 iOS 下生效)"
+        ],
+        "since": "2.10.4",
+        "defaultValue": "false"
+      },
+      {
         "name": "confirm-hold",
         "type": {
           "name": "boolean"
@@ -1743,6 +1754,77 @@
         "defaultValue": "true"
       },
       {
+        "name": "hold-keyboard",
+        "type": {
+          "name": "boolean"
+        },
+        "desc": [
+          "focus时，点击页面的时候不收起键盘"
+        ],
+        "since": "2.8.2",
+        "defaultValue": "false"
+      },
+      {
+        "name": "safe-password-cert-path",
+        "type": {
+          "name": "string"
+        },
+        "desc": [
+          "安全键盘加密公钥的路径，只支持包内路径"
+        ],
+        "since": "2.18.0"
+      },
+      {
+        "name": "safe-password-length",
+        "type": {
+          "name": "number"
+        },
+        "desc": [
+          "安全键盘输入密码长度"
+        ],
+        "since": "2.18.0"
+      },
+      {
+        "name": "safe-password-time-stamp",
+        "type": {
+          "name": "number"
+        },
+        "desc": [
+          "安全键盘加密时间戳"
+        ],
+        "since": "2.18.0"
+      },
+      {
+        "name": "safe-password-nonce",
+        "type": {
+          "name": "string"
+        },
+        "desc": [
+          "安全键盘加密盐值"
+        ],
+        "since": "2.18.0"
+      },
+      {
+        "name": "safe-password-salt",
+        "type": {
+          "name": "string"
+        },
+        "desc": [
+          "安全键盘计算hash盐值，若指定`custom-hash`则无效"
+        ],
+        "since": "2.18.0"
+      },
+      {
+        "name": "safe-password-custom-hash",
+        "type": {
+          "name": "string"
+        },
+        "desc": [
+          "安全键盘计算hash的算法表达式，如`md5(sha1('foo' + sha256(sm3(password + 'bar'))))`"
+        ],
+        "since": "2.18.0"
+      },
+      {
         "name": "bindinput",
         "type": {
           "name": "function",
@@ -1789,6 +1871,19 @@
         "desc": [
           "点击完成按钮时触发，event.detail = {value: value}"
         ]
+      },
+      {
+        "name": "bindkeyboardheightchange",
+        "type": {
+          "name": "function",
+          "returns": {
+            "name": "any"
+          }
+        },
+        "desc": [
+          "键盘高度发生变化的时候触发此事件，event.detail = {height: height, duration: duration}"
+        ],
+        "since": "2.7.0"
       }
     ],
     "notices": [

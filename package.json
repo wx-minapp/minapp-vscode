@@ -1,8 +1,8 @@
 {
   "name": "minapp-vscode",
   "displayName": "WXML - Language Service",
-  "description": "微信小程序.wxml文件代码高亮，标签、属性的智能补全（同时支持原生小程序、mpvue 和 wepy 框架，并提供code snippets）",
-  "version": "2.4.1",
+  "description": "wechat miniprogram .wxml file syntax highlight，code autocomplete（support native miniprogram、mpvue and wepy framework，provide code snippets）",
+  "version": "2.4.2",
   "publisher": "qiu8310",
   "extensionKind": [
     "workspace"
@@ -18,8 +18,9 @@
     "clear": "rm -rf ./dist"
   },
   "keywords": [
-    "小程序",
     "微信",
+    "小程序",
+    "minapp",
     "wxml",
     "wxss",
     "wxs",
@@ -28,7 +29,7 @@
   ],
   "license": "MIT",
   "author": "Mora <qiuzhongleiabc@126.com> (https://github.com/qiu8310)",
-  "contributors": [
+  "maintainers": [
     {
       "name": "Lei Chen",
       "email": "chenleicoder@foxmail.com",
@@ -50,6 +51,8 @@
   ],
   "activationEvents": [
     "workspaceContains:minapp.cjson",
+    "workspaceContains:**/project.config.json",
+    "workspaceContains:**/app.wxss",
     "onLanguage:wxml-pug",
     "onLanguage:wxml",
     "onLanguage:vue"
@@ -184,6 +187,39 @@
           },
           "description": "全局的样式文件，系统会自动从这些指定的文件中获取 className，用于模板中的 class 补全"
         },
+        "minapp-vscode.wxmlExtname": {
+          "type": "string",
+          "default": "wxml",
+          "enum": [
+            "wxml",
+            "vue",
+            "wpy"
+          ],
+          "description": "创建小程序组件时候wxml文件类型，默认为.wxml"
+        },
+        "minapp-vscode.jsExtname": {
+          "type": "string",
+          "default": "js",
+          "enum": [
+            "js",
+            "ts",
+            "coffee"
+          ],
+          "description": "创建小程序组件时候js文件类型，默认为.js"
+        },
+        "minapp-vscode.cssExtname": {
+          "type": "string",
+          "default": "wxss",
+          "enum": [
+            "wxss",
+            "css",
+            "styl",
+            "less",
+            "sass",
+            "scss"
+          ],
+          "description": "创建小程序组件时候css样式文件类型，默认为.wxss"
+        },
         "minapp-vscode.styleExtensions": {
           "type": "array",
           "items": {
@@ -193,7 +229,9 @@
             "wxss",
             "css",
             "less",
-            "scss"
+            "scss",
+            "sass",
+            "styl"
           ],
           "description": "当前样式文件的后缀中，系统会自动查找和当前模板同名的样式文件，用于模板中的 class 补全"
         },
@@ -253,6 +291,22 @@
         }
       }
     },
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "minapp-vscode.createMiniprogramComponent",
+          "group": "navigation@10",
+          "when": "resourceExtname == '' && activeViewlet == 'workbench.view.explorer'"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "minapp-vscode.createMiniprogramComponent",
+        "title": "New Miniprogram Component",
+        "category": "minapp-vscode"
+      }
+    ],
     "themes": [],
     "languages": [
       {

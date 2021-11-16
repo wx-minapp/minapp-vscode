@@ -12,14 +12,18 @@ import { getLanguage, getCustomOptions } from './lib/helper'
 export default class implements HoverProvider {
   constructor(public config: Config) {}
 
-  async provideHover(document: TextDocument, position: Position, token: CancellationToken) {
-    let language = getLanguage(document, position)
+  async provideHover(document: TextDocument, position: Position, token: CancellationToken): Promise<Hover | null> {
+    if (token.isCancellationRequested) {
+      return null;
+    }
+
+    const language = getLanguage(document, position)
     if (!language) return null
 
-    let tag = getTagAtPosition(document, position)
+    const tag = getTagAtPosition(document, position)
     if (!tag) return null
 
-    let co = getCustomOptions(this.config, document)
+    const co = getCustomOptions(this.config, document)
 
     let markdown: string | undefined
     if (tag.isOnTagName) {
