@@ -15,7 +15,7 @@ import VueAutoCompletion from './plugin/VueAutoCompletion'
 import ActiveTextEditorListener from './plugin/ActiveTextEditorListener'
 import { config, configActivate, configDeactivate } from './plugin/lib/config'
 import { createMiniprogramComponent } from './commands/createMiniprogramComponent'
-import { COMMANDS } from './commands/constants'
+import { COMMANDS, CONTEXT_KEYS } from './commands/constants'
 
 export function activate(context: ExtensionContext): void {
   configActivate()
@@ -76,6 +76,9 @@ export function activate(context: ExtensionContext): void {
     // trigger 需要是上两者的和
     languages.registerCompletionItemProvider(vue, autoCompletionVue, '<', ' ', ':', '@', '.', '-', '(', '"', "'")
   )
+
+  // 标记插件激活状态
+  commands.executeCommand('setContext', CONTEXT_KEYS.init, true);
 }
 
 export function deactivate(): void {
