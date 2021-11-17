@@ -16,6 +16,7 @@ import ActiveTextEditorListener from './plugin/ActiveTextEditorListener'
 import { config, configActivate, configDeactivate } from './plugin/lib/config'
 import { createMiniprogramComponent } from './commands/createMiniprogramComponent'
 import { COMMANDS, CONTEXT_KEYS } from './commands/constants'
+import { extractMiniprogramComponent } from './commands/extractMiniprogramComponent'
 
 export function activate(context: ExtensionContext): void {
   configActivate()
@@ -40,6 +41,7 @@ export function activate(context: ExtensionContext): void {
   context.subscriptions.push(
     // 注册命令
     commands.registerCommand(COMMANDS.createComponent, createMiniprogramComponent),
+    commands.registerCommand(COMMANDS.extractComponent, extractMiniprogramComponent),
 
     // 给模板中的 脚本 添加特殊颜色
     new ActiveTextEditorListener(config),

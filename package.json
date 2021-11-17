@@ -53,12 +53,44 @@
     "workspaceContains:minapp.cjson",
     "workspaceContains:**/project.config.json",
     "workspaceContains:**/app.wxss",
+    "workspaceContains:**/app.json",
+    "workspaceContains:**/sitemap.json",
     "onLanguage:wxml-pug",
     "onLanguage:wxml",
     "onLanguage:vue"
   ],
   "main": "./dist/extension",
   "contributes": {
+    "jsonValidation": [
+      {
+        "fileMatch": "app.json",
+        "url": "https://dldir1.qq.com/WechatWebDev/editor-extension/wx-json/app.schema.json"
+      },
+      {
+        "fileMatch": "ext.json",
+        "url": "https://dldir1.qq.com/WechatWebDev/editor-extension/wx-json/ext.schema.json"
+      },
+      {
+        "fileMatch": "game.json",
+        "url": "https://dldir1.qq.com/WechatWebDev/editor-extension/wx-json/game.schema.json"
+      },
+      {
+        "fileMatch": "plugin.json",
+        "url": "https://dldir1.qq.com/WechatWebDev/editor-extension/wx-json/plugin.schema.json"
+      },
+      {
+        "fileMatch": "project.config.json",
+        "url": "https://dldir1.qq.com/WechatWebDev/editor-extension/wx-json/project.config.schema.json"
+      },
+      {
+        "fileMatch": "sitemap.json",
+        "url": "https://dldir1.qq.com/WechatWebDev/editor-extension/wx-json/sitemap.schema.json"
+      },
+      {
+        "fileMatch": "container.config.json",
+        "url": "https://dldir1.qq.com/WechatWebDev/editor-extension/wx-json/container.config.schema.json"
+      }
+    ],
     "configuration": {
       "title": "minapp-vscode",
       "properties": {
@@ -298,12 +330,24 @@
           "group": "navigation@10",
           "when": "minapp-vscode:init && resourceExtname == '' && activeViewlet == 'workbench.view.explorer'"
         }
+      ],
+      "editor/context": [
+        {
+          "command": "minapp-vscode.extractMiniprogramComponent",
+          "group": "navigation@10",
+          "when": "editorHasSelection && !editorHasMultipleSelections && editorLangId == wxml"
+        }
       ]
     },
     "commands": [
       {
         "command": "minapp-vscode.createMiniprogramComponent",
         "title": "New Miniprogram Component",
+        "category": "minapp-vscode"
+      },
+      {
+        "command": "minapp-vscode.extractMiniprogramComponent",
+        "title": "Extract Miniprogram Component",
         "category": "minapp-vscode"
       }
     ],
