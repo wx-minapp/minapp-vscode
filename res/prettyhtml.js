@@ -4088,14 +4088,14 @@
           if (this._getParentElement()) {
               this._getParentElement().endSourceSpan = endTagToken.sourceSpan;
           }
-          if (this.getTagDefinition(nameInfo.fullName, this.options.ignoreFirstLf, this.options.selfClosingElements)
-              .isVoid) {
-              this._errors.push(TreeError.create(nameInfo.fullName, endTagToken.sourceSpan, `Void elements do not have end tags "${endTagToken.parts[1]}"`));
-          }
-          else if (!this._popElement(nameInfo.fullName)) {
-              const errMsg = `Unexpected closing tag "${nameInfo.fullName}". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags`;
-              this._errors.push(TreeError.create(nameInfo.fullName, endTagToken.sourceSpan, errMsg));
-          }
+          // if (this.getTagDefinition(nameInfo.fullName, this.options.ignoreFirstLf, this.options.selfClosingElements)
+          //     .isVoid) {
+          //     this._errors.push(TreeError.create(nameInfo.fullName, endTagToken.sourceSpan, `Void elements do not have end tags "${endTagToken.parts[1]}"`));
+          // }
+          // else if (!this._popElement(nameInfo.fullName)) {
+          //     const errMsg = `Unexpected closing tag "${nameInfo.fullName}". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags`;
+          //     this._errors.push(TreeError.create(nameInfo.fullName, endTagToken.sourceSpan, errMsg));
+          // }
       }
       _popElement(fullName) {
           for (let stackIndex = this._elementStack.length - 1; stackIndex >= 0; stackIndex--) {
@@ -5432,29 +5432,29 @@
 
   },{}],59:[function(require,module,exports){
   module.exports=[
-    "area",
-    "base",
-    "basefont",
-    "bgsound",
-    "br",
-    "col",
-    "command",
-    "embed",
-    "frame",
-    "hr",
-    "image",
-    "img",
-    "input",
-    "isindex",
-    "keygen",
-    "link",
-    "menuitem",
-    "meta",
-    "nextid",
-    "param",
-    "source",
-    "track",
-    "wbr"
+    // "area",
+    // "base",
+    // "basefont",
+    // "bgsound",
+    // "br",
+    // "col",
+    // "command",
+    // "embed",
+    // "frame",
+    // "hr",
+    // "image",
+    // "img",
+    // "input",
+    // "isindex",
+    // "keygen",
+    // "link",
+    // "menuitem",
+    // "meta",
+    // "nextid",
+    // "param",
+    // "source",
+    // "track",
+    // "wbr"
   ]
 
   },{}],60:[function(require,module,exports){
