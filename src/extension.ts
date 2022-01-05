@@ -12,6 +12,7 @@ import { PropDefinitionProvider } from './plugin/PropDefinitionProvider'
 import WxmlAutoCompletion from './plugin/WxmlAutoCompletion'
 import PugAutoCompletion from './plugin/PugAutoCompletion'
 import VueAutoCompletion from './plugin/VueAutoCompletion'
+import WxmlDocumentHighlight from './plugin/WxmlDocumentHighlight'
 import ActiveTextEditorListener from './plugin/ActiveTextEditorListener'
 import { config, configActivate, configDeactivate } from './plugin/lib/config'
 import { createMiniprogramComponent } from './commands/createMiniprogramComponent'
@@ -30,6 +31,7 @@ export function activate(context: ExtensionContext): void {
   const linkProvider = new LinkProvider(config)
   const autoCompletionPug = new PugAutoCompletion(config)
   const autoCompletionVue = new VueAutoCompletion(autoCompletionPug, autoCompletionWxml)
+  const documentHighlight = new WxmlDocumentHighlight(config)
   const propDefinitionProvider = new PropDefinitionProvider(config)
 
   const wxml = config.documentSelector.map(l => schemes(l))
@@ -49,6 +51,9 @@ export function activate(context: ExtensionContext): void {
 
     // 添加 link
     languages.registerDocumentLinkProvider([pug].concat(wxml), linkProvider),
+
+    // 高亮匹配的标签
+    languages.registerDocumentHighlightProvider(wxml, documentHighlight),
 
     // 格式化
     languages.registerDocumentFormattingEditProvider(wxml, formatter),

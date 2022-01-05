@@ -2,7 +2,7 @@
   "name": "minapp-vscode",
   "displayName": "WXML - Language Service",
   "description": "wechat miniprogram .wxml file syntax highlight，code autocomplete（support native miniprogram、mpvue and wepy framework，provide code snippets）",
-  "version": "2.4.5",
+  "version": "2.4.6",
   "publisher": "qiu8310",
   "extensionKind": [
     "workspace"
