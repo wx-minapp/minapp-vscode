@@ -1,3 +1,8 @@
+2.4.6 / 2022-01-05
+==================
+
+* Fix [#133](https://github.com/wx-minapp/minapp-vscode/issues/133), [v2.4.2](https://github.com/wx-minapp/minapp-vscode/compare/v2.4.1...v2.4.2) delete `WxmlDocumentHighlightProvider` unexpectedly
+
 2.4.5 / 2021-12-08
 ==================
 
