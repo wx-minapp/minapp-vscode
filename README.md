@@ -1,7 +1,7 @@
 <img align="right" width="90px" src="https://funimg.pddpic.com/mobile_piggy/0fe81c13-7691-49ae-bb6e-39586d58a1d7.png.slim.png" alt="wxml language features logo" />
 
 ## WXML - Language Service
-> 插件原名`minapp`,现已更名为`WXML - Language Service`, 未来将持续专注微信原生小程序wxml的支持
+> 插件原名 `minapp`，现已更名为 `WXML - Language Service`，未来将持续专注微信原生小程序 wxml 的支持。
 
 [![CI Status](https://github.com/wx-minapp/minapp-vscode/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/wx-minapp/minapp-vscode/actions/workflows/ci.yml?query=branch%3Amaster)
 [![Deploy Status](https://github.com/wx-minapp/minapp-vscode/actions/workflows/deploy.yml/badge.svg)](https://github.com/wx-minapp/minapp-vscode/actions/workflows/deploy.yml)
@@ -10,10 +10,10 @@
 ![Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/qiu8310.minapp-vscode)
 ![Marketplace Rating](https://img.shields.io/visual-studio-marketplace/r/qiu8310.minapp-vscode)
 
-微信小程序.wxml文件代码高亮，标签、属性的智能补全（同时支持原生小程序、mpvue 和 wepy 框架，并提供code snippets）
+微信小程序 .wxml 文件代码高亮，标签、属性的智能补全（同时支持原生小程序、mpvue 和 wepy 框架，并提供 code snippets）。
 
 ### 最近更新 【[CHANGELOG.md](https://github.com/wx-minapp/minapp-vscode/blob/master/CHANGELOG.md)】
-> [@iChenLei](https://github.com/ichenlei)已接手维护本插件，欢迎大家在钉钉群或者[Github issues](https://github.com/wx-minapp/minapp-vscode/issues)提意见。
+> [@iChenLei](https://github.com/ichenlei) 已接手维护本插件，欢迎大家在钉钉群或者 [Github issues](https://github.com/wx-minapp/minapp-vscode/issues) 提意见。
 
 ### 用户交流钉钉群
 
@@ -21,7 +21,7 @@
 | :-----:  | :------: | :-----: |
 | <img src="https://funimg.pddpic.com/mobile_piggy/548df6a0-47e9-4c8c-99c6-cee4cea53ff2.jpg.slim.c2.jpeg" width="200px" /> | <img src="https://funimg.pddpic.com/mobile_piggy/23c4af30-d384-43cd-8c2e-9252287387aa.jpg.slim.c2.jpeg" width="200px" /> | 暂无 |
 
-> 请使用阿里巴巴旗下[钉钉(DingDing)](https://www.dingtalk.com)APP扫码进入交流群，反馈Bug/给插件维护者提需求，相比Github issues更加接地气地与插件维护者交流。加一个群即可，1群满了试试加2群。如果遇到二维码过期或者群都满了的问题请提[issue](https://github.com/wx-minapp/minapp-vscode/issues)给插件维护者。
+> 请使用阿里巴巴旗下 [钉钉(Dingtalk)](https://www.dingtalk.com) APP 扫码进入交流群，反馈 Bug /给插件维护者提需求，相比 Github issues 更加接地气地与插件维护者交流。加一个群即可，1 群满了试试加 2 群。如果遇到二维码过期或者群都满了的问题请提 [issue](https://github.com/wx-minapp/minapp-vscode/issues) 给插件维护者。
 
 ### 主要功能
 
@@ -45,20 +45,20 @@
 
 ### 一键创建小程序组件
 
-* 右键可以看到`New Miniprogram Component`选项，输入组件名即可一键创建`.wxml`,`.js`,`.wxss`,`.json`以及组件文件夹
-* 创建成功后自动打开`js`文件
+* 右键可以看到 `New Miniprogram Component` 选项，输入组件名即可一键创建 `.wxml`/`.js`/`.wxss`/`.json` 以及组件文件夹
+* 创建成功后自动打开 `js` 文件
 
 ![示例图片](https://funimg.pddpic.com/mobile_piggy/958baa82-f263-402f-8887-b1eaabffbc7c.gif)
 
-* 创建组件支持配置css/wxml/js后缀，比如项目使用less/vue/ts
+* 创建组件支持配置 css/wxml/js 后缀，比如项目使用 less/vue/ts
 
 ![示例图片](https://funimg.pddpic.com/mobile_piggy/a4af85c2-d4cb-44f2-aa47-831b80b20c7a.gif)
 
 ```jsonc
 {
-  "minapp-vscode.cssExtname": "less", // 默认wxss,支持styl sass scss less css
-  "minapp-vscode.wxmlExtname": "vue", // 默认wxml,支持vue wpy 
-  "minapp-vscode.jsExtname": "ts" // 默认js,支持ts coffee
+  "minapp-vscode.cssExtname": "less", // 默认 wxss，支持 styl sass scss less css
+  "minapp-vscode.wxmlExtname": "vue", // 默认 wxml，支持 vue wpy 
+  "minapp-vscode.jsExtname": "ts" // 默认 js，支持 ts coffee
 }
 ```
 
@@ -82,7 +82,6 @@
 
 ![示例图片](https://n1image.hjfile.cn/res7/2018/03/09/5c5704b51a37df84b5c6663d29a545f6.gif)
 
-
 <a id="attr-value"></a>
 
 ### 属性值自动补全（有可选值的情况下才会触发补全）
@@ -91,22 +90,19 @@
 
 ![示例图片](https://n1image.hjfile.cn/res7/2018/03/10/aaba780a36f1de1b87687295bc6fc922.gif)
 
-
 <a id="attr-definition"></a>
 
 ### 点击模板文件中的函数或属性跳转到 js/ts 定义的地方（纯 wxml 或 pug 文件才支持，vue 文件不完全支持）
 
-**功能还不完善，只会查找和当前模板同名的脚本文件，所以有可能会找不到JS中的定义**
+**功能还不完善，只会查找和当前模板同名的脚本文件，所以有可能会找不到 JS 中的定义**
 
 ![示例图片](https://n1image.hjfile.cn/res7/2018/11/20/c8d41ef5bce1b2128bb7a830d06338b9.gif)
-
 
 <a id="attr-class-value"></a>
 
 ### 样式名自动补全（纯 wxml 或 pug 文件才支持，vue 文件不完全支持）
 
-系统会自动获取和当前模板同名的样式文件中的所有样式名，同时还能获取样式名上的 `/** */` 中的文档；如果有全局的样式，需要通过配置项 `minapp-vscode.globalStyleFiles` 来指定
-
+系统会自动获取和当前模板同名的样式文件中的所有样式名，同时还能获取样式名上的 `/** */` 中的文档；如果有全局的样式，需要通过配置项 `minapp-vscode.globalStyleFiles` 来指定。
 
 - 默认会获取和当前模板同名的样式文件中的名称
 
@@ -123,7 +119,6 @@
 > **注意：不支持 `sass` 这种缩进排版的样式文件**
 
 ![示例图片](https://n1image.hjfile.cn/res7/2018/11/15/559184bb3ff7cc2fb76c204010f6f042.gif)
-
 
 <a id="vue"></a>
 
@@ -146,7 +141,6 @@ vue 中的 template 板支持两个属性：
 
 ![示例图片](https://n1image.hjfile.cn/res7/2018/04/09/0b4573624091b04566232c38df08e323.gif)
 
-
 <a id="link"></a>
 
 ### 支持 link（纯 wxml 或 pug 文件才支持，vue 文件不支持）
@@ -155,9 +149,7 @@ vue 中的 template 板支持两个属性：
 - 可以配置 `minapp-vscode.linkAttributeNames` 来扩展额外的支持 link 的标签，将此值配置成空数组，可以禁用 link 功能
 - 可以配置 `minapp-vscode.resolveRoots` 来使用相对目录解析图片路径
 
-
 ![示例图片](https://n1image.hjfile.cn/res7/2018/04/27/dd7f301dc1e1593209d7f7ac169fd047.gif)
-
 
 <a id="custom-component"></a>
 
@@ -168,7 +160,6 @@ vue 中的 template 板支持两个属性：
 - 自动获取组件中属性的描述
 
 ![示例图片](https://n1image.hjfile.cn/res7/2018/03/09/fce0b3e9496cae95c1c81523725a1fef.gif)
-
 
 <a id="highlight"></a>
 
@@ -186,7 +177,6 @@ vue 中的 template 板支持两个属性：
 
 - pug 语言中注释中的变量也会高亮 （pug 是基于缩进的，正则不太好处理）
 
-
 <a id="snippets"></a>
 
 ### 内置 snippets
@@ -197,7 +187,6 @@ vue 中的 template 板支持两个属性：
   _和官方的 Snippets 的区别时，这里的 Snippets 只需要指定 key 和 body 即可，组件描述自动会根据 key 来获取（另外后期可以让配置和内置的数据结合起来）_
 
   ![示例图片](https://n1image.hjfile.cn/res7/2018/05/26/4a25927085e96e6bd9f05bf735621a8b.gif)
-
 
 <a id="emmet"></a>
 
@@ -215,25 +204,25 @@ vue 中的 template 板支持两个属性：
 
 * 默认 `wxml`
 ```jsonc
-"minapp-vscode.wxmlFormatter": "wxml", //指定格式化工具
+"minapp-vscode.wxmlFormatter": "wxml", // 指定格式化工具
 ```
 * [prettyHtml](https://github.com/Prettyhtml/prettyhtml#prettyhtmldoc-string-options-vfile)
 ```jsonc
-"minapp-vscode.wxmlFormatter": "prettyHtml", //指定格式化工具
-"minapp-vscode.prettyHtml": { //prettyHtml 默认配置
+"minapp-vscode.wxmlFormatter": "prettyHtml", // 指定格式化工具
+"minapp-vscode.prettyHtml": { // prettyHtml 默认配置
   "useTabs": false,
   "tabWidth": 2,
   "printWidth": 100,
   "singleQuote": false,
   "usePrettier": true,
-  "wrapAttributes": false, //设置成 true 强制属性换行
+  "wrapAttributes": false, // 设置成 true 强制属性换行
   "sortAttributes": false
 }
 ```
 * [prettier](https://github.com/prettier/prettier)
 ```jsonc
-"minapp-vscode.wxmlFormatter": "prettier", //指定格式化工具
-"minapp-vscode.prettier": { //prettier 更多参考https://prettier.io/docs/en/options.html
+"minapp-vscode.wxmlFormatter": "prettier", // 指定格式化工具
+"minapp-vscode.prettier": { // prettier 更多参考 https://prettier.io/docs/en/options.html
   "useTabs": false,
   "tabWidth": 2,
   "printWidth": 100,
@@ -241,15 +230,15 @@ vue 中的 template 板支持两个属性：
 }
 ```
 * tips:
-  1. 针对`prettyHtml`,和`prettier`方式,会自动读取项目下的配置文件, [Prettier configuration file](https://prettier.io/docs/en/configuration.html) `.editorconfig`
-  2. 切换格式化工具需重启vscode
-  3. 针对`prettyHtml`,和`prettier`采用html5的语法和wxml不完全一致,写法要注意兼容
+  1. 针对`prettyHtml` 和 `prettier` 方式，会自动读取项目下的配置文件，[Prettier configuration file](https://prettier.io/docs/en/configuration.html) `.editorconfig`
+  2. 切换格式化工具需重启 VSCode
+  3. 针对 `prettyHtml` ，和 `prettier` 采用 HTML5 的语法和 wxml 不完全一致，写法要注意兼容
 
 ### 常见问题
 
 #### 安装插件后没有出现自动补全
 
-1. 确保安装后有重启过 vscode
+1. 确保安装后有重启过 VSCode
 2. 确保当前文件的格式是 wxml 或 wxml-pug 或 vue (不能看文件后缀名，因为可能在配置文件中把它们关联的其它文件格式；需要看 vscode 右下解显示的文件类型)
 
 #### 在非小程序项目，pug 文件不想要小程序的自动补全
@@ -258,7 +247,6 @@ minapp 插件会自动将 .pug 文件关联到 `wxml-pug` 文件类型。所以�
 
 * 非小程序项目中，将 .pug 后缀的文件关联到 `pug` 文件类型
 * 小程序项目中，将 .pug 后缀的文件关联到 `wxml-pug` 文件类型
-
 
 ### TODO
 
