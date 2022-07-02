@@ -28,10 +28,10 @@ export default class extends AutoCompletion implements CompletionItemProvider {
     if (token.isCancellationRequested) {
       return Promise.resolve([])
     }
-    let language = getLanguage(document, position)
+    const language = getLanguage(document, position)
     if (!language) return [] as any
 
-    let char = context.triggerCharacter || getLastChar(document, position)
+    const char = context.triggerCharacter || getLastChar(document, position)
 
     switch (char) {
       case '<':
@@ -43,7 +43,7 @@ export default class extends AutoCompletion implements CompletionItemProvider {
         if (/[\w\d$_]/.test(getLastChar(document, new Position(position.line, position.character + 1)))) {
           return Promise.resolve([])
         }
-        break;
+        return [] as any
       case '"':
       case "'":
         return this.createComponentAttributeSnippetItems(language, document, position)
