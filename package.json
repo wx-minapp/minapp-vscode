@@ -28,6 +28,9 @@
     "wexin"
   ],
   "license": "MIT",
+  "sponsor": {
+    "url": "https://www.paypal.com/paypalme/iChenLei"
+  },
   "author": "Mora <qiuzhongleiabc@126.com> (https://github.com/qiu8310)",
   "maintainers": [
     {
@@ -50,7 +53,6 @@
     "Programming Languages"
   ],
   "activationEvents": [
-    "workspaceContains:minapp.cjson",
     "workspaceContains:**/project.config.json",
     "workspaceContains:**/app.wxss",
     "onLanguage:wxml-pug",
@@ -354,7 +356,7 @@
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@types/mocha": "^9.0.0",
+    "@types/mocha": "^9.1.1",
     "@types/prettier": "^1.19.1",
     "@types/resolve": "1.20.1",
     "@types/sass": "~1.16.1",
@@ -363,10 +365,10 @@
     "@typescript-eslint/parser": "^4.29.3",
     "@vscode/test-electron": "^1.6.2",
     "eslint": "7.32.0",
-    "mocha": "^9.1.1",
+    "mocha": "^10.0.0",
     "ts-loader": "^9.2.6",
     "typescript": "^4.4.4",
-    "vsce": "^1.100.1",
+    "vsce": "^2.9.2",
     "webpack": "^5.51.1",
     "webpack-cli": "^4.8.0"
   }
