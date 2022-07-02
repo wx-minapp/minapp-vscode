@@ -37,13 +37,13 @@ export default class extends AutoCompletion implements CompletionItemProvider {
       case '<':
         return this.createComponentSnippetItems(language, document, position)
       case '\n': // 换行
-      /// @ts-ignore
       case ' ': // 空格
         // 如果后面紧跟字母数字或_不触发自动提示
         // (常用于手动调整缩进位置)
-        if (/[\w\d\$_]/.test(getLastChar(document, new Position(position.line, position.character + 1)))) {
+        if (/[\w\d$_]/.test(getLastChar(document, new Position(position.line, position.character + 1)))) {
           return Promise.resolve([])
         }
+        break;
       case '"':
       case "'":
         return this.createComponentAttributeSnippetItems(language, document, position)
