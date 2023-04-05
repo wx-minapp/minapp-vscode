@@ -1,3 +1,10 @@
+2.4.9 / 2023-04-05
+==================
+
+* 解决项目安全依赖问题 [#155](https://github.com/wx-minapp/minapp-vscode/pull/155),[#152](https://github.com/wx-minapp/minapp-vscode/pull/152),[#149](https://github.com/wx-minapp/minapp-vscode/pull/149)
+* 更新github actions配置
+* 更新vsce为@vscode/vsce
+
 2.4.8 / 2022-07-02
 ==================
 
