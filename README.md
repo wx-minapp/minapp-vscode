@@ -57,7 +57,7 @@
 ```jsonc
 {
   "minapp-vscode.cssExtname": "less", // 默认 wxss，支持 styl sass scss less css
-  "minapp-vscode.wxmlExtname": "vue", // 默认 wxml，支持 vue wpy 
+  "minapp-vscode.wxmlExtname": "vue", // 默认 wxml，支持 vue wpy
   "minapp-vscode.jsExtname": "ts" // 默认 js，支持 ts coffee
 }
 ```
@@ -200,12 +200,26 @@ vue 中的 template 板支持两个属性：
 
 ### wxml 格式
 
-支持`prettyHtml`和`prettier`(部分内容需要采用兼容html的方式书写)
+支持`prettyHtml`, `js-beautify` 和`prettier`(部分内容需要采用兼容html的方式书写)
 
 * 默认 `wxml`
 ```jsonc
 "minapp-vscode.wxmlFormatter": "wxml", // 指定格式化工具
 ```
+
+* [js-beautify](https://github.com/beautify-web/js-beautify#css--html)
+```jsonc
+"minapp-vscode.wxmlFormatter": "jsBeautifyHtml", // 指定格式化工具
+"minapp-vscode.jsBeautifyHtml": { // jsBeautify 默认配置
+    "useBuiltInHTML": false, // 不使用 vscode settings.json 中的 `html.format.[配置字段]` 配置字段, 详见下方 tips.4
+    "content_unformatted": "text",
+    "wrap_attributes": "force",
+    "wrap_attributes_indent_size": 2,
+    "void_elements": "area,base,br,col,embed,hr,img,input,keygen,link,meta,param,source,track,wbr",
+    "indent_scripts": "keep"
+}
+```
+
 * [prettyHtml](https://github.com/Prettyhtml/prettyhtml#prettyhtmldoc-string-options-vfile)
 ```jsonc
 "minapp-vscode.wxmlFormatter": "prettyHtml", // 指定格式化工具
@@ -233,6 +247,7 @@ vue 中的 template 板支持两个属性：
   1. 针对`prettyHtml` 和 `prettier` 方式，会自动读取项目下的配置文件，[Prettier configuration file](https://prettier.io/docs/en/configuration.html) `.editorconfig`
   2. 切换格式化工具需重启 VSCode
   3. 针对 `prettyHtml` ，和 `prettier` 采用 HTML5 的语法和 wxml 不完全一致，写法要注意兼容
+  4. 针对 `jsBeautifyHtml` , 可以通过 `"useBuiltInHTML": true`, 从而使用 vscode 配置中的 `html.format.*` 配置字段[doc](https://code.visualstudio.com/docs/languages/html#_formatting) 作为 [js-beautify](https://github.com/beautify-web/js-beautify#css--html) 的配置, 如果开启并同时配置, 那么本插件的配置优先级会与 `html.format.*` 做 merge
 
 ### 常见问题
 

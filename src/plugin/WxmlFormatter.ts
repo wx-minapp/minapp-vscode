@@ -2,20 +2,47 @@ import {
   FormattingOptions,
   DocumentFormattingEditProvider,
   DocumentRangeFormattingEditProvider,
+  workspace,
   TextDocument,
   TextEdit,
   Range,
   window,
 } from 'vscode'
+
 import * as Prettier from 'prettier'
+
 import { parse } from '../wxml-parser'
 import { Config } from './lib/config'
 import { getEOL } from './lib/helper'
 import { requireLocalPkg } from './lib/requirePackage'
+import type { HTMLBeautifyOptions } from 'js-beautify'
+
+/**
+ * vscode 内置的 html.format 配置转换为 jsBeautify.html 的配置
+ * form:  https://code.visualstudio.com/docs/languages/html#_formatting
+ * to: https://github.com/beautify-web/js-beautify#css--html
+ * 其实吧, 就是 camelCase -> snake_case
+ */
+function htmlFormatToJsBeautify(buildIntHtmlFormatConfig: Record<string, any>) {
+
+  function camelCaseTosnake_case(str: string) {
+    return str.replace(/[A-Z]/g, (match, offset) => (offset ? '_' : '') + match.toLowerCase())
+  }
+
+  const btConf = Object.keys(buildIntHtmlFormatConfig).reduce((btConf, key) => {
+    if (typeof buildIntHtmlFormatConfig[key] !== 'string') return btConf
+    const bk = camelCaseTosnake_case(key);
+    (btConf as any)[bk] = (buildIntHtmlFormatConfig as any)[key]
+    return btConf
+  }, {} as HTMLBeautifyOptions)
+
+  return btConf
+}
+
 
 type PrettierType = typeof Prettier
 export default class implements DocumentFormattingEditProvider, DocumentRangeFormattingEditProvider {
-  constructor(public config: Config) {}
+  constructor(public config: Config) { }
 
   async format(doc: TextDocument, range: Range, options: FormattingOptions, prefix = ''): Promise<TextEdit[]> {
     const code = doc.getText(range)
@@ -30,6 +57,17 @@ export default class implements DocumentFormattingEditProvider, DocumentRangeFor
         const prettier: PrettierType = requireLocalPkg(doc.uri.fsPath, 'prettier')
         const prettierOptions = await resolveOptions(prettier)
         content = prettier.format(code, { ...this.config.prettier, ...prettierOptions })
+      } else if (this.config.wxmlFormatter === 'jsBeautifyHtml') {
+        const jsb_html = require('js-beautify').html
+        let conf = this.config.jsBeautifyHtml;
+        if (this.config.jsBeautifyHtml.useBuiltInHTML) {
+          const buildIntHtmlFormatConfig = workspace.getConfiguration('html.format')
+          conf = {
+            ...htmlFormatToJsBeautify(buildIntHtmlFormatConfig),
+            ...conf,
+          }
+        }
+        content = jsb_html(code, conf)
       } else if (this.config.wxmlFormatter === 'prettyHtml') {
         let prettyHtmlOptions = this.config.prettyHtml
         if (prettyHtmlOptions.usePrettier) {

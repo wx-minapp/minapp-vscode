@@ -248,9 +248,22 @@
           "enum": [
             "wxml",
             "prettier",
-            "prettyHtml"
+            "prettyHtml",
+            "jsBeautifyHtml"
           ],
           "description": "wxml 格式化工具"
+        },
+        "minapp-vscode.jsBeautifyHtml": {
+          "type": "object",
+          "default": {
+            "useBuiltInHTML": false,
+            "content_unformatted": "text",
+            "wrap_attributes": "force",
+            "wrap_attributes_indent_size": 2,
+            "void_elements": "area,base,br,col,embed,hr,img,input,keygen,link,meta,param,source,track,wbr",
+            "indent_scripts": "keep"
+          },
+          "description": "js-beautify.html 配置"
         },
         "minapp-vscode.prettyHtml": {
           "type": "object",
@@ -356,6 +369,7 @@
     "tslib": "^2.3.1"
   },
   "devDependencies": {
+    "@types/js-beautify": "^1.13.3",
     "@types/mocha": "^9.1.1",
     "@types/prettier": "^1.19.1",
     "@types/resolve": "1.20.1",
@@ -364,11 +378,12 @@
     "@typescript-eslint/eslint-plugin": "^4.29.3",
     "@typescript-eslint/parser": "^4.29.3",
     "@vscode/test-electron": "^1.6.2",
+    "@vscode/vsce": "^2.18.0",
     "eslint": "7.32.0",
+    "js-beautify": "^1.14.7",
     "mocha": "^10.0.0",
     "ts-loader": "^9.2.6",
     "typescript": "^4.4.4",
-    "@vscode/vsce": "^2.18.0",
     "webpack": "^5.77.0",
     "webpack-cli": "^5.0.1"
   }
