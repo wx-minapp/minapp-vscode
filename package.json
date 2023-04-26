@@ -260,7 +260,7 @@
             "content_unformatted": "text",
             "wrap_attributes": "force",
             "wrap_attributes_indent_size": 2,
-            "void_elements": "area,base,br,col,embed,hr,img,input,keygen,link,meta,param,source,track,wbr",
+            "void_elements": "image,input,video",
             "indent_scripts": "keep"
           },
           "description": "js-beautify.html 配置"
