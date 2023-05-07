@@ -254,7 +254,7 @@
           "description": "wxml 格式化工具"
         },
         "minapp-vscode.jsBeautifyHtml": {
-          "type": "object",
+          "type": ["string", "object"],
           "default": {
             "content_unformatted": "text",
             "wrap_attributes": "force",
