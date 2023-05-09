@@ -5,6 +5,8 @@
 
 import * as vscode from 'vscode'
 import * as path from 'path'
+import type { HTMLBeautifyOptions } from 'js-beautify'
+
 import { Snippets } from '../res/snippets'
 import { Options } from 'sass'
 
@@ -39,7 +41,7 @@ export interface Config {
 
   /**
    * 禁止插件的format功能，防止设置"editor.formatOnSave": true了的同学format产生不可预期的错误
-   * 
+   *
    * https://github.com/wx-minapp/minapp-vscode/issues/83#issuecomment-958626391
    */
   disableFormat: boolean
@@ -53,7 +55,7 @@ export interface Config {
    * 创建组件时文件后缀类型
    */
   /** css文件 */
-  cssExtname: 'wxss' | 'css' | 'styl' | 'less' | 'sass'| 'scss'
+  cssExtname: 'wxss' | 'css' | 'styl' | 'less' | 'sass' | 'scss'
   /** js文件 */
   jsExtname: 'js' | 'coffee' | 'ts'
   /** wxml文件 */
@@ -65,9 +67,11 @@ export interface Config {
   /** 支持解析的样式文件后缀名 */
   styleExtensions: string[]
   /** wxml 格式化工具 */
-  wxmlFormatter: 'wxml' | 'prettier' | 'prettyHtml'
+  wxmlFormatter: 'wxml' | 'prettier' | 'prettyHtml' | 'jsBeautifyHtml'
   /** prettyHtml 格式化 */
   prettyHtml: Record<string, any>
+  /** js-beautify.html 格式化 */
+  jsBeautifyHtml: 'useCodeBuiltInHTML' | HTMLBeautifyOptions
   /** prettier 格式化 */
   prettier: Record<string, any>
   /** 关联类型 */
@@ -100,10 +104,12 @@ export const config: Config = {
   styleExtensions: [],
   wxmlFormatter: 'wxml',
   prettyHtml: {},
+  jsBeautifyHtml: {},
   prettier: {},
   documentSelector: ['wxml'],
   sass: {},
 }
+
 
 function getConfig() {
   const minapp = vscode.workspace.getConfiguration('minapp-vscode')
@@ -124,12 +130,13 @@ function getConfig() {
   config.reserveTags = minapp.get('reserveTags', [])
   config.globalStyleFiles = minapp.get('globalStyleFiles', [])
   config.styleExtensions = minapp.get('styleExtensions', [])
-  config.cssExtname = minapp.get('cssExtname', 'wxss'),
-  config.jsExtname = minapp.get('jsExtname', 'js'),
-  config.wxmlExtname = minapp.get('wxmlExtname', 'wxml'),
+  config.cssExtname = minapp.get('cssExtname', 'wxss')
+  config.jsExtname = minapp.get('jsExtname', 'js')
+  config.wxmlExtname = minapp.get('wxmlExtname', 'wxml')
   config.wxmlFormatter = minapp.get('wxmlFormatter', 'wxml')
   config.prettyHtml = minapp.get('prettyHtml', {})
   config.prettier = minapp.get('prettier', {})
+  config.jsBeautifyHtml = minapp.get('jsBeautifyHtml', {})
   config.documentSelector = minapp.get('documentSelector', ['wxml'])
   config.sass = minapp.get('sass', {})
 }
