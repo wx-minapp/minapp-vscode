@@ -5,6 +5,7 @@ import { getClass } from './lib/StyleFile'
 import { getProp } from './lib/ScriptFile'
 import { definitionTagName } from '../common/src'
 import { getCustomOptions, getLanguage } from './lib/helper'
+import { CSS_MODULES_PREFIX } from '../constants'
 
 const reserveWords = ['true', 'false']
 
@@ -34,8 +35,13 @@ export class PropDefinitionProvider implements DefinitionProvider {
       // 忽略特殊字符或者以数字开头的单词
       if (reserveWords.includes(posWord) || /^\d/.test(posWord)) return locs
 
-      if (attrName === 'class') {
-        return this.searchStyle(posWord, document, position)
+      if (attrName.endsWith('class')) {
+        // 检测是否是css modules类名
+        const mockPosWord = '@' + posWord;
+        // @ts-expect-error
+        const isCssModules = mockPosWord.startsWith(CSS_MODULES_PREFIX) && tag.attrs?.[attrName]?.includes?.(mockPosWord);
+        const word = isCssModules ? mockPosWord.replace(CSS_MODULES_PREFIX, '') : posWord;
+        return this.searchStyle(word, document, position)
       } else if (attrName.endsWith('.sync') || (rawAttrValue.startsWith('{{') && rawAttrValue.endsWith('}}'))) {
         return this.searchScript('prop', posWord, document)
       } else if (/^(mut-bind|capture-catch|capture-bind|bind|catch)/.test(attrName) || /\.(user|stop|default)$/.test(attrName)) {

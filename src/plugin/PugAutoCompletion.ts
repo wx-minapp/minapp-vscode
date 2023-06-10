@@ -20,7 +20,7 @@ import { LanguageConfig } from './lib/language'
 export const LINE_TAG_REGEXP = /^[\w-:.]+(?:(?:[\.#][\w-])*)\(/
 
 export default class extends AutoCompletion implements CompletionItemProvider {
-  id = 'wxml-pug' as 'wxml-pug'
+  id = 'wxml-pug' as const
 
   provideCompletionItems(
     document: TextDocument,
@@ -28,14 +28,14 @@ export default class extends AutoCompletion implements CompletionItemProvider {
     token: CancellationToken,
     context: CompletionContext
   ): CompletionItem[] | Promise<CompletionItem[]> {
-    let items: CompletionItem[] = []
-    let language = getLanguage(document, position)
+    const items: CompletionItem[] = []
+    const language = getLanguage(document, position)
     if (!language) return items
-    let lineNum = position.line
-    let line = document.lineAt(lineNum).text.substr(0, position.character)
+    const lineNum = position.line
+    const line = document.lineAt(lineNum).text.substr(0, position.character)
     if (/^\s*(\w*)$/.test(line)) {
-      let prefix = RegExp.$1
-      let lastLine = this.getLastContentLine(document, lineNum)
+      const prefix = RegExp.$1
+      const lastLine = this.getLastContentLine(document, lineNum)
       if (lastLine) {
         if (LINE_TAG_REGEXP.test(lastLine)) {
           // 上一行是标签，属性自动补全
@@ -50,7 +50,7 @@ export default class extends AutoCompletion implements CompletionItemProvider {
       }
     }
 
-    let char = context.triggerCharacter || getLastChar(document, position)
+    const char = context.triggerCharacter || getLastChar(document, position)
     switch (char) {
       case '"':
       case "'":
@@ -67,15 +67,15 @@ export default class extends AutoCompletion implements CompletionItemProvider {
     return items
   }
 
-  async createComponentAttributeSnippetItems(lc: LanguageConfig, doc: TextDocument, pos: Position) {
+  async createComponentAttributeSnippetItems(lc: LanguageConfig, doc: TextDocument, pos: Position): Promise<CompletionItem[]> {
     return this.wrapAttrItems(await super.createComponentAttributeSnippetItems(lc, doc, pos), doc, pos)
   }
-  async createSpecialAttributeSnippetItems(lc: LanguageConfig, doc: TextDocument, pos: Position) {
+  async createSpecialAttributeSnippetItems(lc: LanguageConfig, doc: TextDocument, pos: Position): Promise<CompletionItem[]> {
     return this.wrapAttrItems(await super.createSpecialAttributeSnippetItems(lc, doc, pos), doc, pos)
   }
 
   private wrapAttrItems(items: CompletionItem[], doc: TextDocument, pos: Position) {
-    let range = this.shouldNearLeftBracket(doc, pos)
+    const range = this.shouldNearLeftBracket(doc, pos)
     if (range) {
       items.forEach(it => (it.range = range))
     }
@@ -83,8 +83,8 @@ export default class extends AutoCompletion implements CompletionItemProvider {
   }
 
   private shouldNearLeftBracket(document: TextDocument, pos: Position) {
-    let line = document.lineAt(pos.line).text
-    let range = document.getWordRangeAtPosition(pos, /\s+/)
+    const line = document.lineAt(pos.line).text
+    const range = document.getWordRangeAtPosition(pos, /\s+/)
     if (range && range.start.character > 0 && line[range.start.character - 1] === '(') return range
     return
   }
@@ -94,7 +94,7 @@ export default class extends AutoCompletion implements CompletionItemProvider {
    */
   private getLastContentLine(document: TextDocument, start: number) {
     while (--start >= 0) {
-      let text = document.lineAt(start).text.trim()
+      const text = document.lineAt(start).text.trim()
       if (text) return text
     }
     return

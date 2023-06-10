@@ -26,9 +26,9 @@ function isScss(file: string): boolean {
 export function parseStyleFile(file: string) {
   try {
     let cache = fileCache[file]
-    let editor = window.visibleTextEditors.find(e => e.document.fileName === file)
+    const editor = window.visibleTextEditors.find(e => e.document.fileName === file)
     if (editor) {
-      let content = editor.document.getText()
+      const content = editor.document.getText()
       return { file, styles: quickParseStyle(isScss(file) ? loadScss({ data: content, file }) : content) }
     } else {
       const stat = fs.statSync(file)
@@ -58,16 +58,16 @@ export function getClass(doc: TextDocument, config: Config) {
 }
 
 export function getLocalClass(doc: TextDocument, config: Config) {
-  let exts = config.styleExtensions || []
-  let dir = path.dirname(doc.fileName)
-  let basename = path.basename(doc.fileName, path.extname(doc.fileName))
-  let localFile = exts.map(e => path.join(dir, basename + '.' + e)).find(f => fs.existsSync(f))
+  const exts = config.styleExtensions || []
+  const dir = path.dirname(doc.fileName)
+  const basename = path.basename(doc.fileName, path.extname(doc.fileName))
+  const localFile = exts.map(e => path.join(dir, basename + '.' + e)).find(f => fs.existsSync(f))
   return localFile ? [parseStyleFile(localFile)] : []
 }
 
 export function getGlobalClass(doc: TextDocument, config: Config) {
-  let root = getRoot(doc) as string
+  const root = getRoot(doc) as string
   if (!root) return []
-  let files = (config.globalStyleFiles || []).map(f => path.resolve(root, f))
+  const files = (config.globalStyleFiles || []).map(f => path.resolve(root, f))
   return files.map(parseStyleFile)
 }

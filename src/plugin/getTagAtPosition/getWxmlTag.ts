@@ -55,7 +55,7 @@ export function getWxmlTag(doc: TextDocument, pos: Position): null | Tag {
 
   // 因为双大括号里可能会有任何字符，估优先处理
   // 用特殊字符替换 "{{" 与 "}}"" 之间的语句，并保证字符数一致
-  let pureText = text.replace(/\{\{[^\}]*?\}\}/g, replacer('^'))
+  const pureText = text.replace(/\{\{[^\}]*?\}\}/g, replacer('^'))
   let attrFlagText = pureText.replace(/("[^"]*"|'[^']*')/g, replacer('%')) // 将引号中的内容也替换了
 
   // 标签起始位置

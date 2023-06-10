@@ -17,7 +17,7 @@ import AutoCompletion from './AutoCompletion'
 import { getLanguage, getLastChar } from './lib/helper'
 
 export default class extends AutoCompletion implements CompletionItemProvider {
-  id = 'wxml' as 'wxml'
+  id = 'wxml' as const
 
   provideCompletionItems(
     document: TextDocument,

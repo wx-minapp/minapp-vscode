@@ -17,7 +17,7 @@ export default class ActiveTextEditorListener {
     if (window.activeTextEditor) this.onChange(window.activeTextEditor)
 
     let tid: NodeJS.Timer
-    let update = (editor: TextEditor, resetCache?: boolean) => {
+    const update = (editor: TextEditor, resetCache?: boolean) => {
       if (!editor) return
       if (tid) clearTimeout(tid)
       tid = setTimeout(() => this.onChange(editor, resetCache), 500)
@@ -39,14 +39,14 @@ export default class ActiveTextEditorListener {
     )
   }
 
-  onChange(editor: TextEditor | undefined, resetCache?: boolean) {
+  onChange(editor: TextEditor | undefined, resetCache?: boolean): void {
     if (!editor) return
 
-    let doc = editor.document
+    const doc = editor.document
     if (this.config.disableDecorate) return
 
     if (doc.languageId === 'wxml' || doc.languageId === 'wxml-pug') {
-      let cache = this.decorationCache[doc.fileName]
+      const cache = this.decorationCache[doc.fileName]
       if (cache && !resetCache) {
         editor.setDecorations(cache.style, cache.ranges)
       } else {
@@ -55,21 +55,21 @@ export default class ActiveTextEditorListener {
     }
   }
 
-  decorateWxml(editor: TextEditor) {
-    let doc = editor.document
-    let text = doc.getText()
-    let interpolation = this.config.decorateComplexInterpolation
+  decorateWxml(editor: TextEditor): void {
+    const doc = editor.document
+    const text = doc.getText()
+    const interpolation = this.config.decorateComplexInterpolation
       ? INTERPOLATION_COMPLEX_REGEXP
       : INTERPOLATION_SIMPLE_REGEXP
 
-    let comments = getRanges(text, COMMENT_REGEXP, doc, [])
-    let ranges = [
+    const comments = getRanges(text, COMMENT_REGEXP, doc, [])
+    const ranges = [
       ...getRanges(text, DOUBLE_BIND_REGEXP, doc, comments),
       ...getRanges(text, DIRECTIVE_REGEXP, doc, comments),
       ...getRanges(text, interpolation, doc, comments),
     ]
 
-    let decorationType = window.createTextEditorDecorationType(
+    const decorationType = window.createTextEditorDecorationType(
       Object.assign(
         {
           // 设置默认样式
@@ -83,12 +83,12 @@ export default class ActiveTextEditorListener {
     this.decorationCache[doc.fileName] = { style: decorationType, ranges }
   }
 
-  updateDecorationCache() {
-    let cache = this.decorationCache
-    let oldKeys = Object.keys(cache)
+  updateDecorationCache(): void {
+    const cache = this.decorationCache
+    const oldKeys = Object.keys(cache)
 
     // 当前打开过的所有文件
-    let existKeys = workspace.textDocuments.map(doc => doc.fileName)
+    const existKeys = workspace.textDocuments.map(doc => doc.fileName)
 
     // 这个是同时打开的多个文件
     // let existKeys = window.visibleTextEditors.map(editor => editor.document.fileName)
@@ -101,7 +101,7 @@ export default class ActiveTextEditorListener {
     })
   }
 
-  dispose() {
+  dispose(): void {
     Object.keys(this.decorationCache).forEach(k => this.decorationCache[k].style.dispose())
     this.decorationCache = {}
     this.disposables.forEach(d => d.dispose())
@@ -110,7 +110,7 @@ export default class ActiveTextEditorListener {
 
 function getRanges(content: string, regexp: RegExp, doc: TextDocument, excludeRanges: Range[]) {
   let match: RegExpExecArray | null
-  let ranges: Range[] = []
+  const ranges: Range[] = []
   // tslint:disable:no-conditional-assignment
   while ((match = regexp.exec(content))) {
     if (match[1]) {
@@ -128,9 +128,9 @@ function getRanges(content: string, regexp: RegExp, doc: TextDocument, excludeRa
       }
 
       if (createRange) {
-        let start = doc.positionAt(index)
-        let end = doc.positionAt(index + word.length)
-        let range = new Range(start, end)
+        const start = doc.positionAt(index)
+        const end = doc.positionAt(index + word.length)
+        const range = new Range(start, end)
         if (excludeRanges.every(r => !r.contains(range))) {
           ranges.push(range)
         }
@@ -142,11 +142,11 @@ function getRanges(content: string, regexp: RegExp, doc: TextDocument, excludeRa
 }
 
 function shouldCreateRange(word: string) {
-  let key = word.trim()
+  const key = word.trim()
   if (!key) return false
 
-  let firstChar = key[0]
-  let lastChar = key[key.length - 1]
+  const firstChar = key[0]
+  const lastChar = key[key.length - 1]
   // 不是 boolean，不是字符串，也不是以数字开头，也不是以 {{ 开头的
   return (
     !['true', 'false'].includes(key) &&

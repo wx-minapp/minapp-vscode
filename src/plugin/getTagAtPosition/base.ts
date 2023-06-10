@@ -36,7 +36,7 @@ export function getAttrName(str: string) {
 // 也可以是以 @ 开头的字符，触发事件
 const TAG_ATTR_REGEXP = /^(@|@?[\w-:.]+)\s*(=\s*("[^"]*"|'[^']*'|\w+))?\s*/
 export function getAttrs(text: string) {
-  let attrs: any = {}
+  const attrs: any = {}
   getAttrs2(text, attrs)
   return attrs
 }

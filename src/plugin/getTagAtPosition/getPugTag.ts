@@ -8,18 +8,18 @@ import { Tag, getAttrs, getAttrs2 } from './base'
 
 const SINGLE_LINE_TAG_REGEXP = /^(\s*)([\w-:.]+)((?:[\.#][\w-])*)(\s*\()(.*)\)/
 const MULTIPLE_LINE_TAG_REGEXP = /^(\s*)([\w-:.]+)((?:[\.#][\w-])*)(\s*\()/
-let replacer = (char: string) => (raw: string) => char.repeat(raw.length)
+const replacer = (char: string) => (raw: string) => char.repeat(raw.length)
 
 export function getPugTag(doc: TextDocument, pos: Position): null | Tag {
   // 先处理单行的 pug 语法
-  let line = doc.lineAt(pos.line).text
-  let index = pos.character
+  const line = doc.lineAt(pos.line).text
+  const index = pos.character
   if (SINGLE_LINE_TAG_REGEXP.test(line)) {
-    let prefix = RegExp.$1
-    let name = RegExp.$2
-    let classOrId = RegExp.$3
-    let rest = RegExp.$4
-    let attrstr = (RegExp.$5 || '').trim()
+    const prefix = RegExp.$1
+    const name = RegExp.$2
+    const classOrId = RegExp.$3
+    const rest = RegExp.$4
+    const attrstr = (RegExp.$5 || '').trim()
 
     if (index < prefix.length) {
       return null
@@ -39,7 +39,7 @@ export function getPugTag(doc: TextDocument, pos: Position): null | Tag {
     ) {
       return null
     } else {
-      let { posWord, attrName, isOnAttrValue } = parseLine(line, doc, pos)
+      const { posWord, attrName, isOnAttrValue } = parseLine(line, doc, pos)
       return {
         name,
         attrs: getAttrs(attrstr),
@@ -54,12 +54,12 @@ export function getPugTag(doc: TextDocument, pos: Position): null | Tag {
     // FIXME: 多行的时候也可以 hover 在 tagName 上（即 isOnTagName 可能为 true）
     // 向上查找 ( ，不能出现 )
     // 向下查找 ) ，不能出现（
-    let startLine = pos.line
-    let attrs: any = {}
-    let name = searchUp(doc, startLine, attrs)
+    const startLine = pos.line
+    const attrs: any = {}
+    const name = searchUp(doc, startLine, attrs)
     if (!name) return null
     if (!searchDown(doc, startLine + 1, attrs)) return null
-    let { posWord, attrName, isOnAttrValue } = parseLine(doc.lineAt(startLine).text, doc, pos)
+    const { posWord, attrName, isOnAttrValue } = parseLine(doc.lineAt(startLine).text, doc, pos)
     return {
       name,
       attrs,
@@ -77,13 +77,13 @@ function parseLine(line: string, doc: TextDocument, pos: Position) {
   // 用特殊字符替换 "{{" 与 "}}" 和 "{" 与 "}" 之间的语句，并保证字符数一致
   line = line.replace(/\{\{[^\}]*?\}\}/g, replacer('^')).replace(/\{[^\}]*?\}/g, replacer('^')) // a(style={color: 'red', background: 'green'}) => a(style=^^^^^^^^)
 
-  let attrFlagLine = line.replace(/("[^"]*"|'[^']*')/g, replacer('%')) // 将引号中的内容也替换了
+  const attrFlagLine = line.replace(/("[^"]*"|'[^']*')/g, replacer('%')) // 将引号中的内容也替换了
 
-  let range = doc.getWordRangeAtPosition(pos, /\b[\w-:.]+\b/)
+  const range = doc.getWordRangeAtPosition(pos, /\b[\w-:.]+\b/)
   let posWord = ''
   let attrName = ''
   if (range) posWord = doc.getText(range)
-  let isOnAttrValue = attrFlagLine[pos.character] === '%'
+  const isOnAttrValue = attrFlagLine[pos.character] === '%'
   if (isOnAttrValue) {
     attrName = getAttrName(attrFlagLine.substring(0, pos.character))
   }
@@ -96,16 +96,16 @@ function parseLine(line: string, doc: TextDocument, pos: Position) {
 
 function searchUp(doc: TextDocument, lineNum: number, attrs: { [key: string]: any }) {
   while (lineNum >= 0) {
-    let text = doc.lineAt(lineNum).text.trim()
+    const text = doc.lineAt(lineNum).text.trim()
     if (text) {
       if (text.startsWith('-')) return false
       if (text.includes(')')) return false
       if (text.indexOf('(') > 0 && MULTIPLE_LINE_TAG_REGEXP.test(text)) {
-        let name = RegExp.$2
+        const name = RegExp.$2
         Object.assign(attrs, getAttrs((RegExp.$5 || '').trim()))
         return name
       }
-      let left = getAttrs2(text, attrs)
+      const left = getAttrs2(text, attrs)
       if (left) return false
     }
     lineNum--
@@ -114,13 +114,13 @@ function searchUp(doc: TextDocument, lineNum: number, attrs: { [key: string]: an
 }
 function searchDown(doc: TextDocument, lineNum: number, attrs: { [key: string]: any }) {
   while (lineNum < doc.lineCount) {
-    let text = doc.lineAt(lineNum).text.trim()
+    const text = doc.lineAt(lineNum).text.trim()
     if (text) {
       if (text.startsWith('-')) return false
       if (text.indexOf('(') > 0) return false
       if (text.includes(')')) return true
 
-      let left = getAttrs2(text, attrs)
+      const left = getAttrs2(text, attrs)
       if (left) return false
     }
     lineNum++
