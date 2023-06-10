@@ -389,7 +389,7 @@
     "@typescript-eslint/eslint-plugin": "^4.29.3",
     "@typescript-eslint/parser": "^4.29.3",
     "@vscode/test-electron": "^1.6.2",
-    "@vscode/vsce": "^2.18.0",
+    "@vscode/vsce": "^2.19.0",
     "eslint": "7.32.0",
     "js-beautify": "^1.14.7",
     "mocha": "^10.0.0",
