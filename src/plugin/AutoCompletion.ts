@@ -32,7 +32,6 @@ import * as s from './res/snippets'
 import { getClass } from './lib/StyleFile'
 import { getCloseTag } from './lib/closeTag'
 import { getProp } from './lib/ScriptFile'
-import { CSS_MODULES_PREFIX } from '../constants'
 
 export default abstract class AutoCompletion {
   abstract id: 'wxml' | 'wxml-pug'
@@ -278,11 +277,6 @@ export default abstract class AutoCompletion {
 
     const tag = getTagAtPosition(doc, pos)
     if (!tag) return []
-
-    // 如果遇到css modules，返回样式类名相关CompletionItem
-    if (tag?.attrName?.endsWith?.('class') && prefix.startsWith(CSS_MODULES_PREFIX)) {
-      return this.autoCompleteClassNames(doc, []);
-    }
 
     const isEventPrefix = lc.event.prefixes.includes(prefix)
 

@@ -2,7 +2,7 @@
   "name": "minapp-vscode",
   "displayName": "WXML - Language Service",
   "description": "WXML Language Support",
-  "version": "2.4.11",
+  "version": "2.4.12",
   "publisher": "qiu8310",
   "extensionKind": [
     "workspace"
