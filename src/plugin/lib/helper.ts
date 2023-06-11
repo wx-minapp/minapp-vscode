@@ -54,8 +54,8 @@ export function getCustomOptions(config: Config, document: TextDocument) {
 }
 
 export function getTextAtPosition(doc: TextDocument, pos: Position, charRegExp: RegExp) {
-  let line = doc.lineAt(pos.line).text
-  let mid = pos.character - 1
+  const line = doc.lineAt(pos.line).text
+  const mid = pos.character - 1
   if (!charRegExp.test(line[mid])) return
   let str = line[mid]
 
@@ -83,14 +83,14 @@ export function getLastChar(doc: TextDocument, pos: Position) {
  * 不要直接使用 fs 去读取文件内容，因为在编辑器中文件可能并没有保存到本地，也就是说 fs 拿到的可能不是最新的内容
  */
 export function getFileContent(file: string) {
-  let editor = window.visibleTextEditors.find(e => e.document.fileName === file)
+  const editor = window.visibleTextEditors.find(e => e.document.fileName === file)
   return editor ? editor.document.getText() : fs.readFileSync(file).toString()
 }
 
 /** 全局匹配 */
 export function match(content: string, regexp: RegExp) {
   let mat: RegExpExecArray | null
-  let res: RegExpExecArray[] = []
+  const res: RegExpExecArray[] = []
   // tslint:disable:no-conditional-assignment
   while ((mat = regexp.exec(content))) res.push(mat)
   return res
@@ -98,16 +98,16 @@ export function match(content: string, regexp: RegExp) {
 
 /** 获取根目录 */
 export function getRoot(doc: TextDocument) {
-  let wf = workspace.getWorkspaceFolder(doc.uri)
+  const wf = workspace.getWorkspaceFolder(doc.uri)
   if (!wf) return
   return wf.uri.fsPath
 }
 
 /** 根据文件内容和位置，获取 vscode 的 Position 对象 */
 export function getPositionFromIndex(content: string, index: number) {
-  let text = content.substring(0, index)
-  let lines = text.split(/\r?\n/)
-  let line = lines.length - 1
+  const text = content.substring(0, index)
+  const lines = text.split(/\r?\n/)
+  const line = lines.length - 1
   return new Position(line, lines[line].length)
 }
 

@@ -21,8 +21,8 @@ export namespace quickParseStyle {
  * 样式文件可能是 scss/less/css 所以不需要解析成 ast，只需要用正则即可
  */
 export function quickParseStyle(styleContent: string, { unique }: quickParseStyle.Options = {}) {
-  let style: { doc: string; pos: Position; name: string }[] = []
-  let content = styleContent
+  const style: { doc: string; pos: Position; name: string }[] = []
+  const content = styleContent
     .replace(styleSingleCommentRegexp, replacer) // 去除单行注释
     .replace(styleMultipleCommentRegExp, replacer) // 去除多行注释
 

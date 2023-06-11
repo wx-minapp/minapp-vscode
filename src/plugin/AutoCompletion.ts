@@ -36,26 +36,29 @@ import { getProp } from './lib/ScriptFile'
 export default abstract class AutoCompletion {
   abstract id: 'wxml' | 'wxml-pug'
 
-  get isPug() {
+  get isPug(): boolean {
     return this.id === 'wxml-pug'
   }
-  get attrQuote() {
+  get attrQuote(): string {
     return this.isPug ? this.config.pugQuoteStyle : this.config.wxmlQuoteStyle
   }
 
-  constructor(public config: Config) {}
+  constructor(public config: Config) { }
 
-  getCustomOptions(doc: TextDocument) {
+  getCustomOptions(doc: TextDocument): {
+    filename: string;
+    resolves: string[];
+  } | undefined {
     return getCustomOptions(this.config, doc)
   }
 
-  renderTag(tag: TagItem, sortText: string) {
-    let c = tag.component
-    let item = new CompletionItem(c.name, CompletionItemKind.Module)
+  renderTag(tag: TagItem, sortText: string): CompletionItem {
+    const c = tag.component
+    const item = new CompletionItem(c.name, CompletionItemKind.Module)
 
-    let { attrQuote, isPug } = this
-    let allAttrs = c.attrs || []
-    let attrs = allAttrs
+    const { attrQuote, isPug } = this
+    const allAttrs = c.attrs || []
+    const attrs = allAttrs
       .filter(a => a.required || a.subAttrs)
       .map((a, i) => (isPug ? '' : ' ') + `${a.name}=${attrQuote}${this.setDefault(i + 1, a.defaultValue)}${attrQuote}`)
 
@@ -66,7 +69,7 @@ export default abstract class AutoCompletion {
       extraSpace = ' '
     }
 
-    let len = attrs.length + 1
+    const len = attrs.length + 1
     let snippet: string
     if (isPug) {
       snippet = `${c.name}(${attrs.join(' ')}\${${len}})\${0}`
@@ -83,15 +86,15 @@ export default abstract class AutoCompletion {
     return item
   }
 
-  renderTagAttr(tagAttr: TagAttrItem, sortText: string, kind?: CompletionItemKind) {
-    let a = tagAttr.attr
-    let item = new CompletionItem(a.name, kind === undefined ? CompletionItemKind.Field : kind)
+  renderTagAttr(tagAttr: TagAttrItem, sortText: string, kind?: CompletionItemKind): CompletionItem {
+    const a = tagAttr.attr
+    const item = new CompletionItem(a.name, kind === undefined ? CompletionItemKind.Field : kind)
     let defaultValue = a.defaultValue
     if (!this.isDefaultValueValid(defaultValue)) {
       defaultValue = a.enum && a.enum[0].value
     }
 
-    let { attrQuote, isPug } = this
+    const { attrQuote, isPug } = this
 
     if (a.boolean) {
       item.insertText = new SnippetString(isPug && defaultValue === 'false' ? `${a.name}=false` : a.name)
@@ -99,7 +102,7 @@ export default abstract class AutoCompletion {
       let value = a.addBrace ? '{{${1}}}' : this.setDefault(1, defaultValue)
 
       // 是否有可选值，如果有可选值则触发命令的自动补全
-      let values = a.enum ? a.enum : a.subAttrs ? a.subAttrs.map(sa => ({ value: sa.equal })) : []
+      const values = a.enum ? a.enum : a.subAttrs ? a.subAttrs.map(sa => ({ value: sa.equal })) : []
       if (values.length) {
         value = '${1}'
         item.command = autoSuggestCommand()
@@ -116,10 +119,10 @@ export default abstract class AutoCompletion {
     return item
   }
 
-  renderSnippet(doc: TextDocument, name: string, snippet: s.Snippet, sortText: string) {
-    let item = new CompletionItem(name + ' snippet', CompletionItemKind.Snippet)
+  renderSnippet(doc: TextDocument, name: string, snippet: s.Snippet, sortText: string): CompletionItem {
+    const item = new CompletionItem(name + ' snippet', CompletionItemKind.Snippet)
 
-    let eol = getEOL(doc)
+    const eol = getEOL(doc)
     let body = Array.isArray(snippet.body) ? snippet.body.join(eol) : snippet.body
     body = body.replace(/___/g, this.attrQuote)
 
@@ -146,29 +149,29 @@ export default abstract class AutoCompletion {
   /**
    * 创建组件名称的自动补全
    */
-  async createComponentSnippetItems(lc: LanguageConfig, doc: TextDocument, pos: Position, prefix?: string) {
-    let res = await autocompleteTagName(lc, this.getCustomOptions(doc))
-    let filter = (key: string) => key && (!prefix || prefix.split('').every(c => key.includes(c)))
-    let filterComponent = (t: TagItem) => filter(t.component.name)
+  async createComponentSnippetItems(lc: LanguageConfig, doc: TextDocument, pos: Position, prefix?: string): Promise<CompletionItem[]> {
+    const res = await autocompleteTagName(lc, this.getCustomOptions(doc))
+    const filter = (key: string) => key && (!prefix || prefix.split('').every(c => key.includes(c)))
+    const filterComponent = (t: TagItem) => filter(t.component.name)
 
-    let items = [
+    const items = [
       ...res.customs.filter(filterComponent).map(t => this.renderTag(t, 'a')), // 自定义的组件放在前面
       ...res.natives.filter(filterComponent).map(t => this.renderTag(t, 'c')),
     ]
 
     // 添加 Snippet
-    let userSnippets = this.config.snippets
-    let allSnippets: s.Snippets = this.isPug
+    const userSnippets = this.config.snippets
+    const allSnippets: s.Snippets = this.isPug
       ? { ...s.PugSnippets, ...userSnippets.pug }
       : { ...s.WxmlSnippets, ...userSnippets.wxml }
     items.push(
       ...Object.keys(allSnippets)
         .filter(k => filter(k))
         .map(k => {
-          let snippet = allSnippets[k]
+          const snippet = allSnippets[k]
           if (!snippet.description) {
-            let ck = k.split(' ')[0] // 取出名称中的第一段即可
-            let found = res.natives.find(it => it.component.name === (ck || k))
+            const ck = k.split(' ')[0] // 取出名称中的第一段即可
+            const found = res.natives.find(it => it.component.name === (ck || k))
             if (found) snippet.markdown = found.markdown
           }
           return this.renderSnippet(doc, k, allSnippets[k], 'b')
@@ -187,24 +190,24 @@ export default abstract class AutoCompletion {
   /**
    * 创建组件属性的自动补全
    */
-  async createComponentAttributeSnippetItems(lc: LanguageConfig, doc: TextDocument, pos: Position) {
-    let tag = getTagAtPosition(doc, pos)
+  async createComponentAttributeSnippetItems(lc: LanguageConfig, doc: TextDocument, pos: Position): Promise<CompletionItem[]> {
+    const tag = getTagAtPosition(doc, pos)
     if (!tag) return []
     if (tag.isOnTagName) {
       return this.createComponentSnippetItems(lc, doc, pos, tag.name)
     }
     if (tag.isOnAttrValue && tag.attrName) {
-      let attrValue = tag.attrs[tag.attrName]
+      const attrValue = tag.attrs[tag.attrName]
       if (tag.attrName === 'class' || /^[\w\d-]+-class/.test(tag.attrName)) {
         // `class` 或者 `xxx-class` 自动提示 class 名
-        let existsClass = (tag.attrs[tag.attrName] || '') as string
+        const existsClass = (tag.attrs[tag.attrName] || '') as string
         return this.autoCompleteClassNames(doc, existsClass ? existsClass.trim().split(/\s+/) : [])
       } else if (typeof attrValue === 'string') {
         if (tag.attrName.startsWith('bind') || tag.attrName.startsWith('catch')) {
           // 函数自动补全
           return this.autoCompleteMethods(doc, attrValue.replace(/"|'/, ''))
         } else if (attrValue.trim() === '') {
-          let values = await autocompleteTagAttrValue(tag.name, tag.attrName, lc, this.getCustomOptions(doc))
+          const values = await autocompleteTagAttrValue(tag.name, tag.attrName, lc, this.getCustomOptions(doc))
           if (!values.length) return []
           let range = doc.getWordRangeAtPosition(pos, /['"]\s*['"]/)
           if (range) {
@@ -214,7 +217,7 @@ export default abstract class AutoCompletion {
             )
           }
           return values.map(v => {
-            let it = new CompletionItem(v.value, CompletionItemKind.Value)
+            const it = new CompletionItem(v.value, CompletionItemKind.Value)
             it.documentation = new MarkdownString(v.markdown)
             it.range = range
             return it
@@ -227,11 +230,11 @@ export default abstract class AutoCompletion {
       }
       return []
     } else {
-      let res = await autocompleteTagAttr(tag.name, tag.attrs, lc, this.getCustomOptions(doc))
+      const res = await autocompleteTagAttr(tag.name, tag.attrs, lc, this.getCustomOptions(doc))
       let triggers: CompletionItem[] = []
 
-      let { natives, basics } = res
-      let noBasics = lc.noBasicAttrsComponents || []
+      const { natives, basics } = res
+      const noBasics = lc.noBasicAttrsComponents || []
 
       if (!noBasics.includes(tag.name)) {
         triggers = [...Object.keys(lc.custom), ...lc.event.prefixes]
@@ -240,7 +243,7 @@ export default abstract class AutoCompletion {
             // let str = k.substr(0, k.length - 1)
             // let trigger = k[k.length - 1]
             // let item = new CompletionItem(str, CompletionItemKind.Constant)
-            let item = new CompletionItem(k, CompletionItemKind.Constant)
+            const item = new CompletionItem(k, CompletionItemKind.Constant)
             item.sortText = 'z'
             item.command = autoSuggestCommand()
             // item.documentation = new MarkdownString(`输入此字段再输入 "**${trigger}**" 字符可以再次触发自动补全`)
@@ -268,13 +271,14 @@ export default abstract class AutoCompletion {
    *    :xxx.sync
    *    @xxx.default, @xxx.user, @xxx.stop
    */
-  async createSpecialAttributeSnippetItems(lc: LanguageConfig, doc: TextDocument, pos: Position) {
-    let prefix = getTextAtPosition(doc, pos, /[:@\w\d\.-]/) as string
+  async createSpecialAttributeSnippetItems(lc: LanguageConfig, doc: TextDocument, pos: Position): Promise<CompletionItem[]> {
+    const prefix = getTextAtPosition(doc, pos, /[:@\w\d\.-]/) as string
     if (!prefix) return []
 
-    let tag = getTagAtPosition(doc, pos)
+    const tag = getTagAtPosition(doc, pos)
     if (!tag) return []
-    let isEventPrefix = lc.event.prefixes.includes(prefix)
+
+    const isEventPrefix = lc.event.prefixes.includes(prefix)
 
     // 非 Event，也非其它自定义的属性
     if (!isEventPrefix && !lc.custom.hasOwnProperty(prefix)) {
@@ -284,7 +288,7 @@ export default abstract class AutoCompletion {
         if (lc.event.prefixes.some(p => prefix.startsWith(p))) {
           modifiers = lc.event.modifiers
         } else {
-          let customPrefix = Object.keys(lc.custom).find(p => prefix.startsWith(p))
+          const customPrefix = Object.keys(lc.custom).find(p => prefix.startsWith(p))
           if (customPrefix) modifiers = lc.custom[customPrefix].modifiers
         }
       }
@@ -292,8 +296,8 @@ export default abstract class AutoCompletion {
       return modifiers.map(m => new CompletionItem(m, CompletionItemKind.Constant))
     }
 
-    let res = await autocompleteSpecialTagAttr(prefix, tag.name, tag.attrs, lc, this.getCustomOptions(doc))
-    let kind = isEventPrefix ? CompletionItemKind.Event : CompletionItemKind.Field
+    const res = await autocompleteSpecialTagAttr(prefix, tag.name, tag.attrs, lc, this.getCustomOptions(doc))
+    const kind = isEventPrefix ? CompletionItemKind.Event : CompletionItemKind.Field
     return [
       ...res.customs.map(c => this.renderTagAttr(c, 'a', kind)),
       ...res.natives.map(c => this.renderTagAttr(c, 'b', kind)),
@@ -301,16 +305,16 @@ export default abstract class AutoCompletion {
   }
 
   // 样式名自动补全
-  async autoCompleteClassNames(doc: TextDocument, existsClassNames: string[]) {
-    let items: CompletionItem[] = []
-    let stylefiles = getClass(doc, this.config)
-    let root = getRoot(doc)
+  async autoCompleteClassNames(doc: TextDocument, existsClassNames: string[]): Promise<CompletionItem[]> {
+    const items: CompletionItem[] = []
+    const stylefiles = getClass(doc, this.config)
+    const root = getRoot(doc)
 
     stylefiles.forEach((stylefile, sfi) => {
       stylefile.styles.forEach(sty => {
         if (!existsClassNames.includes(sty.name)) {
           existsClassNames.push(sty.name)
-          let i = new CompletionItem(sty.name)
+          const i = new CompletionItem(sty.name)
           i.kind = CompletionItemKind.Variable
           i.detail = root ? path.relative(root, stylefile.file) : path.basename(stylefile.file)
           i.sortText = 'style' + sfi

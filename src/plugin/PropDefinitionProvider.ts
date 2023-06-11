@@ -34,7 +34,7 @@ export class PropDefinitionProvider implements DefinitionProvider {
       // 忽略特殊字符或者以数字开头的单词
       if (reserveWords.includes(posWord) || /^\d/.test(posWord)) return locs
 
-      if (attrName === 'class') {
+      if (attrName.endsWith('class')) {
         return this.searchStyle(posWord, document, position)
       } else if (attrName.endsWith('.sync') || (rawAttrValue.startsWith('{{') && rawAttrValue.endsWith('}}'))) {
         return this.searchScript('prop', posWord, document)
