@@ -25,7 +25,8 @@ import { ComponentAttr } from './dev'
 
 const SINGLE_LINE_REGEXP = /^\s+(?:\w+.)?properties\s*[:=]\s*\{(.*)\}\s*$/m
 const MULTIPLE_LINE_START_REGEXP = /^(\s+)(?:\w+.)?properties\s*[:=]\s*\{(.*?)$/
-const DOC_REGEXP = /\/\*\*([\s\S]*?)\*\/[\s\n\r]*(\w+)\s*:/g
+// 单行以及多行注释
+const DOC_REGEXP = /\/\*\*([\s\S]*?)\*\/[\s\n\r]*(\w+)\s*:|\/\/([\s\S]*?)[\s\n\r]*(\w+)\s*:/g
 const TYPE_REGEXP = /^function\s+(\w+)\(/
 
 export function parseAttrs(content: string): ComponentAttr[] {
@@ -34,14 +35,14 @@ export function parseAttrs(content: string): ComponentAttr[] {
     attrs = parseObjStr(RegExp.$1)
   }
 
-  if (!attrs) {
+   if (!attrs) {
     let flag = 0
     let spaces = ''
     let objstr = ''
     content.split(/\r?\n/).forEach(l => {
       if (flag === 2) return
       if (flag === 1) {
-        if (l.trimRight() === spaces + '}') flag = 2
+        if ([spaces + '},', spaces + '}'].includes(l.trimRight())) flag = 2
         else objstr += '\n' + l
       } else if (MULTIPLE_LINE_START_REGEXP.test(l)) {
         flag = 1
