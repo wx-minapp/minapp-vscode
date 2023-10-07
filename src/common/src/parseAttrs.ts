@@ -83,7 +83,9 @@ function parseObjStr(objstr: string) {
       return attr
     })
 
-    objstr.replace(DOC_REGEXP, (r, doc, name) => {
+    objstr.replace(DOC_REGEXP, (r, mutiDoc, mutiName, singleDoc, singleName) => {
+      const name = mutiName || singleName;
+      const doc = mutiDoc || singleDoc;
       const index = attrs.findIndex(a => a.name === name)
       if (index >= 0) {
         attrs[index] = { ...attrs[index], ...parseDocStr(doc) }
