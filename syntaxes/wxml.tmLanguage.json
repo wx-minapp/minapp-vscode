@@ -538,7 +538,7 @@
         }
       },
       "name": "meta.tag.other.html",
-      "begin": "(</?)([a-zA-Z0-9:-]+)",
+      "begin": "(</?)([a-zA-Z0-9:\\-\\_]+)",
       "endCaptures": {
         "1": {
           "name": "punctuation.definition.tag.end.html"
