@@ -1,16 +1,12 @@
 <img align="right" width="90px" src="https://funimg.pddpic.com/mobile_piggy/0fe81c13-7691-49ae-bb6e-39586d58a1d7.png.slim.png" alt="wxml language features logo" />
 
 ## WXML - Language Service
-> 插件原名 `minapp`，现已更名为 `WXML - Language Service`，未来将持续专注微信原生小程序 wxml 的支持。
-
 [![CI Status](https://github.com/wx-minapp/minapp-vscode/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/wx-minapp/minapp-vscode/actions/workflows/ci.yml?query=branch%3Amaster)
 [![Deploy Status](https://github.com/wx-minapp/minapp-vscode/actions/workflows/deploy.yml/badge.svg)](https://github.com/wx-minapp/minapp-vscode/actions/workflows/deploy.yml)
 [![Visual Studio Marketplace](https://img.shields.io/visual-studio-marketplace/v/qiu8310.minapp-vscode?color=brightgreen&label=Visual%20Studio%20Marketplace)](https://marketplace.visualstudio.com/items?itemName=qiu8310.minapp-vscode)
 ![Marketplace Downloads](https://img.shields.io/visual-studio-marketplace/d/qiu8310.minapp-vscode)
 ![Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/qiu8310.minapp-vscode)
 ![Marketplace Rating](https://img.shields.io/visual-studio-marketplace/r/qiu8310.minapp-vscode)
-
-微信小程序 .wxml 文件代码高亮，标签、属性的智能补全（同时支持原生小程序、mpvue 和 wepy 框架，并提供 code snippets）。
 
 ### 最近更新 【[CHANGELOG.md](https://github.com/wx-minapp/minapp-vscode/blob/main/CHANGELOG.md)】
 > [@iChenLei](https://github.com/ichenlei) 已接手维护本插件，欢迎大家在钉钉群或者 [Github issues](https://github.com/wx-minapp/minapp-vscode/issues) 提意见。
@@ -265,13 +261,3 @@ minapp 插件会自动将 .pug 文件关联到 `wxml-pug` 文件类型。所以�
 
 * 非小程序项目中，将 .pug 后缀的文件关联到 `pug` 文件类型
 * 小程序项目中，将 .pug 后缀的文件关联到 `wxml-pug` 文件类型
-
-### TODO
-
-* [x] 单独的 wxml 文件样式实现和 vue 中的 wxml 文件样式一样的风格
-* [x] bind 或 catch 相关的属性可以点击，并跳转到对应的函数上
-* [x] 自动创建文件关联（.cjson, .wxss, .wxs）
-* [ ] wxml 文件中路径自动补全
-* [ ] app/page/component 的 json schema 自动关联
-* [x] 添加常用的 snippets
-* [x] 支持识别 self close tag
