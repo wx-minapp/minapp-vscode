@@ -43,7 +43,7 @@ export default class extends AutoCompletion implements CompletionItemProvider {
         if (/[\w\d$_]/.test(getLastChar(document, new Position(position.line, position.character + 1)))) {
           return Promise.resolve([])
         }
-        return [] as any
+        return this.createComponentAttributeSnippetItems(language, document, position)
       case '"':
       case "'":
         return this.createComponentAttributeSnippetItems(language, document, position)
