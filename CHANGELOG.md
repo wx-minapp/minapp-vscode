@@ -1,3 +1,7 @@
+2.4.14 / 2024-11-23
+==================
+* fix: prettier.format异步接口兼容支持 [#185](https://github.com/wx-minapp/minapp-vscode/pull/185)
+
 2.4.13 / 2023-11-29
 ==================
 * 功能: 支持高亮带下划线的wxml标签名 [#177](https://github.com/wx-minapp/minapp-vscode/pull/177)
