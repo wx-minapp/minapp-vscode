@@ -56,7 +56,7 @@ export default class implements DocumentFormattingEditProvider, DocumentRangeFor
       if (this.config.wxmlFormatter === 'prettier') {
         const prettier: PrettierType = requireLocalPkg(doc.uri.fsPath, 'prettier')
         const prettierOptions = await resolveOptions(prettier)
-        content = prettier.format(code, { ...this.config.prettier, ...prettierOptions })
+        content = await prettier.format(code, { ...this.config.prettier, ...prettierOptions })
       } else if (this.config.wxmlFormatter === 'jsBeautifyHtml') {
         const jsb_html = require('js-beautify').html
         let conf = this.config.jsBeautifyHtml;
