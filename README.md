@@ -11,14 +11,6 @@
 ### 最近更新 【[CHANGELOG.md](https://github.com/wx-minapp/minapp-vscode/blob/main/CHANGELOG.md)】
 > [@iChenLei](https://github.com/ichenlei) 已接手维护本插件，欢迎大家在钉钉群或者 [Github issues](https://github.com/wx-minapp/minapp-vscode/issues) 提意见。
 
-### 用户交流钉钉群
-
-| 用户1群 | 用户2群 | 用户3群 |
-| :-----:  | :------: | :-----: |
-| <img src="https://funimg.pddpic.com/vgt/db86d742-5210-472b-ae47-a4a21f89a1a1.jpg.slim.jpeg" width="200px" /> | <img src="https://funimg.pddpic.com/vgt/8a60773c-2f4c-495a-a63f-45c80b32cacf.jpg.slim.jpeg" width="200px" /> | 暂无 |
-
-> 请使用阿里巴巴旗下 [钉钉(Dingtalk)](https://www.dingtalk.com) APP 扫码进入交流群，反馈 Bug /给插件维护者提需求，相比 Github issues 更加接地气地与插件维护者交流。加一个群即可，1 群满了试试加 2 群。如果遇到二维码过期或者群都满了的问题请提 [issue](https://github.com/wx-minapp/minapp-vscode/issues) 给插件维护者。
-
 ### 主要功能
 
 * [一键创建小程序组件](#create-component)
